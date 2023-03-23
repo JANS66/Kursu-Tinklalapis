@@ -1,13 +1,13 @@
-package lt.kursutinklalapis;
+package lt.codeacademy.kursutinklalapis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class KursuTinklalapisApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(KursuTinklalapisApplication.class, args);
 	}
 
 }
