@@ -17,6 +17,19 @@ public class Registration {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "student_id")
 	private Student student;
+	
+	public Registration() {}
+	
+	public Registration(Long id, Course course, Student student) {		
+		this.id = id;
+		this.course = course;
+		this.student = student;
+	}
+
+	public Registration(Course course, Student student) {
+		this.course = course;
+		this.student = student;
+	}
 
 	public Long getId() {
 		return id;
@@ -41,12 +54,10 @@ public class Registration {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	public Registration() {}
-	
-	public Registration(Course course, Student student) {
-		this.course = course;
-		this.student = student;
-	}
 
+	@Override
+	public String toString() {
+		return "Registration [id=" + id + ", course=" + course + ", student=" + student + "]";
+	}	
+	
 }

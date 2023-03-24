@@ -23,6 +23,22 @@ public class Student {
 
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
 	private Set<Registration> registrations;
+	
+	public Student() {}	
+	
+	public Student(Long id, String firstName, String lastName, String email, Set<Registration> registrations) {		
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.registrations = registrations;
+	}
+
+	public Student(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
 
 	public Long getId() {
 		return id;
@@ -64,14 +80,6 @@ public class Student {
 		this.registrations = registrations;
 	}
 
-	public Student() {
-	}
-
-	public Student(String firstName, String lastName, String email) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-	}
 
 	public void addRegistration(Registration registration) {
 		registrations.add(registration);
@@ -81,6 +89,12 @@ public class Student {
 	public void removeRegistration(Registration registration) {
 		registrations.remove(registration);
 		registration.setStudent(null);
+	}
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", registrations=" + registrations + "]";
 	}
 
 }

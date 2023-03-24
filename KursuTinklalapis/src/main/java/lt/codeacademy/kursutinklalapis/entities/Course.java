@@ -13,8 +13,8 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name")
-	private String name;
+	@Column(name = "subject")
+	private String subject;
 
 	@Column(name = "description")
 	private String description;
@@ -24,6 +24,22 @@ public class Course {
 
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private Set<Registration> registrations = new HashSet<>();
+	
+	public Course() {}
+	
+	public Course(Long id, String subject, String description, String professorName, Set<Registration> registrations) {		
+		this.id = id;
+		this.subject = subject;
+		this.description = description;
+		this.professorName = professorName;
+		this.registrations = registrations;
+	}
+
+	public Course(String subject, String description, String professorName) {
+		this.subject = subject;
+		this.description = description;
+		this.professorName = professorName;
+	}
 
 	public Long getId() {
 		return id;
@@ -33,12 +49,12 @@ public class Course {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getSubject() {
+		return subject;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 	public String getDescription() {
@@ -56,16 +72,7 @@ public class Course {
 	public void setProfessorName(String professorName) {
 		this.professorName = professorName;
 	}
-
-	public Course() {
-	}
-
-	public Course(String name, String description, String professorName) {
-		this.name = name;
-		this.description = description;
-		this.professorName = professorName;
-	}
-
+	
 	public void setRegistrations(Registration registration) {
 		registrations.add(registration);
 		registration.setCourse(this);
@@ -74,6 +81,12 @@ public class Course {
 	public void removeRegistration(Registration registration) {
 		registrations.remove(registration);
 		registration.setCourse(null);
+	}
+
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", subject=" + subject + ", description=" + description + ", professorName="
+				+ professorName + ", registrations=" + registrations + "]";
 	}
 
 }
