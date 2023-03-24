@@ -23,10 +23,11 @@ public class Student {
 
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
 	private Set<Registration> registrations;
-	
-	public Student() {}	
-	
-	public Student(Long id, String firstName, String lastName, String email, Set<Registration> registrations) {		
+
+	public Student() {
+	}
+
+	public Student(Long id, String firstName, String lastName, String email, Set<Registration> registrations) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -79,7 +80,6 @@ public class Student {
 	public void setRegistrations(Set<Registration> registrations) {
 		this.registrations = registrations;
 	}
-
 
 	public void addRegistration(Registration registration) {
 		registrations.add(registration);

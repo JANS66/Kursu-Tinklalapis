@@ -27,7 +27,7 @@ public class StudentService {
 		return studentRep.save(student);
 	}
 
-	public Student updateStudent(Student student) {
+	public Student updateStudent(Long id, Student student) {
 		return studentRep.save(student);
 	}
 

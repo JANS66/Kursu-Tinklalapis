@@ -50,7 +50,6 @@ public class CourseController {
 		return ResponseEntity.ok(currentCourse);
 	}
 
-
 	@DeleteMapping("/{id}")
 	public ResponseEntity deleteCourse(@PathVariable Long id) {
 		courseService.deleteCourseById(id);

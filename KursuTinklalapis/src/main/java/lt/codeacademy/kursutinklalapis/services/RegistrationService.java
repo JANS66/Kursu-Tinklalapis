@@ -25,14 +25,12 @@ public class RegistrationService {
 	@Autowired
 	private CourseRepository courseRep;
 
-
 	public List<Registration> getAllRegistrations() {
 		return regRep.findAll();
 	}
 
 	public Registration getRegistrationById(Long id) {
-		return regRep.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("Registration not found"));
+		return regRep.findById(id).orElseThrow(() -> new EntityNotFoundException("Registration not found"));
 	}
 
 	public Registration saveRegistration(Registration registration) {
@@ -48,13 +46,13 @@ public class RegistrationService {
 
 		return regRep.save(registration);
 	}
-	
+
 	public Registration updateRegistration(Long id, Registration regDetails) {
 		Registration registration = regRep.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Registration not found"));
 		registration.setStudent(regDetails.getStudent());
 		registration.setCourse(regDetails.getCourse());
-		
+
 		return regRep.save(registration);
 	}
 
