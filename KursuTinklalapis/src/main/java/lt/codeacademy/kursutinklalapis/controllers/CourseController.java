@@ -1,80 +1,59 @@
 package lt.codeacademy.kursutinklalapis.controllers;
 
-import org.springframework.stereotype.Controller;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping
-public class MainController {
+import lt.codeacademy.kursutinklalapis.entities.Course;
+import lt.codeacademy.kursutinklalapis.services.CourseService;
 
-	// Operacijos kurias gali pasiekti/atlikti is Main Puslapio
-	@GetMapping("/")
-	public String getMainPage() {
-		return "main/mainPage";
+@RestController
+@RequestMapping("/api/courses")
+public class CourseController {
+	@Autowired
+	private CourseService courseService;
+
+	public CourseController(CourseService courseService) {
+		this.courseService = courseService;
 	}
-	
-	// Prijungti nauja vartotoja
-	@PostMapping("/signup")
-	public String createNewUserPage() {
-		return "main/signUp";
+
+	@GetMapping
+	public List<Course> getAllCourses() {
+		return courseService.getAllCourses();
 	}
-	
-	// Prisijungti su esamu vartotoju prie tinklapio
-	@GetMapping("/login")
-	public String loginPage() {
-		return "main/login";
+
+	@GetMapping("/{id}")
+	public Course getCourseById(@PathVariable Long id) {
+		return courseService.getCourseById(id);
 	}
-	
-	// Perziureti kokius kursus galima lankyti
-	@GetMapping("/availableCourses")
-	public String checkAvailableCourses() {
-		return "main/availableCourses";
+
+	@PostMapping
+	public ResponseEntity createCourse(@RequestBody Course course) throws URISyntaxException {
+		Course newCourse = courseService.saveCourse(course);
+		return ResponseEntity.created(new URI("/courses/" + newCourse.getId())).body(newCourse);
 	}
-	
-	//---------------------------------------------\\
-	// Operacijos kurias gali pasiekti/atlikti kai prisijungi prie tinklapio
-	@GetMapping("/checkUserCourses")
-	public String checkCoursesPage() {
-		return "user/checkUserCourses";
+
+	@PutMapping("/{id}")
+	public ResponseEntity updateCourse(@PathVariable Long id, @RequestBody Course course) {
+		Course currentCourse = courseService.updateCourse(id, course);
+		return ResponseEntity.ok(currentCourse);
 	}
-	
-	//---------------------------------------------\\
-	// Puslapiai kuriuose gali redaguoti kursus
-	@PostMapping("/checkUserCourses/addUserCourses")
-	public String addCourses() {
-		return "user/edit/addUserCourses";
+
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity deleteCourse(@PathVariable Long id) {
+		courseService.deleteCourseById(id);
+		return ResponseEntity.ok().build();
 	}
-	
-	@DeleteMapping("/checkUserCourses/deleteUserCourses")
-	public String deleteCourses() {
-		return "deleteCourses";
-	}
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

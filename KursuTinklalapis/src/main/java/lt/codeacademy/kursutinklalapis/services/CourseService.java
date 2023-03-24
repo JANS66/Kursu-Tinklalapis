@@ -27,7 +27,12 @@ public class CourseService {
 	public Course saveCourse(Course course) {
 		return courseRep.save(course);
 	}
-	
+	/**
+	 * tekstas kazkoks
+	 * @param id
+	 * @param courseDetails
+	 * @return
+	 */
 	public Course updateCourse(Long id, Course courseDetails) {
 		Course course = courseRep.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Course not found"));
