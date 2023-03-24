@@ -3,18 +3,32 @@ package lt.codeacademy.kursutinklalapis.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tutors")
+@Table(name = "professors")
 public class Professor {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name")
-	private String name;
-
 	@Column(name = "email")
 	private String email;
+
+	@Column(name = "fullName")
+	private String fullName;
+
+	public Professor() {
+	}
+
+	public Professor(Long id, String fullName, String email) {
+		this.id = id;
+		this.fullName = fullName;
+		this.email = email;
+	}
+
+	public Professor(String fullName, String email) {
+		this.fullName = fullName;
+		this.email = email;
+	}
 
 	public Long getId() {
 		return id;
@@ -24,12 +38,12 @@ public class Professor {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getEmail() {
@@ -40,11 +54,9 @@ public class Professor {
 		this.email = email;
 	}
 
-	public Professor() {
+	@Override
+	public String toString() {
+		return "Professor [id=" + id + ", fullName=" + fullName + ", email=" + email + "]";
 	}
 
-	public Professor(String name, String email) {
-		this.name = name;
-		this.email = email;
-	}
 }

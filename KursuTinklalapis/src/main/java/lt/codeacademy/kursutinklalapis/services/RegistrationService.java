@@ -2,6 +2,7 @@ package lt.codeacademy.kursutinklalapis.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -17,30 +18,27 @@ import lt.codeacademy.kursutinklalapis.repositories.StudentRepository;
 @Transactional
 public class RegistrationService {
 
-	private final RegistrationRepository registrationRepository;
-	private final StudentRepository studentRepository;
-	private final CourseRepository courseRepository;
+	@Autowired
+	private RegistrationRepository regRep;
+	@Autowired
+	private StudentRepository studentRep;
+	@Autowired
+	private CourseRepository courseRep;
 
-	public RegistrationService(RegistrationRepository registrationRepository, StudentRepository studentRepository,
-			CourseRepository courseRepository) {
-		this.registrationRepository = registrationRepository;
-		this.studentRepository = studentRepository;
-		this.courseRepository = courseRepository;
-	}
 
 	public List<Registration> getAllRegistrations() {
-		return registrationRepository.findAll();
+		return regRep.findAll();
 	}
 
 	public Registration getRegistrationById(Long id) {
-		return registrationRepository.findById(id)
+		return regRep.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Registration not found"));
 	}
 
 	public Registration saveRegistration(Registration registration) {
-		Student student = studentRepository.findById(registration.getStudent().getId())
+		Student student = studentRep.findById(registration.getStudent().getId())
 				.orElseThrow(() -> new EntityNotFoundException("Student not found"));
-		Course course = courseRepository.findById(registration.getCourse().getId())
+		Course course = courseRep.findById(registration.getCourse().getId())
 				.orElseThrow(() -> new EntityNotFoundException("Course not found"));
 
 		registration.setStudent(student);
@@ -48,17 +46,26 @@ public class RegistrationService {
 		student.addRegistration(registration);
 		course.setRegistrations(registration);
 
-		return registrationRepository.save(registration);
+		return regRep.save(registration);
+	}
+	
+	public Registration updateRegistration(Long id, Registration regDetails) {
+		Registration registration = regRep.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Registration not found"));
+		registration.setStudent(regDetails.getStudent());
+		registration.setCourse(regDetails.getCourse());
+		
+		return regRep.save(registration);
 	}
 
 	public void deleteRegistrationById(Long id) {
-		Registration registration = registrationRepository.findById(id)
+		Registration registration = regRep.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Registration not found"));
 
 		registration.getStudent().removeRegistration(registration);
 		registration.getCourse().removeRegistration(registration);
 
-		registrationRepository.deleteById(id);
+		regRep.deleteById(id);
 	}
 
 }

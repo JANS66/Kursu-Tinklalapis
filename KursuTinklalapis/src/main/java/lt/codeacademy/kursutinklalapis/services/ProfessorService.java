@@ -33,7 +33,7 @@ public class ProfessorService {
 		Professor professor = professorRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Professor not found"));
 
-		professor.setName(professorDetails.getName());
+		professor.setFullName(professorDetails.getFullName());
 		professor.setEmail(professorDetails.getEmail());
 
 		return professorRepository.save(professor);

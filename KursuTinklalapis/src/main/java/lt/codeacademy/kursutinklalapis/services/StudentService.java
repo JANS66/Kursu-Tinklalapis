@@ -13,26 +13,26 @@ import lt.codeacademy.kursutinklalapis.repositories.StudentRepository;
 public class StudentService {
 
 	@Autowired
-	private StudentRepository studentRepository;
+	private StudentRepository studentRep;
 
 	public List<Student> getAllStudents() {
-		return studentRepository.findAll();
+		return studentRep.findAll();
 	}
 
 	public Student getStudentById(Long id) {
-		return studentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Student not found"));
+		return studentRep.findById(id).orElseThrow(() -> new EntityNotFoundException("Student not found"));
 	}
 
 	public Student createStudent(Student student) {
-		return studentRepository.save(student);
+		return studentRep.save(student);
 	}
 
 	public Student updateStudent(Student student) {
-		return studentRepository.save(student);
+		return studentRep.save(student);
 	}
 
 	public void deleteStudentById(Long id) {
-		studentRepository.deleteById(id);
+		studentRep.deleteById(id);
 	}
 
 }
