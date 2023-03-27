@@ -1,9 +1,16 @@
 package lt.codeacademy.kursutinklalapis.entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "courses")
@@ -23,11 +30,12 @@ public class Course {
 	private String professorName;
 
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-	private Set<Registration> registrations = new HashSet<>();
-	
-	public Course() {}
-	
-	public Course(Long id, String subject, String description, String professorName, Set<Registration> registrations) {		
+	private List<Registration> registrations = new ArrayList<>();
+
+	public Course() {
+	}
+
+	public Course(Long id, String subject, String description, String professorName, List<Registration> registrations) {
 		this.id = id;
 		this.subject = subject;
 		this.description = description;
@@ -72,8 +80,16 @@ public class Course {
 	public void setProfessorName(String professorName) {
 		this.professorName = professorName;
 	}
-	
-	public void setRegistrations(Registration registration) {
+
+	public List<Registration> getRegistrations() {
+		return registrations;
+	}
+
+	public void setRegistrations(List<Registration> registrations) {
+		this.registrations = registrations;
+	}
+
+	public void addRegistration(Registration registration) {
 		registrations.add(registration);
 		registration.setCourse(this);
 	}

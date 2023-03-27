@@ -42,7 +42,7 @@ public class RegistrationService {
 		registration.setStudent(student);
 		registration.setCourse(course);
 		student.addRegistration(registration);
-		course.setRegistrations(registration);
+		course.addRegistration(registration);
 
 		return regRep.save(registration);
 	}

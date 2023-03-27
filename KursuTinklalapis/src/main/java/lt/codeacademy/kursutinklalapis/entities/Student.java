@@ -1,8 +1,16 @@
 package lt.codeacademy.kursutinklalapis.entities;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "students")
@@ -22,12 +30,12 @@ public class Student {
 	private String email;
 
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-	private Set<Registration> registrations;
+	private List<Registration> registrations = new ArrayList<>();
 
 	public Student() {
 	}
 
-	public Student(Long id, String firstName, String lastName, String email, Set<Registration> registrations) {
+	public Student(Long id, String firstName, String lastName, String email, List<Registration> registrations) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -73,11 +81,11 @@ public class Student {
 		this.email = email;
 	}
 
-	public Set<Registration> getRegistrations() {
+	public List<Registration> getRegistrations() {
 		return registrations;
 	}
 
-	public void setRegistrations(Set<Registration> registrations) {
+	public void setRegistrations(List<Registration> registrations) {
 		this.registrations = registrations;
 	}
 

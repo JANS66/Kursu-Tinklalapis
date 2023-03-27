@@ -1,5 +1,6 @@
 package lt.codeacademy.kursutinklalapis.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,10 +18,11 @@ public class Registration {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "student_id")
 	private Student student;
-	
-	public Registration() {}
-	
-	public Registration(Long id, Course course, Student student) {		
+
+	public Registration() {
+	}
+
+	public Registration(Long id, Course course, Student student) {
 		this.id = id;
 		this.course = course;
 		this.student = student;
@@ -58,6 +60,6 @@ public class Registration {
 	@Override
 	public String toString() {
 		return "Registration [id=" + id + ", course=" + course + ", student=" + student + "]";
-	}	
-	
+	}
+
 }
