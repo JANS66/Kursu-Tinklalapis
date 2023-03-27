@@ -28,7 +28,15 @@ public class StudentService {
 	}
 
 	public Student updateStudent(Long id, Student student) {
-		return studentRep.save(student);
+		Student existingStudent = studentRep.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Student with id " + id + " not found"));
+
+		existingStudent.setFirstName(student.getFirstName());
+		existingStudent.setLastName(student.getLastName());
+		existingStudent.setEmail(student.getEmail());
+		existingStudent.setRegistrations(student.getRegistrations());
+
+		return studentRep.save(existingStudent);
 	}
 
 	public void deleteStudentById(Long id) {
