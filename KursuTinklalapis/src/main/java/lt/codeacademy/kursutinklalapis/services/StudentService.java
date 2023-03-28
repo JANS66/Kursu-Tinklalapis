@@ -3,6 +3,7 @@ package lt.codeacademy.kursutinklalapis.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -24,7 +25,13 @@ public class StudentService {
 	}
 
 	public Student createStudent(Student student) {
+		String hashedPassword = hashPassword(student.getPassword());
+		student.setPassword(hashedPassword);
 		return studentRep.save(student);
+	}
+
+	private String hashPassword(String password) {
+		return BCrypt.hashpw(password, BCrypt.gensalt());
 	}
 
 	public Student updateStudent(Long id, Student student) {

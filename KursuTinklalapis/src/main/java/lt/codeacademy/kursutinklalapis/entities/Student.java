@@ -29,6 +29,9 @@ public class Student {
 	@Column(name = "email")
 	private String email;
 
+	@Column(name = "password")
+	private String password;
+
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
 	private List<Registration> registrations = new ArrayList<>();
 
@@ -79,6 +82,14 @@ public class Student {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public List<Registration> getRegistrations() {
