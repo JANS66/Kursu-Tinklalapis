@@ -8,18 +8,28 @@ function RegistrationForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = { firstName, lastName, email, password, confirmPassword };
-    axios.post('/api/register', data)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (password === confirmPassword) {
+      const data = { firstName, lastName, email, password };
+      axios.post('http://localhost:8080/api/students', data)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      setPasswordsMatch(true);
+    } else {
+      setPasswordsMatch(false);
+    }
   };
+
+  const confirmPassStyle = {
+    border: passwordsMatch ? 'none' : '2px solid red'
+  }
 
   return (
     <div className="RegistrationForm">
@@ -40,9 +50,10 @@ function RegistrationForm() {
           <label htmlFor="password">Slaptažodis:</label>
           <input type="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} minLength={8} required />
         </div>
-        <div>
-          <label htmlFor="confirmPassword">Pakartokite Slaptažodi:</label>
-          <input type="password" id="confirmPassword" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} minLength={8} required />
+        <div className="input-container">
+          <label htmlFor="confirmPassword">Pakartokite Slaptažodį:</label>
+          <input type="password" id="confirmPassword" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} style={confirmPassStyle} minLength={8} required />
+          {!passwordsMatch && <span style={{color: 'red'}}>Slaptažodžiai nesutampa!</span>}
         </div>
         <div>
           <button type="submit">Registruotis</button>

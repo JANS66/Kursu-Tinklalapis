@@ -25,14 +25,14 @@ public class StudentService {
 	}
 
 	public Student createStudent(Student student) {
-		String hashedPassword = hashPassword(student.getPassword());
-		student.setPassword(hashedPassword);
+//		String hashedPassword = hashPassword(student.getPassword());
+//		student.setPassword(hashedPassword);
 		return studentRep.save(student);
 	}
 
-	private String hashPassword(String password) {
-		return BCrypt.hashpw(password, BCrypt.gensalt());
-	}
+//	private String hashPassword(String password) {
+//		return BCrypt.hashpw(password, BCrypt.gensalt());
+//	}
 
 	public Student updateStudent(Long id, Student student) {
 		Student existingStudent = studentRep.findById(id)
