@@ -19,7 +19,7 @@ import lt.codeacademy.kursutinklalapis.entities.Student;
 import lt.codeacademy.kursutinklalapis.services.StudentService;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api")
 public class StudentController {
 	@Autowired
 	private StudentService studentService;
@@ -28,7 +28,7 @@ public class StudentController {
 		this.studentService = studentService;
 	}
 
-	@GetMapping
+	@GetMapping("/students")
 	public List<Student> getAllStudents() {
 		return studentService.getAllStudents();
 	}
@@ -38,7 +38,7 @@ public class StudentController {
 		return studentService.getStudentById(id);
 	}
 
-	@PostMapping
+	@PostMapping("/register")
 	public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
 		Student newStudent = studentService.createStudent(student);
 		return ResponseEntity.created(new URI("/students/" + newStudent.getId())).body(newStudent);

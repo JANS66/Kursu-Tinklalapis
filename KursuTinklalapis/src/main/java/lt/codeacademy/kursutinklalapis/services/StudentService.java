@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
+import lt.codeacademy.kursutinklalapis.entities.MyUser;
 import lt.codeacademy.kursutinklalapis.entities.Student;
 import lt.codeacademy.kursutinklalapis.repositories.StudentRepository;
+import lt.codeacademy.kursutinklalapis.utils.Roles;
 
 @Service
 public class StudentService {
@@ -25,14 +29,15 @@ public class StudentService {
 	}
 
 	public Student createStudent(Student student) {
-		String hashedPassword = hashPassword(student.getPassword());
-		student.setPassword(hashedPassword);
+		
+		student.setEmail(student.getEmail());
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		student.setPassword( encoder.encode(student.getPassword()) );
+		student.setRole( Roles.USER );
 		return studentRep.save(student);
+
 	}
 
-	private String hashPassword(String password) {
-		return BCrypt.hashpw(password, BCrypt.gensalt());
-	}
 
 	public Student updateStudent(Long id, Student student) {
 		Student existingStudent = studentRep.findById(id)
