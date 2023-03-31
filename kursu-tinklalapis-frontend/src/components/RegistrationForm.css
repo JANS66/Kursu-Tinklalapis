@@ -41,16 +41,6 @@
   text-align: center;
 }
 
-.RegistrationForm input[type="password"]:focus {
-  outline: none;
-  border-color: #003bb1;
-  background-color: #e0e0e0;
-}
-
-.RegistrationForm input[type="password"]:focus ~ .input-container input[type="password"] {
-  border: 2px solid red;
-}
-
 .RegistrationForm input[type="password"] + .input-container {
   display: flex;
   flex-direction: column;
@@ -63,13 +53,6 @@
 
 .RegistrationForm input[type="password"] + .input-container input[type="password"] {
   width: 100%;
-}
-
-.RegistrationForm input[type="password"] + .input-container span {
-  color: red;
-  font-size: 0.8rem;
-  margin-top: 0.5rem;
-  text-align: left;
 }
 
 .RegistrationForm button[type="submit"] {
@@ -88,4 +71,8 @@
 
 .RegistrationForm button[type="submit"]:hover {
   background-color: #001f6b;
+}
+
+.RegistrationForm .error {
+  color: red;
 }

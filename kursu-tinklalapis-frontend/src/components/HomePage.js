@@ -7,7 +7,9 @@ function Header() {
   return (
     <header className="App-header">
       <div className="nav-container">
-        <button className="nav-button">Prisijungti</button>
+        <Link to="/login">
+          <button className="nav-button">Prisijungti</button>
+        </Link>
         <Link to="/registration">
           <button className="nav-button">Registruotis</button>
         </Link>
