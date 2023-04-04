@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ import lt.codeacademy.kursutinklalapis.entities.Student;
 import lt.codeacademy.kursutinklalapis.services.StudentService;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api")
 public class StudentController {
 	@Autowired
 	private StudentService studentService;
@@ -38,7 +39,7 @@ public class StudentController {
 		return studentService.getStudentById(id);
 	}
 
-	@PostMapping
+	@PostMapping("/register")
 	public ResponseEntity createStudent(@RequestBody Student student) throws URISyntaxException {
 		Student newStudent = studentService.createStudent(student);
 		return ResponseEntity.created(new URI("/students/" + newStudent.getId())).body(newStudent);

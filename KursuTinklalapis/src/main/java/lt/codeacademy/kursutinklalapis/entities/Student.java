@@ -29,21 +29,40 @@ public class Student {
 	@Column(name = "email")
 	private String email;
 
+	@Column(name = "password")
+	private String password;
+	
+	private String role;
+
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
 	private List<Registration> registrations = new ArrayList<>();
+	
+	
+	public Student() {}
 
-	public Student() {
-	}
-
-	public Student(Long id, String firstName, String lastName, String email, List<Registration> registrations) {
+	public Student(Long id, String firstName, String lastName, String email, String password, String role,
+			List<Registration> registrations) {		
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.registrations = registrations;
+	}
+	
+	public Student(String firstName, String lastName, String email, String password, String role,
+			List<Registration> registrations) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.role = role;
 		this.registrations = registrations;
 	}
 
-	public Student(String firstName, String lastName, String email) {
+	public Student(String firstName, String lastName, String email) {		
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -81,6 +100,22 @@ public class Student {
 		this.email = email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public List<Registration> getRegistrations() {
 		return registrations;
 	}
@@ -108,5 +143,4 @@ public class Student {
 				+ "\n[Email] = " + email;
 				//+ "\n[Registrations] = " + registrations;
 	}
-
 }

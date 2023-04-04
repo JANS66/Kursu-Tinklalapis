@@ -19,7 +19,7 @@ import lt.codeacademy.kursutinklalapis.entities.Course;
 import lt.codeacademy.kursutinklalapis.services.CourseService;
 
 @RestController
-@RequestMapping("/api/courses")
+@RequestMapping("/course")
 public class CourseController {
 	@Autowired
 	private CourseService courseService;
