@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './RegistrationForm.css';
+import './RegistrationLoginForm.css';
 
 function RegistrationForm() {
   const [firstName, setFirstName] = useState('');
@@ -14,6 +14,7 @@ function RegistrationForm() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -67,6 +68,7 @@ function RegistrationForm() {
       axios.post('/api/register', data)
         .then((response) => {
           console.log(response);
+          setRegistrationSuccess(true);
         })
         .catch((error) => {
           console.log(error);
@@ -81,9 +83,17 @@ function RegistrationForm() {
 
   const confirmPassStyle = passwordsMatch ? {} : { border: '1px solid red'};
 
-  return (
-    <div className="RegistrationForm">
-      <form onSubmit={handleSubmit}>
+  if (registrationSuccess) {
+    return (
+      <div className="RegistrationForm">
+        <p>Registracija sėkminga. Dabar galite prisijungti spustelėdami mygtuką "Prisijungti".</p>
+        <button onClick={() => { window.location.href = '/login'; }}>Prisijungti</button>
+      </div>
+    );
+  } else {
+    return (
+      <div className="RegistrationForm">
+        <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="firstName">Vardas:</label>
           <input
@@ -145,6 +155,7 @@ function RegistrationForm() {
       </form>
     </div>
   );
+}
 }
 
 export default RegistrationForm;
