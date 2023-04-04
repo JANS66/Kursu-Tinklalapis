@@ -101,8 +101,12 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", subject=" + subject + ", description=" + description + ", professorName="
-				+ professorName + ", registrations=" + registrations + "]";
+		return "\n[Course]: " 
+				+ "\n[id] = " + id 
+				+ "\n[Subject] = " + subject 
+				+ "\n[Description] = " + description 
+				+ "\n[ProfessorName] = " + professorName; 
+				//+ "\n[Registrations] = " + registrations;
 	}
 
 }

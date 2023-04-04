@@ -56,7 +56,10 @@ public class Professor {
 
 	@Override
 	public String toString() {
-		return "Professor [id=" + id + ", fullName=" + fullName + ", email=" + email + "]";
+		return "\n[Professor]: " 
+				+ "\n[id] = " + id 
+				+ "\n[FullName] = " + fullName 
+				+ "\n[Email] = " + email;
 	}
 
 }

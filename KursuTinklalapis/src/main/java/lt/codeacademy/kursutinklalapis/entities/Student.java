@@ -101,8 +101,12 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", registrations=" + registrations + "]";
+		return "\nSTUDENT: " 
+				+ "\n[id] = " + id 
+				+ "\n[FirstName] = " + firstName 
+				+ "\n[LastName] = " + lastName 
+				+ "\n[Email] = " + email;
+				//+ "\n[Registrations] = " + registrations;
 	}
 
 }
