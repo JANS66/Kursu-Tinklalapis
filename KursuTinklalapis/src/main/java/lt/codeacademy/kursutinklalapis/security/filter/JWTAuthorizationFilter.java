@@ -1,4 +1,4 @@
-package lt.codeacademy.kursutinklalapis.security;
+package lt.codeacademy.kursutinklalapis.security.filter;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lt.codeacademy.kursutinklalapis.security.SecurityConstants;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,20 +23,20 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader("Authorization");
-       if (header == null || !header.startsWith(SecurityConstants.BEARER)){
-        filterChain.doFilter(request, response);
-        return;
-       }
-       
+
+        if (header == null || !header.startsWith(SecurityConstants.BEARER)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String token = header.replace(SecurityConstants.BEARER, "");
-        String user =  JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET_KEY))
-        .build()
-        .verify(token)
-        .getSubject();
+        String user = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET_KEY))
+            .build()
+            .verify(token)
+            .getSubject();
 
-    Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, Arrays.asList());
-    SecurityContextHolder.getContext().setAuthentication(authentication);
-    filterChain.doFilter(request, response);
-}
-
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, Arrays.asList());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        filterChain.doFilter(request, response);
+    }
 }

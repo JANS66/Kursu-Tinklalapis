@@ -1,5 +1,7 @@
 package lt.codeacademy.kursutinklalapis.controllers;
 
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import lombok.AllArgsConstructor;
-import lt.codeacademy.kursutinklalapis.entities.MyUser;
+import lt.codeacademy.kursutinklalapis.entities.User;
 import lt.codeacademy.kursutinklalapis.services.UserService;
 
 @AllArgsConstructor
@@ -24,12 +26,12 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<String> findById(@PathVariable Long id) {
-		
 		return new ResponseEntity<>(userService.getUser(id).getUsername(), HttpStatus.OK);
 	}
 
     @PostMapping("/register")
-	public ResponseEntity<MyUser> createUser(@RequestBody MyUser user) {
+	public ResponseEntity<HttpStatus> createUser(@Valid @RequestBody User user) {
+		userService.saveUser(user);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 

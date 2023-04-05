@@ -28,9 +28,9 @@ public class Observer {
 
 	@EventListener
 	public void seed(ContextRefreshedEvent event) {
-//		seedStudentDummyData();
-//		seedProfessorDummyData();
-//		seedCoursesDummyData();
+		seedStudentDummyData();
+		seedProfessorDummyData();
+		seedCoursesDummyData();
 	}
 
 	private void seedStudentDummyData() {

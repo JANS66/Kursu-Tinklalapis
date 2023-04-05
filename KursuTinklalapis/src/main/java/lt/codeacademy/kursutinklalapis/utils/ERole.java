@@ -1,0 +1,9 @@
+package lt.codeacademy.kursutinklalapis.utils;
+
+public enum ERole {
+	
+	ROLE_ADMIN,
+	ROLE_MODERATOR,
+	ROLE_USER
+	
+}
