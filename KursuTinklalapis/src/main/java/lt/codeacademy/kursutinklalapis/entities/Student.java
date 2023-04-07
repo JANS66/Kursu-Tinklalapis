@@ -37,6 +37,7 @@ public class Student {
 
 	@Column(name = "password")
 	private String password;
+
 	
 
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)

@@ -3,14 +3,12 @@ import axios from 'axios';
 import './RegistrationLoginForm.css';
 
 function RegistrationForm() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [firstNameError, setFirstNameError] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
@@ -20,18 +18,12 @@ function RegistrationForm() {
     event.preventDefault();
   
     let hasError = false;
-    if (!firstName.trim()) {
-      setFirstNameError('Vardas negali būti tuščias');
-      hasError = true;
-    } else {
-      setFirstNameError('');
-    }
 
-    if (!lastName.trim()) {
-      setLastNameError('Pavardė negali būti tuščia');
+    if (!username.trim()) {
+      setUsernameError('Vartotojo vardas negali būti tuščias');
       hasError = true;
     } else {
-      setLastNameError('');
+      setUsernameError('');
     }
 
     if (!email.trim()) {
@@ -64,8 +56,8 @@ function RegistrationForm() {
     }
   
     if (!hasError) {
-      const data = { firstName, lastName, email, password };
-      axios.post('/api/register', data)
+      const data = { username, email, password };
+      axios.post('/user/register', data)
         .then((response) => {
           console.log(response);
           setRegistrationSuccess(true);
@@ -95,26 +87,15 @@ function RegistrationForm() {
       <div className="RegistrationForm">
         <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="firstName">Vardas:</label>
+          <label htmlFor="username">Vartotojo vardas:</label>
           <input
             type="text"
-            id="firstName"
-            value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
-            style={firstNameError ? inputErrorStyle : null}
+            id="username"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            style={usernameError ? inputErrorStyle : null}
           />
-          {firstNameError && <span className="error">{firstNameError}</span>}
-        </div>
-        <div>
-          <label htmlFor="lastName">Pavardė:</label>
-          <input
-            type="text"
-            id="lastName"
-            value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
-            style={lastNameError ? inputErrorStyle : null}
-          />
-          {lastNameError && <span className="error">{lastNameError}</span>}
+          {usernameError && <span className="error">{usernameError}</span>}
         </div>
         <div>
           <label htmlFor="email">El. Paštas:</label>
@@ -145,10 +126,10 @@ function RegistrationForm() {
             id="confirmPassword"
             value={confirmPassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
-            style={confirmPasswordError ? inputErrorStyle : null}
+            style={confirmPasswordError ? inputErrorStyle : confirmPassStyle}
           />
           {!passwordsMatch && (
-            <span className="error">Slaptažodžiai nesutampa</span>
+            <span className="error">{confirmPasswordError}</span>
           )}
         </div>
         <button type="submit">Registruotis</button>
