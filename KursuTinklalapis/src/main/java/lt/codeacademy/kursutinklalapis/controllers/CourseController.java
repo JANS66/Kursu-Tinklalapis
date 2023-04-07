@@ -19,7 +19,7 @@ import lt.codeacademy.kursutinklalapis.entities.Course;
 import lt.codeacademy.kursutinklalapis.services.CourseService;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/courses")
 public class CourseController {
 	@Autowired
 	private CourseService courseService;
@@ -44,13 +44,13 @@ public class CourseController {
 		return ResponseEntity.created(new URI("/courses/" + newCourse.getId())).body(newCourse);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/{id}/update")
 	public ResponseEntity updateCourse(@PathVariable Long id, @RequestBody Course course) {
 		Course currentCourse = courseService.updateCourse(id, course);
 		return ResponseEntity.ok(currentCourse);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{id}/delete")
 	public ResponseEntity deleteCourse(@PathVariable Long id) {
 		courseService.deleteCourseById(id);
 		return ResponseEntity.ok().build();

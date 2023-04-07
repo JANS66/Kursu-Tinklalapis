@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import lt.codeacademy.kursutinklalapis.entities.Student;
 import lt.codeacademy.kursutinklalapis.repositories.StudentRepository;
-import lt.codeacademy.kursutinklalapis.utils.ERole;
+
 
 
 @Service
@@ -30,7 +30,7 @@ public class StudentService {
 	public Student createStudent(Student student) {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		student.setPassword(encoder.encode(student.getPassword()) );
-		student.setRole(ERole.ROLE_USER);;
+		
 
 		return studentRep.save(student);
 	}

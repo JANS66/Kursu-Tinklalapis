@@ -11,8 +11,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lt.codeacademy.kursutinklalapis.utils.ERole;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "students")
 public class Student {
@@ -33,111 +38,14 @@ public class Student {
 	@Column(name = "password")
 	private String password;
 	
-	private ERole role;
 
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
 	private List<Registration> registrations = new ArrayList<>();
 		
-	public Student() {}
-
-	
-	public Student(Long id, String firstName, String lastName, String email, String password, ERole role,
-			List<Registration> registrations) {		
-		this.id = id;
+	public Student(String firstName, String lastName, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.password = password;
-		this.role = role;
-		this.registrations = registrations;
-	}
-
-
-	public Student(String firstName, String lastName, String email, String password, ERole role,
-			List<Registration> registrations) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-		this.role = role;
-		this.registrations = registrations;
-	}
-
-	public Student(String firstName, String lastName, String email) {		
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-	}
-
-
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-
-	public String getLastName() {
-		return lastName;
-	}
-
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-	public ERole getRole() {
-		return role;
-	}
-
-
-	public void setRole(ERole role) {
-		this.role = role;
-	}
-
-
-	public List<Registration> getRegistrations() {
-		return registrations;
-	}
-
-	public void setRegistrations(List<Registration> registrations) {
-		this.registrations = registrations;
 	}
 
 	public void addRegistration(Registration registration) {
@@ -150,9 +58,4 @@ public class Student {
 		registration.setStudent(null);
 	}
 
-	@Override
-	public String toString() {
-		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", registrations=" + registrations + "]";
-	}
 }

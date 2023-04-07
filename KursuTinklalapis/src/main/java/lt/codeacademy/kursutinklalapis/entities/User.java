@@ -1,56 +1,85 @@
 package lt.codeacademy.kursutinklalapis.entities;
 
-import java.util.*;
-import jakarta.persistence.Column;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
-
-
-@Entity
-@Table(name = "users")
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
+@Builder
 @NoArgsConstructor
-public class User {
-
-    @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	@NotBlank(message =  "username cannot be blank")
-	@NonNull
-	@Column(nullable = false, unique = true)
-	private String username;
+@AllArgsConstructor
+@Entity
+@Table(name="_user")
+public class User  implements UserDetails{
 	
-	@NotBlank(message =  "username cannot be blank")
-	@NonNull
-	@Column(nullable = false, unique = true)
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue
+	private Long id;
+	private String username;
 	private String email;
-
-	@NotBlank(message =  "password cannot be blank")
-    @NonNull
-	@Column(nullable = false)
 	private String password;
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
+	
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		return List.of(new SimpleGrantedAuthority(role.name()));
+	}
+	
+	@Override
+	public String getUsername() {
+		return username;
+	}
+	
+	@Override
+	public String getPassword() {
+		return password;
+	}
 
-	  @ManyToMany(fetch = FetchType.LAZY)
-	  @JoinTable(  name = "user_roles", 
-	        joinColumns = @JoinColumn(name ="user_id"), 
-	        inverseJoinColumns = @JoinColumn(name = "role_id"))
-	  private Set<Role> roles = new HashSet<>();
+	
+	@Override
+	public boolean isAccountNonExpired() {
+		
+		return true;
+	}
+	
+	@Override
+	public boolean isAccountNonLocked() {
+		
+		return true;
+	}
+	
+	@Override
+	public boolean isCredentialsNonExpired() {
+		
+		return true;
+	}
+	
+	@Override
+	public boolean isEnabled() {
+		
+		return true;
+	}
+	
 
 }

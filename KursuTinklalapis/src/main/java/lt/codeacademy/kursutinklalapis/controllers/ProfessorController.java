@@ -19,7 +19,7 @@ import lt.codeacademy.kursutinklalapis.entities.Professor;
 import lt.codeacademy.kursutinklalapis.services.ProfessorService;
 
 @RestController
-@RequestMapping("/api/professors")
+@RequestMapping("/professors")
 public class ProfessorController {
 	@Autowired
 	private ProfessorService professorService;
