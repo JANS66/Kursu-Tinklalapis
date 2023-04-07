@@ -12,7 +12,6 @@ import lt.codeacademy.kursutinklalapis.entities.Student;
 import lt.codeacademy.kursutinklalapis.repositories.StudentRepository;
 import lt.codeacademy.kursutinklalapis.utils.ERole;
 
-
 @Service
 public class StudentService {
 
@@ -29,12 +28,12 @@ public class StudentService {
 
 	public Student createStudent(Student student) {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		student.setPassword(encoder.encode(student.getPassword()) );
-		student.setRole(ERole.ROLE_USER);;
+		student.setPassword(encoder.encode(student.getPassword()));
+		student.setRole(ERole.ROLE_USER);
+		;
 
 		return studentRep.save(student);
 	}
-
 
 	public Student updateStudent(Long id, Student student) {
 		Student existingStudent = studentRep.findById(id)
