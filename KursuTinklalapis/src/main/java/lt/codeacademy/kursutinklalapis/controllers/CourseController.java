@@ -28,7 +28,7 @@ public class CourseController {
 		this.courseService = courseService;
 	}
 
-	@GetMapping
+	@GetMapping("/allcourses")
 	public List<Course> getAllCourses() {
 		return courseService.getAllCourses();
 	}
@@ -38,7 +38,7 @@ public class CourseController {
 		return courseService.getCourseById(id);
 	}
 
-	@PostMapping
+	@PostMapping("/creatcourse")
 	public ResponseEntity createCourse(@RequestBody Course course) throws URISyntaxException {
 		Course newCourse = courseService.saveCourse(course);
 		return ResponseEntity.created(new URI("/courses/" + newCourse.getId())).body(newCourse);

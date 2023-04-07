@@ -28,7 +28,7 @@ public class ProfessorController {
 		this.professorService = professorService;
 	}
 
-	@GetMapping
+	@GetMapping("/allprofessors")
 	public List<Professor> getAllProfessors() {
 		return professorService.getAllProfessors();
 	}
@@ -38,7 +38,7 @@ public class ProfessorController {
 		return professorService.getProfessorById(id);
 	}
 
-	@PostMapping
+	@PostMapping("/createprofessor")
 	public ResponseEntity createProfessor(@RequestBody Professor professor) throws URISyntaxException {
 		Professor newProfessor = professorService.createProfessor(professor);
 		return ResponseEntity.created(new URI("/professors/" + newProfessor.getId())).body(newProfessor);

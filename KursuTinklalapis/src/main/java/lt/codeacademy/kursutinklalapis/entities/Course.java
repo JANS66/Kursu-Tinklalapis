@@ -48,6 +48,14 @@ public class Course {
 		this.description = description;
 		this.professorName = professorName;
 	}
+	
+	public Course(Long id, String subject, String description, String professorName) {
+		super();
+		this.id = id;
+		this.subject = subject;
+		this.description = description;
+		this.professorName = professorName;
+	}
 
 	public Long getId() {
 		return id;
