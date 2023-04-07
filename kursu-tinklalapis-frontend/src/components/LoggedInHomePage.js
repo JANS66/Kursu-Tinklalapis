@@ -27,7 +27,7 @@ function LoggedInHomePage(props) {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/course/all')
+        fetch('/courses')
           .then(response => response.json())
           .then(data => setCourses(data))
           .catch(error => console.error(error));

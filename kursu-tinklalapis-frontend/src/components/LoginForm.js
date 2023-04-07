@@ -33,7 +33,7 @@ function Login(props) {
 
     if (!hasError) {
       try {
-        const response = await fetch('/authenticate', {
+        const response = await fetch('/user/authenticate', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
