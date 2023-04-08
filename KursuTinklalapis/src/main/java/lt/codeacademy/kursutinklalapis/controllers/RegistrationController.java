@@ -44,13 +44,13 @@ public class RegistrationController {
 		return ResponseEntity.created(new URI("/registrations/" + newRegistration.getId())).body(newRegistration);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/{id}/update")
 	public ResponseEntity updateRegistration(@PathVariable Long id, @RequestBody Registration registration) {
 		Registration currentRegistration = registrationService.updateRegistration(id, registration);
 		return ResponseEntity.ok(currentRegistration);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{id}/delete")
 	public ResponseEntity deleteRegistration(@PathVariable Long id) {
 		registrationService.deleteRegistrationById(id);
 		return ResponseEntity.ok().build();

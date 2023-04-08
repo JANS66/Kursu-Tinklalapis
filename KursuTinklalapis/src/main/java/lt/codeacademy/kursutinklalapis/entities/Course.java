@@ -11,7 +11,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lt.codeacademy.kursutinklalapis.security.token.Token;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "courses")
 public class Course {
@@ -20,73 +28,23 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "subject")
+//	@Column(name = "subject")
 	private String subject;
 
-	@Column(name = "description")
+//	@Column(name = "description")
 	private String description;
 
-	@Column(name = "professor_name")
+//	@Column(name = "professor_name")
 	private String professorName;
 
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private List<Registration> registrations = new ArrayList<>();
-
-	public Course() {
-	}
-
-	public Course(Long id, String subject, String description, String professorName, List<Registration> registrations) {
-		this.id = id;
-		this.subject = subject;
-		this.description = description;
-		this.professorName = professorName;
-		this.registrations = registrations;
-	}
-
+	
 	public Course(String subject, String description, String professorName) {
+		super();
 		this.subject = subject;
 		this.description = description;
 		this.professorName = professorName;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getSubject() {
-		return subject;
-	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getProfessorName() {
-		return professorName;
-	}
-
-	public void setProfessorName(String professorName) {
-		this.professorName = professorName;
-	}
-
-	public List<Registration> getRegistrations() {
-		return registrations;
-	}
-
-	public void setRegistrations(List<Registration> registrations) {
-		this.registrations = registrations;
 	}
 
 	public void addRegistration(Registration registration) {
@@ -97,12 +55,6 @@ public class Course {
 	public void removeRegistration(Registration registration) {
 		registrations.remove(registration);
 		registration.setCourse(null);
-	}
-
-	@Override
-	public String toString() {
-		return "Course [id=" + id + ", subject=" + subject + ", description=" + description + ", professorName="
-				+ professorName + ", registrations=" + registrations + "]";
 	}
 
 }
