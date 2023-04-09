@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './RegistrationLoginForm.css';
 import { useNavigate } from 'react-router-dom';
+import logo from './logo.png';
 
 function Login(props) {
   const [username, setUsername] = useState('');
@@ -45,7 +46,7 @@ function Login(props) {
           props.onLogin({ username });
           navigate('/');
         } else {
-          alert('Neteisingas vartotojo vardas ar slaptažodis');
+          setUsernameError('Vartotojas nerastas');
         }
       } catch (error) {
         console.error(error);
@@ -55,32 +56,41 @@ function Login(props) {
   };
 
   const inputErrorStyle = {
-    border: '1px solid red',
+    borderBottom: '1px solid red',
     outlineColor: 'red',
   };
 
   return (
     <div className="RegistrationForm">
-      <form onSubmit={handleLogin}>
+      <img src={logo} className="App-logo" alt="logo" />
+      <form className="containerLogin" onSubmit={handleLogin}>
+      <h2 className='registracija-title'>Prisijunkite</h2>
+      {usernameError ==='Vartotojas nerastas'}
         <div>
-          <label htmlFor="username">Vartotojo Vardas:</label>
+          <label htmlFor="username"></label>
           <input 
             type="text" 
             id="username" 
             value={username} 
             onChange={(e) => setUsername(e.target.value)}
+            onFocus={(event) => event.target.placeholder = ''}
+            onBlur={(event) => event.target.placeholder = 'Vartotojo vardas'}
             style={usernameError ? inputErrorStyle : null}
+            placeholder="Vartotojo vardas"
           />
           {usernameError && <span className="error">{usernameError}</span>}
         </div>
         <div>
-          <label htmlFor="password">Slaptažodis:</label>
+          <label htmlFor="password"></label>
           <input 
             type="password" 
             id="password" 
             value={password} 
             onChange={(e) => setPassword(e.target.value)}
+            onFocus={(event) => event.target.placeholder = ''}
+            onBlur={(event) => event.target.placeholder = 'Slaptažodis'}
             style={passwordError ? inputErrorStyle : null}
+            placeholder="Slaptažodis"
           />
           {passwordError && <span className="error">{passwordError}</span>}
         </div>

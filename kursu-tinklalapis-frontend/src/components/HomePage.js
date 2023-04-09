@@ -5,13 +5,13 @@ import './Homepage.css';
 
 function Header() {
   return (
-    <header className="App-header">
-      <div className="nav-container">
+    <header>
+      <div className="button-wrapper">
         <Link to="/login">
-          <button className="nav-button">Prisijungti</button>
+          <button className='buttonsHomepage'>Prisijungti</button>
         </Link>
         <Link to="/registration">
-          <button className="nav-button">Registruotis</button>
+          <button className='buttonsHomepage'>Registruotis</button>
         </Link>
       </div>
       <img src={logo} className="App-logo" alt="logo" />
@@ -29,22 +29,45 @@ function Homepage() {
       .catch(error => console.error(error));
   }, []);
 
+  const handleButtonClick = (course) => {
+    window.location.href = `/${course}`;
+  };
+
   return (
     <div className="Homepage">
       <Header />
-      <h2>Welcome to our homepage!</h2>
-      <div className="courses-container">
-        <h3>List of Courses:</h3>
-        <ul>
-          {courses.map(course => (
-            <li key={course.id}>
-              <h4>{course.subject}</h4>
-              <p>{course.description}</p>
-              <p>Professor: {course.professorName}</p>
-            </li>
-          ))}
-        </ul>
+      <div className="Homepage-title">
+        <h2>Atrakinkite neribotą prieigą prie šimtų kursų.</h2>
+        <h2 className='title-2'>Mokykitės bet kur.</h2>
+        <h2 className='title-3'>Pasiruošę pradėti mokytis? Registruokites.</h2>
       </div>
+      <div class="button-row">
+        <button className="math-button" onClick={() => handleButtonClick('matematika')}>
+        Matematika.</button>
+        <button className="english-button" onClick={() => handleButtonClick('anglu')}>
+        Anglu k.</button>
+      </div>
+      <div class="button-row">
+        <button className="history-button" onClick={() => handleButtonClick('istorija')}>
+        Istorija.</button>
+        <button className="biology-button" onClick={() => handleButtonClick('biologija')}>
+        Biologija.</button>
+      </div>
+      <div class="button-row">
+        <button className="chemistry-button" onClick={() => handleButtonClick('chemija')}>
+        Chemija.</button>
+        <button className="physics-button" onClick={() => handleButtonClick('fizika')}>
+        Fizika.</button>
+      </div>
+      <div class="button-row">
+        <button className="art-button" onClick={() => handleButtonClick('menai')}>
+        Menai.</button>
+        <button className="geography-button" onClick={() => handleButtonClick('geografija')}>
+        Geografija.</button>
+      </div>
+      <footer className="footer">
+        &copy; 2023 
+      </footer>
     </div>
   );
 }

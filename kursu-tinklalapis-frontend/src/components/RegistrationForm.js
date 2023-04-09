@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './RegistrationLoginForm.css';
+import logo from './logo.png';
 
 function RegistrationForm() {
   const [username, setUsername] = useState('');
@@ -69,7 +70,7 @@ function RegistrationForm() {
   };
 
   const inputErrorStyle = {
-    border: '1px solid red',
+    borderBottom: '1px solid red',
     outlineColor: 'red',
   };
 
@@ -79,54 +80,67 @@ function RegistrationForm() {
     return (
       <div className="RegistrationForm">
         <p>Registracija sėkminga. Dabar galite prisijungti spustelėdami mygtuką "Prisijungti".</p>
-        <button onClick={() => { window.location.href = '/login'; }}>Prisijungti</button>
+        <button className="registrastionSuccess" onClick={() => { window.location.href = '/login'; }}>Prisijungti</button>
       </div>
     );
   } else {
     return (
       <div className="RegistrationForm">
-        <form onSubmit={handleSubmit}>
+        <img src={logo} className="App-logo" alt="logo" />
+        <form className="container" onSubmit={handleSubmit}>
+        <h2 className='registracija-title'>Užsiregistruokite</h2>
         <div>
-          <label htmlFor="username">Vartotojo vardas:</label>
           <input
             type="text"
             id="username"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
+            onFocus={(event) => event.target.placeholder = ''}
+            onBlur={(event) => event.target.placeholder = 'Vartotojo vardas'}
             style={usernameError ? inputErrorStyle : null}
+            placeholder="Vartotojo vardas"
           />
           {usernameError && <span className="error">{usernameError}</span>}
         </div>
         <div>
-          <label htmlFor="email">El. Paštas:</label>
+          <label htmlFor="email"></label>
           <input
             type="email"
             id="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+            onFocus={(event) => event.target.placeholder = ''}
+            onBlur={(event) => event.target.placeholder = 'El. Paštas'}
             style={emailError ? inputErrorStyle : null}
+            placeholder="El. Paštas"
           />
           {emailError && <span className="error">{emailError}</span>}
         </div>
         <div>
-          <label htmlFor="password">Slaptažodis:</label>
+          <label htmlFor="password"></label>
           <input
             type="password"
             id="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+            onFocus={(event) => event.target.placeholder = ''}
+            onBlur={(event) => event.target.placeholder = 'Slaptažodis'}
             style={passwordError ? inputErrorStyle : null}
+            placeholder="Slaptažodis"
           />
           {passwordError && <span className="error">{passwordError}</span>}
         </div>
         <div>
-          <label htmlFor="confirmPassword">Pakartokite Slaptažodį:</label>
+          <label htmlFor="confirmPassword"></label>
           <input
             type="password"
             id="confirmPassword"
             value={confirmPassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
+            onFocus={(event) => event.target.placeholder = ''}
+            onBlur={(event) => event.target.placeholder = 'Pakartokite slaptažodį'}
             style={confirmPasswordError ? inputErrorStyle : confirmPassStyle}
+            placeholder="Pakartokite slaptažodį"
           />
           {!passwordsMatch && (
             <span className="error">{confirmPasswordError}</span>
