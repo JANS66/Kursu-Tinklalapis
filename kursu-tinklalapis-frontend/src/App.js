@@ -55,7 +55,7 @@ function App() {
               )
             }
           />
-          <Route path="/matematika" element={<Matematika />} />
+          <Route path="/matematika" element={<Matematika isLoggedIn={isLoggedIn} />} />
         </Routes>
       </Router>
     </div>
