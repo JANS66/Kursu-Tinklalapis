@@ -6,6 +6,7 @@ import RegistrationForm from './components/RegistrationForm';
 import LoginForm from './components/LoginForm';
 import LoggedInHomePage from './components/LoggedInHomePage.js';
 import ProfilePage from './components/ProfilePage';
+import Matematika from './components/Matematika';
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(
@@ -23,6 +24,7 @@ function App() {
   }
 
   function handleLogout() {
+    console.log('Logging out...');
     setIsLoggedIn(false);
     setLoggedInUser({});
     sessionStorage.removeItem('isLoggedIn');
@@ -53,6 +55,7 @@ function App() {
               )
             }
           />
+          <Route path="/matematika" element={<Matematika />} />
         </Routes>
       </Router>
     </div>

@@ -8,10 +8,10 @@ function Header() {
     <header>
       <div className="button-wrapper">
         <Link to="/login">
-          <button className='buttonsHomepage'>Prisijungti</button>
+          <button className="buttonsHomepage">Prisijungti</button>
         </Link>
         <Link to="/registration">
-          <button className='buttonsHomepage'>Registruotis</button>
+          <button className="buttonsHomepage">Registruotis</button>
         </Link>
       </div>
       <img src={logo} className="App-logo" alt="logo" />
@@ -20,14 +20,6 @@ function Header() {
 }
 
 function Homepage() {
-  const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    fetch('/courses')
-      .then(response => response.json())
-      .then(data => setCourses(data))
-      .catch(error => console.error(error));
-  }, []);
 
   const handleButtonClick = (course) => {
     window.location.href = `/${course}`;
