@@ -57,7 +57,7 @@ public class User implements UserDetails {
 		this.password = password;
 		this.role = role;
 	}
-	
+
 	public void addRegistration(Registration registration) {
 		registrations.add(registration);
 		registration.setUser(this);
@@ -102,6 +102,5 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-
 
 }

@@ -4,12 +4,14 @@ import './RegistrationLoginForm.css';
 import logo from './logo.png';
 
 function RegistrationForm() {
-  const [username, setUsername] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [usernameError, setUsernameError] = useState('');
+  const [firstNameError, setFirstNameError] = useState('');
+  const [lastNameError, setLastNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
@@ -20,11 +22,18 @@ function RegistrationForm() {
   
     let hasError = false;
 
-    if (!username.trim()) {
-      setUsernameError('Vartotojo vardas negali būti tuščias');
+    if (!firstname.trim()) {
+      setFirstNameError('Vardas negali būti tuščias');
       hasError = true;
     } else {
-      setUsernameError('');
+      setFirstNameError('');
+    }
+
+    if(!lastname.trim()) {
+      setLastNameError('Pavarde negali buti tuscia');
+      hasError = true;
+    } else {
+      setLastNameError('');
     }
 
     if (!email.trim()) {
@@ -57,7 +66,7 @@ function RegistrationForm() {
     }
   
     if (!hasError) {
-      const data = { username, email, password };
+      const data = { firstname, lastname, email, password };
       axios.post('/user/register', data)
         .then((response) => {
           console.log(response);
@@ -92,15 +101,28 @@ function RegistrationForm() {
         <div>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            id="firstName"
+            value={firstname}
+            onChange={(event) => setFirstName(event.target.value)}
             onFocus={(event) => event.target.placeholder = ''}
-            onBlur={(event) => event.target.placeholder = 'Vartotojo vardas'}
-            style={usernameError ? inputErrorStyle : null}
-            placeholder="Vartotojo vardas"
+            onBlur={(event) => event.target.placeholder = 'Vardas'}
+            style={firstNameError ? inputErrorStyle : null}
+            placeholder="Vardas"
           />
-          {usernameError && <span className="error">{usernameError}</span>}
+          {firstNameError && <span className="error">{firstNameError}</span>}
+        </div>
+        <div>
+          <input
+            type="text"
+            id="lastName"
+            value={lastname}
+            onChange={(event) => setLastName(event.target.value)}
+            onFocus={(event) => event.target.placeholder = ''}
+            onBlur={(event) => event.target.placeholder = 'Pavarde'}
+            style={lastNameError ? inputErrorStyle : null}
+            placeholder="Pavarde"
+          />
+          {lastNameError && <span className="error">{lastNameError}</span>}
         </div>
         <div>
           <label htmlFor="email"></label>

@@ -24,12 +24,12 @@ public class Registration {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne //(fetch = FetchType.LAZY)
+	@ManyToOne // (fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_id")
 	@JsonIgnoreProperties("registrations")
 	private Course course;
 
-	@ManyToOne //(fetch = FetchType.LAZY)
+	@ManyToOne // (fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	@JsonIgnoreProperties("registrations")
 	private User user;

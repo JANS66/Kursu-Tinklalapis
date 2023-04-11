@@ -29,12 +29,11 @@ public class CourseService {
 	}
 
 	public Course updateCourse(Long id, Course courseDetails) {
-		Course course = courseRep.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("Course not found"));
+		Course course = courseRep.findById(id).orElseThrow(() -> new EntityNotFoundException("Course not found"));
 		course.setSubject(courseDetails.getSubject());
 		course.setDescription(courseDetails.getDescription());
 		course.setProfessorName(courseDetails.getProfessorName());
-		
+
 		return courseRep.save(course);
 	}
 

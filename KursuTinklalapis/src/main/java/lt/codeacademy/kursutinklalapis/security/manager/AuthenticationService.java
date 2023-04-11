@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
-
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -36,58 +35,41 @@ public class AuthenticationService {
 	private final PasswordEncoder passwordEncoder;
 	private final JwtService jwtService;
 	private final AuthenticationManager authenticationManager;
-	
 
 	public AuthenticationResponse register(RegisterRequest request) {
 		if (repository.findByEmail(request.getEmail()).isPresent()) {
-            throw new UserAlreadyExistsException();
+			throw new UserAlreadyExistsException();
 		}
-		
-		User user = User.builder()
-				.firstname(request.getFirstname())
-				.lastname(request.getLastname())
-				.email(request.getEmail())
-				.password(passwordEncoder.encode(request.getPassword()))
-				.role(Role.STUDENT)
+
+		User user = User.builder().firstname(request.getFirstname()).lastname(request.getLastname())
+				.email(request.getEmail()).password(passwordEncoder.encode(request.getPassword())).role(Role.STUDENT)
 				.build();
 
 		User savedUser = repository.save(user);
 		String jwtToken = jwtService.generateToken(user);
 		String refreshToken = jwtService.generateRefreshToken(user);
 		saveUserToken(savedUser, jwtToken);
-		
-		return AuthenticationResponse.builder()
-				.accessToken(jwtToken)
-				.refreshToken(refreshToken)
-				.build();		
-		
+
+		return AuthenticationResponse.builder().accessToken(jwtToken).refreshToken(refreshToken).build();
+
 	}
-	
-	public AuthenticationResponse authenticate(AuthenticationRequest request) {		
-		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-				request.getEmail(), 
-				request.getPassword()));
-		
+
+	public AuthenticationResponse authenticate(AuthenticationRequest request) {
+		authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+
 		User user = repository.findByEmail(request.getEmail()).orElseThrow();
 		String jwtToken = jwtService.generateToken(user);
 		String refreshToken = jwtService.generateRefreshToken(user);
 		revokeAllUserTokens(user);
 		saveUserToken(user, jwtToken);
-		
-		return AuthenticationResponse.builder()
-				.accessToken(jwtToken)
-				.refreshToken(refreshToken)
-				.build();
+
+		return AuthenticationResponse.builder().accessToken(jwtToken).refreshToken(refreshToken).build();
 	}
 
 	private void saveUserToken(User user, String jwtToken) {
-		Token token = Token.builder()
-				.user(user)
-				.token(jwtToken)
-				.tokenType(TokenType.BEARER)
-				.expired(false)
-				.revoked(false)
-				.build();
+		Token token = Token.builder().user(user).token(jwtToken).tokenType(TokenType.BEARER).expired(false)
+				.revoked(false).build();
 		tokenRepository.save(token);
 	}
 
@@ -117,11 +99,8 @@ public class AuthenticationService {
 				String accessToken = jwtService.generateToken(user);
 				revokeAllUserTokens(user);
 				saveUserToken(user, accessToken);
-				AuthenticationResponse authResponse = 
-						AuthenticationResponse.builder()
-						.accessToken(accessToken)
-						.refreshToken(refreshToken)
-						.build();
+				AuthenticationResponse authResponse = AuthenticationResponse.builder().accessToken(accessToken)
+						.refreshToken(refreshToken).build();
 				new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
 			}
 		}

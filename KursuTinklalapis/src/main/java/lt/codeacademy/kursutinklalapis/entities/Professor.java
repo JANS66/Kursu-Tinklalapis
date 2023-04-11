@@ -29,5 +29,5 @@ public class Professor {
 		this.email = email;
 		this.fullName = fullName;
 	}
-	
+
 }

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Matematika.css';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-function Matematika({ isLoggedIn }) {
+function Matematika({ isLoggedIn, user }) {
   const [courses, setCourses] = useState([]);
   const [expandedCourseId, setExpandedCourseId] = useState(null);
-  const [buttonText, setButtonText] = useState(isLoggedIn ? 'Dalyvauti' : 'Prisijunkite, kad galetumete dalyvauti');
-  const [buttonDisabled, setButtonDisabled] = useState(!isLoggedIn);
+  const [buttonText, setButtonText] = useState('Dalyvauti');
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  
 
   useEffect(() => {
     fetch('/courses')
@@ -24,11 +27,28 @@ function Matematika({ isLoggedIn }) {
     }
   }
 
-  const handleButtonClick = () => {
-    setButtonText('Dalyvaujate');
-    setButtonDisabled(true);
-  }
+  const handleButtonClick = (courseId) => {
+    if (!isLoggedIn) {
+      alert('Please log in or register to participate.');
+      return;
+    }
 
+    const userId = Cookies.get('userId'); 
+    const registration = { courseId: courseId, userId: userId }; // Include userId in registration object
+    setButtonDisabled(true);
+
+    axios.post('/api/registrations', registration, {
+      headers: {
+        'Authorization': 'Bearer ${token}' 
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+      setButtonText('Dalyvaujate');
+    })
+    .catch(error => console.error(error));
+  }
+  
   return (
     <div className="Matematika">
       <h2 className='title'>Matematika</h2>
@@ -42,7 +62,7 @@ function Matematika({ isLoggedIn }) {
             <div className="course-description">
               Kurso profesorius - {course.professorName}
               <div className="button-container">
-              <button className="buttonsHomepage" onClick={handleButtonClick} disabled={buttonDisabled}>
+              <button className="buttonsHomepage" onClick={() => handleButtonClick(course.id)} disabled={buttonDisabled}>
                 {buttonText}
               </button>
               </div>

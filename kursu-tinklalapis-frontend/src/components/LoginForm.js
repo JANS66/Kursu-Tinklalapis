@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import './RegistrationLoginForm.css';
 import { useNavigate } from 'react-router-dom';
 import logo from './logo.png';
+import Cookies from 'js-cookie';
 
 function Login(props) {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [usernameError, setUsernameError] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
@@ -15,11 +16,11 @@ function Login(props) {
 
     let hasError = false;
 
-    if (!username.trim()) {
-      setUsernameError('Vartotojo vardas negali būti tuščias');
+    if (!email.trim()) {
+      setEmailError('El. pastas negali būti tuščias');
       hasError = true;
     } else {
-      setUsernameError('');
+      setEmailError('');
     }
 
     if (!password.trim()) {
@@ -39,14 +40,17 @@ function Login(props) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ username, password }),
+          body: JSON.stringify({ email, password }),
         });
 
         if (response.ok) {
-          props.onLogin({ username });
+          const data = await response.json();
+          localStorage.setItem('token', data.tokens);
+          Cookies.set('userId', data.id);
+          props.onLogin({ email });
           navigate('/');
         } else {
-          setUsernameError('Vartotojas nerastas');
+          setEmailError('Vartotojas nerastas');
         }
       } catch (error) {
         console.error(error);
@@ -65,20 +69,20 @@ function Login(props) {
       <img src={logo} className="App-logo" alt="logo" />
       <form className="containerLogin" onSubmit={handleLogin}>
       <h2 className='registracija-title'>Prisijunkite</h2>
-      {usernameError ==='Vartotojas nerastas'}
+      {emailError ==='Vartotojas nerastas'}
         <div>
           <label htmlFor="username"></label>
           <input 
             type="text" 
-            id="username" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)}
+            id="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)}
             onFocus={(event) => event.target.placeholder = ''}
-            onBlur={(event) => event.target.placeholder = 'Vartotojo vardas'}
-            style={usernameError ? inputErrorStyle : null}
-            placeholder="Vartotojo vardas"
+            onBlur={(event) => event.target.placeholder = 'El. pastas'}
+            style={emailError ? inputErrorStyle : null}
+            placeholder="El. pastas"
           />
-          {usernameError && <span className="error">{usernameError}</span>}
+          {emailError && <span className="error">{emailError}</span>}
         </div>
         <div>
           <label htmlFor="password"></label>

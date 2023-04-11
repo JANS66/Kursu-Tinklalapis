@@ -28,8 +28,8 @@ public class UserController {
 	private UserService userService;
 
 	public UserController(UserService userService) {
-			this.userService = userService;
-		}
+		this.userService = userService;
+	}
 
 	@GetMapping
 	public List<User> getAllStudents() {

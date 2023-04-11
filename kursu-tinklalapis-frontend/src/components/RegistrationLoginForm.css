@@ -12,7 +12,7 @@
 .container {
   position: absolute;
   width: 500px;
-  height: 600px;
+  height: 700px;
   background-color: rgba(0, 0, 0, 0.75);
   padding: 30px;
   left: 50%;
@@ -46,7 +46,7 @@
   width: 314px;
 }
 
-#username::placeholder, #email::placeholder, #password::placeholder, #confirmPassword::placeholder {
+#email::placeholder, #password::placeholder, #confirmPassword::placeholder, #firstName::placeholder, #lastName::placeholder {
   color: rgb(71, 71, 71);
   cursor: default;
   direction: ltr;

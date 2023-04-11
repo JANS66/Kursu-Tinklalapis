@@ -39,7 +39,7 @@ public class Course {
 
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private List<Registration> registrations = new ArrayList<>();
-	
+
 	public Course(String subject, String description, String professorName) {
 		super();
 		this.subject = subject;

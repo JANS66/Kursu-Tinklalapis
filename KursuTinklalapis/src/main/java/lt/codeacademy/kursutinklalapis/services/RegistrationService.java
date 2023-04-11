@@ -21,10 +21,10 @@ public class RegistrationService {
 
 	@Autowired
 	private RegistrationRepository regRep;
-	
+
 	@Autowired
 	private CourseRepository courseRep;
-	
+
 	@Autowired
 	UserRepository userRep;
 
