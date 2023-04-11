@@ -10,15 +10,18 @@ public class SecurityConstants {
     public static final String GET_COURSES = "/courses/**";
     public static final String GET_PROFESSORS = "/professors/**";
     public static final String GET_STUDENTS = "/students/**";
+    public static final String GET_REGISTRATIONS = "/api/registrations/**";
     public static final String UPDATE_STUDENTS = "/students/*/update";
     public static final String UPDATE_COURSES = "/courses/*/update";
     public static final String UPDATE_PROFESSORS = "/professors/*/update";
+    public static final String UPDATE_REGISTRATIONS = "/api/registrations/*/update";
     public static final String ADD_COURSES = "/courses";
     public static final String ADD_PROFESSORS = "/professors";
     public static final String ADD_STUDENTS = "/students";
+    public static final String ADD_REGISTRATIONS = "/api/registrations";
     public static final String DELETE_STUDENTS= "/students/*/delete";
     public static final String DELETE_PROFESSORS = "/professors/*/delete";
     public static final String DELETE_COURSES = "/courses/*/delete";
-    public static final String COURSE_RESERVATIONS = "/registrations/**";
+    public static final String DELETE_REGISTRATIONS = "/api/registrations/*/delete";
   
 }
