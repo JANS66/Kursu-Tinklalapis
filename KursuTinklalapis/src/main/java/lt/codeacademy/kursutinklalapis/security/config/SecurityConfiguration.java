@@ -1,8 +1,8 @@
 package lt.codeacademy.kursutinklalapis.security.config;
 
-
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
+import lt.codeacademy.kursutinklalapis.security.filter.JwtAuthenticationFilter;
 
 import java.net.http.HttpRequest;
 
@@ -24,30 +24,24 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-  @Autowired
-  private final JwtAuthenticationFilter jwtAuthFilter;
-  private final AuthenticationProvider authenticationProvider;
+	@Autowired
+	private final JwtAuthenticationFilter jwtAuthFilter;
+	private final AuthenticationProvider authenticationProvider;
 //  private final LogoutHandler logoutHandler;
 
-  @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-        .csrf().disable()
-        .authorizeHttpRequests()
-        .requestMatchers("/user/**").permitAll()             
-        .requestMatchers(HttpMethod.GET, "/courses", "/professors").permitAll()             
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf().disable().authorizeHttpRequests().requestMatchers("/user/**").permitAll()
+				.requestMatchers(HttpMethod.GET, "/courses", "/professors").permitAll()
 //        .requestMatchers(HttpMethod.PUT, "/courses/*/update", "/professors/*/update").hasAuthority("ADMIN")             
-        .requestMatchers("/api/**").hasAnyAuthority("ADMIN", "PROFESSOR")    
-        .requestMatchers("/v1/demo-controller").hasAuthority("STUDENT")    
-        .anyRequest().authenticated()
-        .and()
-         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .authenticationProvider(authenticationProvider)
-        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+				.requestMatchers("/api/**").hasAnyAuthority("ADMIN", "PROFESSOR").requestMatchers("/v1/demo-controller")
+				.hasAuthority("STUDENT").anyRequest().authenticated().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.authenticationProvider(authenticationProvider)
+				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 //        .logout() .logoutUrl("/api/v1/auth/logout").addLogoutHandler(logoutHandler)
 //        .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
 
-    return http.build();
-  }
+		return http.build();
+	}
 }

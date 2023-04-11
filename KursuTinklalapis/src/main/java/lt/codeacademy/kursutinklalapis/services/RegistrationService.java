@@ -9,10 +9,11 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lt.codeacademy.kursutinklalapis.entities.Course;
 import lt.codeacademy.kursutinklalapis.entities.Registration;
-import lt.codeacademy.kursutinklalapis.entities.Student;
+import lt.codeacademy.kursutinklalapis.entities.Role;
+import lt.codeacademy.kursutinklalapis.entities.User;
 import lt.codeacademy.kursutinklalapis.repositories.CourseRepository;
 import lt.codeacademy.kursutinklalapis.repositories.RegistrationRepository;
-import lt.codeacademy.kursutinklalapis.repositories.StudentRepository;
+import lt.codeacademy.kursutinklalapis.repositories.UserRepository;
 
 @Service
 @Transactional
@@ -20,10 +21,12 @@ public class RegistrationService {
 
 	@Autowired
 	private RegistrationRepository regRep;
-	@Autowired
-	private StudentRepository studentRep;
+	
 	@Autowired
 	private CourseRepository courseRep;
+	
+	@Autowired
+	UserRepository userRep;
 
 	public List<Registration> getAllRegistrations() {
 		return regRep.findAll();
@@ -34,12 +37,12 @@ public class RegistrationService {
 	}
 
 	public Registration saveRegistration(Registration registration) {
-		Student student = studentRep.findById(registration.getStudent().getId())
+		User student = userRep.findById(registration.getUser().getId())
 				.orElseThrow(() -> new EntityNotFoundException("Student not found"));
 		Course course = courseRep.findById(registration.getCourse().getId())
 				.orElseThrow(() -> new EntityNotFoundException("Course not found"));
 
-		registration.setStudent(student);
+		registration.setUser(student);
 		registration.setCourse(course);
 		student.addRegistration(registration);
 		course.addRegistration(registration);
@@ -50,7 +53,7 @@ public class RegistrationService {
 	public Registration updateRegistration(Long id, Registration regDetails) {
 		Registration registration = regRep.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Registration not found"));
-		registration.setStudent(regDetails.getStudent());
+		registration.setUser(regDetails.getUser());
 		registration.setCourse(regDetails.getCourse());
 
 		return regRep.save(registration);
@@ -60,7 +63,7 @@ public class RegistrationService {
 		Registration registration = regRep.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Registration not found"));
 
-		registration.getStudent().removeRegistration(registration);
+		registration.getUser().removeRegistration(registration);
 		registration.getCourse().removeRegistration(registration);
 
 		regRep.deleteById(id);

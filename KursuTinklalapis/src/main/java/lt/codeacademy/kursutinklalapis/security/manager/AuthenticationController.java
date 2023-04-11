@@ -1,12 +1,8 @@
-package lt.codeacademy.kursutinklalapis.auth;
+package lt.codeacademy.kursutinklalapis.security.manager;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lt.codeacademy.kursutinklalapis.security.manager.AuthenticationRequest;
-import lt.codeacademy.kursutinklalapis.security.manager.AuthenticationResponse;
-import lt.codeacademy.kursutinklalapis.security.manager.AuthenticationService;
-import lt.codeacademy.kursutinklalapis.security.manager.RegisterRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +20,7 @@ public class AuthenticationController {
 	private final AuthenticationService service;
 
 	@PostMapping("/register")
-	public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+	public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request)   {
 		return ResponseEntity.ok(service.register(request));
 	}
 
@@ -33,12 +29,9 @@ public class AuthenticationController {
 		return ResponseEntity.ok(service.authenticate(request));
 	}
 
-//  @PostMapping("/refresh-token")
-//  public void refreshToken(
-//      HttpServletRequest request,
-//      HttpServletResponse response
-//  ) throws IOException {
-//    service.refreshToken(request, response);
-//  }
+	@PostMapping("/refresh-token")
+	public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		service.refreshToken(request, response);
+	}
 
 }

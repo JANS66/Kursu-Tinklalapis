@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,13 +45,13 @@ public class ProfessorController {
 		return ResponseEntity.created(new URI("/professors/" + newProfessor.getId())).body(newProfessor);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/{id}/update")
 	public ResponseEntity updateProfessor(@PathVariable Long id, @RequestBody Professor professor) {
 		Professor currentProfessor = professorService.updateProfessor(id, professor);
 		return ResponseEntity.ok(currentProfessor);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{id}/delete")
 	public ResponseEntity deleteProfessor(@PathVariable Long id) {
 		professorService.deleteProfessor(id);
 		return ResponseEntity.ok().build();
