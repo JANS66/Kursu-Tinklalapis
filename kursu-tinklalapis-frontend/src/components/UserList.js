@@ -5,14 +5,14 @@ function UserList() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/users').then(response => {
+    axios.get('/students').then(response => {
       setUsers(response.data);
     });
-  }, []);
+  }, []); 
 
   return (
     <div>
-      <h1>User List</h1>
+      <h1>Students List</h1>
       <ul>
         {users.map(user => (
           <li key={user.id}>

@@ -41,8 +41,9 @@ public class RegistrationController {
 	}
 
 	@PostMapping
-	public ResponseEntity createRegistration(@RequestBody Registration registration) throws URISyntaxException {
-		Registration newRegistration = registrationService.saveRegistration(registration);
+	public ResponseEntity createRegistration(@RequestBody Registration registration, Long userId, Long courseId)
+			throws URISyntaxException {
+		Registration newRegistration = registrationService.createRegistration(registration, userId, courseId);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Control-Allow-Origin", "http://localhost:3000");
 		return ResponseEntity.created(new URI("/registrations/" + newRegistration.getId())).headers(headers)

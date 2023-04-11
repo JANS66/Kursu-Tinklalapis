@@ -7,6 +7,7 @@ import LoginForm from './components/LoginForm';
 import LoggedInHomePage from './components/LoggedInHomePage.js';
 import ProfilePage from './components/ProfilePage';
 import Matematika from './components/Matematika';
+import Admin from './components/Admin'
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(
@@ -56,6 +57,7 @@ function App() {
             }
           />
           <Route path="/matematika" element={<Matematika isLoggedIn={isLoggedIn} />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
     </div>

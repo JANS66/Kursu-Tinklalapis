@@ -38,7 +38,8 @@ public class AuthenticationService {
 
 	public AuthenticationResponse register(RegisterRequest request) {
 		if (repository.findByEmail(request.getEmail()).isPresent()) {
-			throw new UserAlreadyExistsException();
+			System.out.println("taip");
+			;
 		}
 
 		User user = User.builder().firstname(request.getFirstname()).lastname(request.getLastname())
@@ -57,14 +58,13 @@ public class AuthenticationService {
 	public AuthenticationResponse authenticate(AuthenticationRequest request) {
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-
 		User user = repository.findByEmail(request.getEmail()).orElseThrow();
 		String jwtToken = jwtService.generateToken(user);
 		String refreshToken = jwtService.generateRefreshToken(user);
 		revokeAllUserTokens(user);
 		saveUserToken(user, jwtToken);
-
-		return AuthenticationResponse.builder().accessToken(jwtToken).refreshToken(refreshToken).build();
+		return AuthenticationResponse.builder().userId(user.getId()).accessToken(jwtToken).refreshToken(refreshToken)
+				.build();
 	}
 
 	private void saveUserToken(User user, String jwtToken) {

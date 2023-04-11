@@ -36,17 +36,13 @@ public class RegistrationService {
 		return regRep.findById(id).orElseThrow(() -> new EntityNotFoundException("Registration not found"));
 	}
 
-	public Registration saveRegistration(Registration registration) {
-		User student = userRep.findById(registration.getUser().getId())
-				.orElseThrow(() -> new EntityNotFoundException("Student not found"));
-		Course course = courseRep.findById(registration.getCourse().getId())
-				.orElseThrow(() -> new EntityNotFoundException("Course not found"));
-
-		registration.setUser(student);
+	public Registration createRegistration(Registration registration, Long userId, Long courseId) {
+		User user = userRep.findById(userId).orElseThrow(() -> new EntityNotFoundException("Student not found"));
+		Course course = courseRep.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Course not found"));
+		registration.setUser(user);
 		registration.setCourse(course);
-		student.addRegistration(registration);
+		user.addRegistration(registration);
 		course.addRegistration(registration);
-
 		return regRep.save(registration);
 	}
 

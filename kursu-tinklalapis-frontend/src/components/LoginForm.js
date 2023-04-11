@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './RegistrationLoginForm.css';
 import { useNavigate } from 'react-router-dom';
 import logo from './logo.png';
-import Cookies from 'js-cookie';
 
 function Login(props) {
   const [email, setEmail] = useState('');
@@ -45,8 +44,11 @@ function Login(props) {
 
         if (response.ok) {
           const data = await response.json();
-          localStorage.setItem('token', data.tokens);
-          Cookies.set('userId', data.id);
+          console.log(data);
+          console.log(JSON.stringify(data));
+          localStorage.setItem('token', data.access_token);
+          console.log(data.userId);
+          localStorage.setItem('userId', data.userId);
           props.onLogin({ email });
           navigate('/');
         } else {

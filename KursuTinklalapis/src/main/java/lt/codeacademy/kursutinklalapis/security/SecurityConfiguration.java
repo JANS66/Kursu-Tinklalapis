@@ -36,7 +36,7 @@ class SecurityConfiguration {
 			.authorizeHttpRequests()
 			.requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
 			.requestMatchers(HttpMethod.GET, SecurityConstants.GET_COURSES, SecurityConstants.GET_PROFESSORS).permitAll()	
-			.requestMatchers(HttpMethod.GET, SecurityConstants.GET_STUDENTS).hasAnyAuthority(Role.ADMIN.name(), Role.PROFESSOR.name())
+			.requestMatchers(HttpMethod.GET, SecurityConstants.GET_STUDENTS).permitAll()
 			.requestMatchers(HttpMethod.GET, SecurityConstants.GET_REGISTRATIONS).hasAnyAuthority(Role.ADMIN.name(), Role.PROFESSOR.name(), Role.STUDENT.name())
 			.requestMatchers(HttpMethod.PUT, SecurityConstants.UPDATE_STUDENTS ).hasAnyAuthority(Role.ADMIN.name(), Role.STUDENT.name())
 			.requestMatchers(HttpMethod.PUT, SecurityConstants.UPDATE_COURSES, SecurityConstants.UPDATE_PROFESSORS ).hasAuthority(Role.ADMIN.name())
