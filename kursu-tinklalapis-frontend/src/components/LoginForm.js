@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import './RegistrationLoginForm.css';
 import { useNavigate } from 'react-router-dom';

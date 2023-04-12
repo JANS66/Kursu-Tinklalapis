@@ -49,7 +49,7 @@ public class User implements UserDetails {
 	@JsonIgnore
 	private List<Registration> registrations = new ArrayList<>();
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<Token> tokens;
 
