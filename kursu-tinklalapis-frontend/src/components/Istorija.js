@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Matematika.css';
 
-function Matematika({isLoggedIn, user }) {
+function Istorija({isLoggedIn, user }) {
   const [courses, setCourses] = useState([]);
   const [expandedCourseId, setExpandedCourseId] = useState(null);
   const [buttonText, setButtonText] = useState('Dalyvauti');
@@ -13,7 +13,7 @@ function Matematika({isLoggedIn, user }) {
   useEffect(() => {
     fetch('/courses')
       .then(response => response.json())
-      .then(data => setCourses(data.filter(course => course.subject === 'Matematika')))
+      .then(data => setCourses(data.filter(course => course.subject === 'Istorija')))
       .catch(error => console.error(error));
   }, []);
 
@@ -49,7 +49,7 @@ function Matematika({isLoggedIn, user }) {
   
   return (
     <div className="Matematika">
-      <h2 className='title'>Matematika</h2>
+      <h2 className='title'>Istorija</h2>
       {courses.map(course => {
         return (
           <div key={course.id} className="course-container">
@@ -74,4 +74,4 @@ function Matematika({isLoggedIn, user }) {
   );
 }
 
-export default Matematika;
+export default Istorija;

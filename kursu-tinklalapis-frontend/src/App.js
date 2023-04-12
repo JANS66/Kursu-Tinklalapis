@@ -7,7 +7,14 @@ import LoginForm from './components/LoginForm';
 import LoggedInHomePage from './components/LoggedInHomePage.js';
 import ProfilePage from './components/ProfilePage';
 import Matematika from './components/Matematika';
-import Admin from './components/Admin'
+import Anglu from './components/Anglu';
+import Istorija from './components/Istorija';
+import Biologija from './components/Biologija';
+import Chemija from './components/Chemija';
+import Fizika from './components/Fizika';
+import Menai from './components/Menai';
+import Geografija from './components/Geografija';
+import Admin from './components/Admin';
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(
@@ -57,6 +64,13 @@ function App() {
             }
           />
           <Route path="/matematika" element={<Matematika isLoggedIn={isLoggedIn} />} />
+          <Route path="/anglu" element={<Anglu isLoggedIn={isLoggedIn} />} />
+          <Route path="/istorija" element={<Istorija isLoggedIn={isLoggedIn} />} />
+          <Route path="/biologija" element={<Biologija isLoggedIn={isLoggedIn} />} />
+          <Route path="/chemija" element={<Chemija isLoggedIn={isLoggedIn} />} />
+          <Route path="/fizika" element={<Fizika isLoggedIn={isLoggedIn} />} />
+          <Route path="/menai" element={<Menai isLoggedIn={isLoggedIn} />} />
+          <Route path="/geografija" element={<Geografija isLoggedIn={isLoggedIn} />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>

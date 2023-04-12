@@ -23,6 +23,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -44,9 +46,11 @@ public class User implements UserDetails {
 	private Role role;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Registration> registrations = new ArrayList<>();
 
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<Token> tokens;
 
 	public User(String firstname, String lastname, String email, String password, Role role) {

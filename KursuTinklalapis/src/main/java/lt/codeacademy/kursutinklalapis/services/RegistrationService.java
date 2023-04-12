@@ -65,7 +65,7 @@ public class RegistrationService {
 				.orElseThrow(() -> new EntityNotFoundException("Registration not found"));
 
 		registration.getUser().removeRegistration(registration);
-		registration.getCourse().removeRegistration(registration);
+//		registration.getCourse().removeRegistration(registration);
 
 		regRep.deleteById(id);
 	}

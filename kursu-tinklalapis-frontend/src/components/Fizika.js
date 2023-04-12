@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Matematika.css';
 
-function Matematika({isLoggedIn, user }) {
+function Fizika({isLoggedIn, user }) {
   const [courses, setCourses] = useState([]);
   const [expandedCourseId, setExpandedCourseId] = useState(null);
   const [buttonText, setButtonText] = useState('Dalyvauti');
@@ -13,7 +13,7 @@ function Matematika({isLoggedIn, user }) {
   useEffect(() => {
     fetch('/courses')
       .then(response => response.json())
-      .then(data => setCourses(data.filter(course => course.subject === 'Matematika')))
+      .then(data => setCourses(data.filter(course => course.subject === 'Fizika')))
       .catch(error => console.error(error));
   }, []);
 
@@ -49,7 +49,7 @@ function Matematika({isLoggedIn, user }) {
   
   return (
     <div className="Matematika">
-      <h2 className='title'>Matematika</h2>
+      <h2 className='title'>Fizika</h2>
       {courses.map(course => {
         return (
           <div key={course.id} className="course-container">
@@ -59,6 +59,7 @@ function Matematika({isLoggedIn, user }) {
             </div>
             {expandedCourseId === course.id && (
               <div className="course-description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 Kurso profesorius - {course.professorName}
                 <div className="button-container">
                   <button className="buttonsHomepage" onClick={() => handleButtonClick(course.id)} disabled={buttonDisabled}>
@@ -74,4 +75,4 @@ function Matematika({isLoggedIn, user }) {
   );
 }
 
-export default Matematika;
+export default Fizika;

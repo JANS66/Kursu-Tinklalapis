@@ -1,41 +1,61 @@
 import React, { useState } from 'react';
-import UserList from './UserList';
 
-function Admin() {
-  const [showUserList, setShowUserList] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
+const Admin = () => {
+  const [users, setUsers] = useState([]);
 
-  const handleShowUserList = () => {
-    setShowUserList(true);
+  const handleGetUsers = async () => {
+    try {
+      const response = await fetch('/students');
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleEditUser = (user) => {
-    setSelectedUser(user);
-  };
-
-  const handleSaveUser = (updatedUser) => {
-    console.log(updatedUser);
-    setSelectedUser(null);
-  };
-
-  const handleCancelEdit = () => {
-    setSelectedUser(null);
+  const handleDeleteUser = async (userId) => {
+    try {
+      await fetch(`/students/${userId}/delete`, {
+        method: 'DELETE',
+      });
+      setUsers(users.filter((user) => user.id !== userId));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div>
       <h1>Admin Panel</h1>
-      <button onClick={handleShowUserList}>List Users</button>
-      {showUserList && (
-        <UserList
-          onEditUser={handleEditUser}
-          onSaveUser={handleSaveUser}
-          onCancelEdit={handleCancelEdit}
-          selectedUser={selectedUser}
-        />
+      <button onClick={handleGetUsers}>Get Students</button>
+      {users.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.firstname}</td>
+                <td>{user.lastname}</td>
+                <td>{user.email}</td>
+                <td>
+                  <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
-}
+};
 
 export default Admin;

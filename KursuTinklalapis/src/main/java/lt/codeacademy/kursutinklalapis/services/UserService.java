@@ -12,12 +12,16 @@ import lt.codeacademy.kursutinklalapis.entities.Professor;
 import lt.codeacademy.kursutinklalapis.entities.Role;
 import lt.codeacademy.kursutinklalapis.entities.User;
 import lt.codeacademy.kursutinklalapis.repositories.UserRepository;
+import lt.codeacademy.kursutinklalapis.security.token.TokenRepository;
 
 @Service
 public class UserService {
 
 	@Autowired
 	private UserRepository userRep;
+	
+	@Autowired
+	private TokenRepository tokenRep;
 
 	public List<User> getAllStudents() {
 		return userRep.findByRole(Role.STUDENT);
