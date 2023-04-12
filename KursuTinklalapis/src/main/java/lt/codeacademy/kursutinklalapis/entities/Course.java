@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -37,8 +38,8 @@ public class Course {
 //	@Column(name = "professor_name")
 	private String professorName;
 
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-	private List<Registration> registrations = new ArrayList<>();
+//	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+//	private List<Registration> registrations = new ArrayList<>();
 
 	public Course(String subject, String description, String professorName) {
 		super();
@@ -47,14 +48,14 @@ public class Course {
 		this.professorName = professorName;
 	}
 
-	public void addRegistration(Registration registration) {
-		registrations.add(registration);
-		registration.setCourse(this);
-	}
-
-	public void removeRegistration(Registration registration) {
-		registrations.remove(registration);
-		registration.setCourse(null);
-	}
+//	public void addRegistration(Registration registration) {
+//		registrations.add(registration);
+//		registration.setCourse(this);
+//	}
+//
+//	public void removeRegistration(Registration registration) {
+//		registrations.remove(registration);
+//		registration.setCourse(null);
+//	}
 
 }

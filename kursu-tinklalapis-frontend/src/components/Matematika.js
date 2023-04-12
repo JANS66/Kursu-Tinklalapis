@@ -13,7 +13,7 @@ function Matematika({isLoggedIn, user }) {
   useEffect(() => {
     fetch('/courses')
       .then(response => response.json())
-      .then(data => setCourses(data.filter(course => course.subject === 'Matematika')))
+      .then(data => setCourses(data.filter(course => course.subject === 'Fizika')))
       .catch(error => console.error(error));
   }, []);
 
@@ -35,17 +35,13 @@ function Matematika({isLoggedIn, user }) {
 
     const registration = { courseId: parseInt(courseId), userId: userId };
     setButtonDisabled(true);
-    
     const token = localStorage.getItem('token');
-
     var registrationJson = JSON.stringify(registration);
     fetch('/api/registrations', {
       method: 'POST',
-      mode: 'no-cors',
       headers: {
-        'Authorization': 'Bearer ${token}',
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: registrationJson,
     })
