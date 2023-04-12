@@ -1,9 +1,10 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Matematika.css';
 
-function Matematika({ isLoggedIn, user }) {
+function Matematika({isLoggedIn, user }) {
   const [courses, setCourses] = useState([]);
   const [expandedCourseId, setExpandedCourseId] = useState(null);
   const [buttonText, setButtonText] = useState('Dalyvauti');
@@ -31,29 +32,23 @@ function Matematika({ isLoggedIn, user }) {
     }
 
     const userId = parseInt(localStorage.getItem('userId')); 
-    console.log(localStorage.getItem('userId'));
 
     const registration = { courseId: parseInt(courseId), userId: userId };
     setButtonDisabled(true);
     
     const token = localStorage.getItem('token');
 
-    fetch('https://httpdump.app/dumps/ed4b6ce0-29ce-463d-be8a-0451527c84a4', {
+    var registrationJson = JSON.stringify(registration);
+    fetch('/api/registrations', {
       method: 'POST',
       mode: 'no-cors',
       headers: {
-        'Authorization': token,
+        'Authorization': 'Bearer ${token}',
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(registration)
+      body: registrationJson,
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        setButtonText('Dalyvaujate');
-      })
-      .catch(error => console.error(error));
   };
   
   return (
