@@ -5,6 +5,7 @@ const Admin = () => {
   const [editableUser, setEditableUser] = useState(null);
   const [courses, setCourses] = useState([]);
   const [editableCourse, setEditableCourse] = useState(null);
+  const [showCreateCourseForm, setShowCreateCourseForm] = useState(false);
 
   const handleGetUsers = async () => {
     try {
@@ -57,9 +58,10 @@ const Admin = () => {
 
   const handleGetCourses = async () => {
     try {
-      const response = await fetch('/courses');
+      const response = await fetch("/courses");
       const data = await response.json();
       setCourses(data);
+      setShowCreateCourseForm(true);
     } catch (error) {
       console.error(error);
     }
@@ -119,9 +121,9 @@ const Admin = () => {
       });
       const data = await response.json();
       setCourses([...courses, data]);
-      } catch (error) {
-        console.error(error);
-      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -177,7 +179,7 @@ const Admin = () => {
                       value={editableCourse.professorName}
                       onChange={(e) =>
                         setEditableCourse({ ...editableCourse, professorName: e.target.value })
-                      } 
+                      }
                     />
                   ) : (
                     course.professorName
@@ -201,16 +203,21 @@ const Admin = () => {
           </tbody>
         </table>
       )}
-      <h2>Create a New Course</h2>
-      <form onSubmit={handleCreateCourse}>
-        <label htmlFor="subject">Subject:</label>
-        <input type="text" id="subject" name="subject"/>
-        <label htmlFor="description">Description:</label>
-        <input type="text" id="description" name="description"/>
-        <label htmlFor="professorName">Professor Name:</label>
-        <input type="text" id="professorName" name="professorName"/>
-        <button type="submit">Create Course</button>
-      </form>
+      {showCreateCourseForm && (
+        <div>
+          <h2>Create a New Course</h2>
+          <form onSubmit={handleCreateCourse}>
+            <label htmlFor="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" />
+            <label htmlFor="description">Description:</label>
+            <input type="text" id="description" name="description" />
+            <label htmlFor="professorName">Professor Name:</label>
+            <input type="text" id="professorName" name="professorName" />
+            <button type="submit">Create Course</button>
+          </form>
+        </div>
+      )}
+
       {users.length > 0 && (
         <table>
           <thead>
@@ -284,7 +291,7 @@ const Admin = () => {
         </table>
       )}
     </div>
-      );
+  );
 };
 
 export default Admin;
