@@ -6,6 +6,9 @@ const Admin = () => {
   const [courses, setCourses] = useState([]);
   const [editableCourse, setEditableCourse] = useState(null);
   const [showCreateCourseForm, setShowCreateCourseForm] = useState(false);
+  const [professors, setProfessors] = useState([]);
+  const [editableProfessor, setEditableProfessor] = useState(null);
+  const [showCreateProfessorForm, setShowCreateProfessorForm] = useState(false);
 
   const handleGetUsers = async () => {
     try {
@@ -126,11 +129,150 @@ const Admin = () => {
     }
   };
 
+  const handleGetProfessors = async () => {
+    try {
+      const response = await fetch("/professors");
+      const data = await response.json();
+      setProfessors(data);
+      setShowCreateProfessorForm(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleEditProfessor = (professor) => {
+    setEditableProfessor(professor);
+  };
+
+  const handleSaveProfessor = async (professor) => {
+    try {
+      const modifiedProfessor = {
+        email: professor.email,
+        fullName: professor.fullName
+      };
+      await fetch(`/professors/${professor.id}/update`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(modifiedProfessor),
+      });
+      const response = await fetch('/professors');
+      const data = await response.json();
+      setProfessors(data);
+      setEditableProfessor(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteProfessor = async (professorId) => {
+    try {
+      await fetch(`/professors/${professorId}/delete`, {
+        method: 'DELETE',
+      });
+      setProfessors(professors.filter((professor) => professor.id !== professorId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCreateProfessor = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch("/professors", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: event.target.elements.email.value,
+          fullName: event.target.elements.fullName.value
+        }),
+      });
+      const data = await response.json();
+      setProfessors([...professors, data]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <h1>Admin Panel</h1>
       <button onClick={handleGetUsers}>Get Students</button>
       <button onClick={handleGetCourses}>Get Courses</button>
+      <button onClick={handleGetProfessors}>Get Professors</button>
+      {professors.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Full Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {professors.map((professor) => (
+              <tr key={professor.id}>
+                <td>{professor.id}</td>
+                <td>
+                  {editableProfessor?.id === professor.id ? (
+                    <input
+                      type="text"
+                      value={editableProfessor.email}
+                      onChange={(e) =>
+                        setEditableProfessor({ ...editableProfessor, email: e.target.value })
+                      }
+                    />
+                  ) : (
+                    professor.email
+                  )}
+                </td>
+                <td>
+                  {editableProfessor?.id === professor.id ? (
+                    <input
+                      type="text"
+                      value={editableProfessor.fullName}
+                      onChange={(e) =>
+                        setEditableProfessor({ ...editableProfessor, fullName: e.target.value })
+                      }
+                    />
+                  ) : (
+                    professor.fullName
+                  )}
+                </td>
+                <td>
+                  {editableProfessor?.id === professor.id ? (
+                    <>
+                      <button onClick={() => handleSaveProfessor(editableProfessor)}>Save</button>
+                      <button onClick={() => setEditableProfessor(null)}>Cancel</button>
+                    </>
+                  ) : (
+                    <>
+                      <button onClick={() => handleEditProfessor(professor)}>Edit</button>
+                      <button onClick={() => handleDeleteProfessor(professor.id)}>Delete</button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {showCreateProfessorForm && (
+        <div>
+          <h2>Create a New Professor</h2>
+          <form onSubmit={handleCreateProfessor}>
+            <label htmlFor="email">Email:</label>
+            <input type="text" id="email" name="email" />
+            <label htmlFor="fullName">Professor Name:</label>
+            <input type="text" id="fullName" name="fullName" />
+            <button type="submit">Create Professor</button>
+          </form>
+        </div>
+      )}
+
       {courses.length > 0 && (
         <table>
           <thead>
