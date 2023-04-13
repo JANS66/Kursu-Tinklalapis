@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lt.codeacademy.kursutinklalapis.entities.Course;
 import lt.codeacademy.kursutinklalapis.entities.Registration;
-import lt.codeacademy.kursutinklalapis.entities.Role;
+import lt.codeacademy.kursutinklalapis.entities.RegistrationRequestDto;
 import lt.codeacademy.kursutinklalapis.entities.User;
 import lt.codeacademy.kursutinklalapis.repositories.CourseRepository;
 import lt.codeacademy.kursutinklalapis.repositories.RegistrationRepository;
@@ -21,10 +22,10 @@ public class RegistrationService {
 
 	@Autowired
 	private RegistrationRepository regRep;
-	
+
 	@Autowired
 	private CourseRepository courseRep;
-	
+
 	@Autowired
 	UserRepository userRep;
 
@@ -36,17 +37,16 @@ public class RegistrationService {
 		return regRep.findById(id).orElseThrow(() -> new EntityNotFoundException("Registration not found"));
 	}
 
-	public Registration saveRegistration(Registration registration) {
-		User student = userRep.findById(registration.getUser().getId())
+	public Registration createRegistration(@RequestBody RegistrationRequestDto requestDto) {
+		User user = userRep.findById(requestDto.getUserId())
 				.orElseThrow(() -> new EntityNotFoundException("Student not found"));
-		Course course = courseRep.findById(registration.getCourse().getId())
+		Course course = courseRep.findById(requestDto.getCourseId())
 				.orElseThrow(() -> new EntityNotFoundException("Course not found"));
-
-		registration.setUser(student);
+		Registration registration = new Registration();
+		registration.setUser(user);
 		registration.setCourse(course);
-		student.addRegistration(registration);
-		course.addRegistration(registration);
-
+		user.addRegistration(registration);
+//		course.addRegistration(registration);
 		return regRep.save(registration);
 	}
 
@@ -64,7 +64,7 @@ public class RegistrationService {
 				.orElseThrow(() -> new EntityNotFoundException("Registration not found"));
 
 		registration.getUser().removeRegistration(registration);
-		registration.getCourse().removeRegistration(registration);
+//		registration.getCourse().removeRegistration(registration);
 
 		regRep.deleteById(id);
 	}

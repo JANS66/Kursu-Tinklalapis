@@ -75,6 +75,7 @@ public class AuthenticationService {
 		saveUserToken(user, jwtToken);
 		
 		return AuthenticationResponse.builder()
+				.userId(user.getId())
 				.accessToken(jwtToken)
 				.refreshToken(refreshToken)
 				.build();

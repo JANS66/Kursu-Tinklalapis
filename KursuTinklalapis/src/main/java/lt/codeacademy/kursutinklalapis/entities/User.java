@@ -39,9 +39,7 @@ public class User implements UserDetails {
 	private String lastname;
 	private String email;
 	private String password;
-
-	@Enumerated(EnumType.STRING)
-	private Role role;
+	private String role;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Registration> registrations = new ArrayList<>();
@@ -49,8 +47,7 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "user")
 	private List<Token> tokens;
 
-	public User(String firstname, String lastname, String email, String password, Role role) {
-		super();
+	public User(String firstname, String lastname, String email, String password, String role) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
@@ -70,7 +67,9 @@ public class User implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority(role.name()));
+	    List<GrantedAuthority> authorities = new ArrayList<>();
+	    authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+	    return authorities;
 	}
 
 	@Override

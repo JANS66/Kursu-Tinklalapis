@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jakarta.persistence.EntityNotFoundException;
-import lt.codeacademy.kursutinklalapis.entities.Professor;
 import lt.codeacademy.kursutinklalapis.entities.Role;
 import lt.codeacademy.kursutinklalapis.entities.User;
 import lt.codeacademy.kursutinklalapis.repositories.UserRepository;
