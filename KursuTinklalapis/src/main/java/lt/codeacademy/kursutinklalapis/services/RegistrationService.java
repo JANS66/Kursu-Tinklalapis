@@ -11,7 +11,6 @@ import jakarta.transaction.Transactional;
 import lt.codeacademy.kursutinklalapis.entities.Course;
 import lt.codeacademy.kursutinklalapis.entities.Registration;
 import lt.codeacademy.kursutinklalapis.entities.RegistrationRequestDto;
-import lt.codeacademy.kursutinklalapis.entities.Role;
 import lt.codeacademy.kursutinklalapis.entities.User;
 import lt.codeacademy.kursutinklalapis.repositories.CourseRepository;
 import lt.codeacademy.kursutinklalapis.repositories.RegistrationRepository;

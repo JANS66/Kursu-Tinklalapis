@@ -1,9 +1,8 @@
 package lt.codeacademy.kursutinklalapis.entities;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+public class Role {
 
-@JsonDeserialize(using = RoleDeserializer.class)
-public enum Role {
-
-	ADMIN, PROFESSOR, STUDENT
+	public static final String ADMIN = "ADMIN";
+	public static final String PROFESSOR = "PROFESSOR";
+	public static final String STUDENT = "STUDENT";
 }

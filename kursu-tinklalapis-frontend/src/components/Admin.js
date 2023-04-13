@@ -31,14 +31,20 @@ const Admin = () => {
 
   const handleSaveUser = async (user) => {
     try {
+      const modifiedUser = {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        password: user.password,
+      };
       await fetch(`/students/${user.id}/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(user),
+        body: JSON.stringify(modifiedUser),
       });
-      setUsers(users.map((u) => (u.id === user.id ? user : u)));
+      setUsers(users.map((u) => (u.id === user.id ? modifiedUser : u)));
       setEditableUser(null);
     } catch (error) {
       console.error(error);

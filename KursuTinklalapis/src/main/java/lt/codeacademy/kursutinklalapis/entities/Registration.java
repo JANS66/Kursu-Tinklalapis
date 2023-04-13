@@ -33,5 +33,9 @@ public class Registration {
 	@JoinColumn(name = "user_id")
 	@JsonIgnoreProperties("registrations")
 	private User user;
+	
+	public Registration(Course course) {
+		
+	}
 
 }

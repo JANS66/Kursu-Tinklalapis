@@ -21,4 +21,5 @@ public class SecurityConstants {
 	public static final String DELETE_PROFESSORS = "/professors/*/delete";
 	public static final String DELETE_COURSES = "/courses/*/delete";
 	public static final String DELETE_REGISTRATIONS = "/api/registrations/*/delete";
+
 }
