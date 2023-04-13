@@ -44,7 +44,9 @@ const Admin = () => {
         },
         body: JSON.stringify(modifiedUser),
       });
-      setUsers(users.map((u) => (u.id === user.id ? modifiedUser : u)));
+      const response = await fetch('/students');
+      const data = await response.json();
+      setUsers(data);
       setEditableUser(null);
     } catch (error) {
       console.error(error);
