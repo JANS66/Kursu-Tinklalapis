@@ -31,22 +31,22 @@ public class Observer {
 
 	@EventListener
 	public void seed(ContextRefreshedEvent event) {
-		if(userRep.findAll().isEmpty()) {
+		if (userRep.findAll().isEmpty()) {
 			seedUserDummyData();
 			seedDummyData();
-		}	
-		if(professorRep.findAll().isEmpty())
+		}
+		if (professorRep.findAll().isEmpty())
 			seedProfessorDummyData();
-		if(courseRep.findAll().isEmpty())
+		if (courseRep.findAll().isEmpty())
 			seedCoursesDummyData();
-		
+
 	}
 
 	private void seedUserDummyData() {
 		List<User> students = List.of(new User("Jonas", "Petraitis", "jonas@mail.com", "$2a$10$qA", Role.STUDENT),
-				new User("Petras", "Antanaitis", "petras@mail.com", "$2a$10$qA",Role.STUDENT),
-				new User("Antanas", "Jonaitis", "antanas@mail.com", "$2a$10$qA",Role.STUDENT));
-					
+				new User("Petras", "Antanaitis", "petras@mail.com", "$2a$10$qA", Role.STUDENT),
+				new User("Antanas", "Jonaitis", "antanas@mail.com", "$2a$10$qA", Role.STUDENT));
+
 		userRep.saveAll(students);
 
 	}
@@ -62,40 +62,40 @@ public class Observer {
 	}
 
 	private void seedCoursesDummyData() {
-		List<Course> courses = List.of(new Course("Matematika", "Algebra", professorRep.findAll().get(0).getFullName()),
-				new Course("Anglu k", "Anglu k. pagrindai", professorRep.findAll().get(1).getFullName()),
-				new Course("Fizika", "Fizikos desniu mokslas", professorRep.findAll().get(2).getFullName()),
-				new Course("Istorija", "Istorijos mokslas", professorRep.findAll().get(3).getFullName()),
-				new Course("Lietuviu", "Lietuviu kalbos pagrindai", professorRep.findAll().get(4).getFullName()),
-				new Course("Geografija", "Geografijos mokslas", professorRep.findAll().get(5).getFullName()));
+		List<Course> courses = List.of(new Course("Matematika", "Algebra", "Pitagoras"),
+				new Course("Anglu k", "Anglu k. pagrindai", "Rovanas Atkinsonas"),
+				new Course("Fizika", "Fizikos desniu mokslas", "Albertas Einsteinas"),
+				new Course("Istorija", "Istorijos mokslas", "Herodotas"),
+				new Course("Lietuviu", "Lietuviu kalbos pagrindai", "Algimantas Cekuolis"),
+				new Course("Geografija", "Geografijos mokslas", "Kristupas Kolumbas"));
 		courseRep.saveAll(courses);
-
 	}
-	
+
 	private void seedDummyData() {
-		
+
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		User user = new User();
 		user.setFirstname("Adminas");
 		user.setLastname("Adminauskas");
 		user.setEmail("admin@admin.lt");
-		user.setPassword( encoder.encode("admin"));
-		user.setRole(Role.ADMIN);;
+		user.setPassword(encoder.encode("admin"));
+		user.setRole(Role.ADMIN);
+		;
 		userRep.save(user);
-		
+
 		User user2 = new User();
 		user2.setFirstname("Petronijus");
 		user2.setLastname("Petrauskas");
 		user2.setEmail("professor@professor.lt");
-		user2.setPassword( encoder.encode("professor") );
+		user2.setPassword(encoder.encode("professor"));
 		user2.setRole(Role.PROFESSOR);
 		userRep.save(user2);
-		
+
 		User user3 = new User();
 		user3.setFirstname("Mokytas");
 		user3.setLastname("Mokinys");
 		user3.setEmail("moksliukas@mail.lt");
-		user3.setPassword( encoder.encode("12345678") );
+		user3.setPassword(encoder.encode("12345678"));
 		user3.setRole(Role.STUDENT);
 		userRep.save(user3);
 	}

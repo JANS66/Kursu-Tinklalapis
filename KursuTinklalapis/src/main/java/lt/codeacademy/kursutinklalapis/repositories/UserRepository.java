@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import lt.codeacademy.kursutinklalapis.entities.Role;
 import lt.codeacademy.kursutinklalapis.entities.User;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 	Optional<User> findByEmail(String email);
 

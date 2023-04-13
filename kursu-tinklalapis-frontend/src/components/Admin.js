@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 const Admin = () => {
   const [users, setUsers] = useState([]);
   const [editableUser, setEditableUser] = useState(null);
+  const [courses, setCourses] = useState([]);
+  const [editableCourse, setEditableCourse] = useState(null);
 
   const handleGetUsers = async () => {
     try {
@@ -53,10 +55,131 @@ const Admin = () => {
     }
   };
 
+  const handleGetCourses = async () => {
+    try {
+      const response = await fetch('/courses');
+      const data = await response.json();
+      setCourses(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDeleteCourse = async (courseId) => {
+    try {
+      await fetch(`/courses/${courseId}/delete`, {
+        method: 'DELETE',
+      });
+      setCourses(courses.filter((course) => course.id !== courseId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleEditCourse = (course) => {
+    setEditableCourse(course);
+  };
+
+  const handleSaveCourse = async (course) => {
+    try {
+      const modifiedCourse = {
+        description: course.description,
+        professorName: course.professorName,
+        subject: course.subject
+      };
+      await fetch(`/courses/${course.id}/update`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(modifiedCourse),
+      });
+      const response = await fetch('/courses');
+      const data = await response.json();
+      setCourses(data);
+      setEditableCourse(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <h1>Admin Panel</h1>
       <button onClick={handleGetUsers}>Get Students</button>
+      <button onClick={handleGetCourses}>Get Courses</button>
+      {courses.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Subject</th>
+              <th>Description</th>
+              <th>Professor Name</th>
+              <th>Edit/Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {courses.map((course) => (
+              <tr key={course.id}>
+                <td>{course.id}</td>
+                <td>
+                  {editableCourse?.id === course.id ? (
+                    <input
+                      type="text"
+                      value={editableCourse.subject}
+                      onChange={(e) =>
+                        setEditableCourse({ ...editableCourse, subject: e.target.value })
+                      }
+                    />
+                  ) : (
+                    course.subject
+                  )}
+                </td>
+                <td>
+                  {editableCourse?.id === course.id ? (
+                    <input
+                      type="text"
+                      value={editableCourse.description}
+                      onChange={(e) =>
+                        setEditableCourse({ ...editableCourse, description: e.target.value })
+                      }
+                    />
+                  ) : (
+                    course.description
+                  )}
+                </td>
+                <td>
+                  {editableCourse?.id === course.id ? (
+                    <input
+                      type="text"
+                      value={editableCourse.professorName}
+                      onChange={(e) =>
+                        setEditableCourse({ ...editableCourse, professorName: e.target.value })
+                      } 
+                    />
+                  ) : (
+                    course.professorName
+                  )}
+                </td>
+                <td>
+                  {editableCourse?.id === course.id ? (
+                    <>
+                      <button onClick={() => handleSaveCourse(editableCourse)}>Save</button>
+                      <button onClick={() => setEditableCourse(null)}>Cancel</button>
+                    </>
+                  ) : (
+                    <>
+                      <button onClick={() => handleEditCourse(course)}>Edit</button>
+                      <button onClick={() => handleDeleteCourse(course.id)}>Delete</button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
       {users.length > 0 && (
         <table>
           <thead>
