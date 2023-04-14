@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faRegistered, faTimes } from '@fortawesome/free-solid-svg-icons';
 import './Matematika.css';
 
 function Matematika({isLoggedIn, user }) {
@@ -13,7 +13,7 @@ function Matematika({isLoggedIn, user }) {
   useEffect(() => {
     fetch('/courses')
       .then(response => response.json())
-      .then(data => setCourses(data.filter(course => course.subject === 'Matematika')))
+      .then(data => setCourses(data.filter(course => course.subject === 'Tikslieji mokslai')))
       .catch(error => console.error(error));
   }, []);
 
@@ -49,7 +49,7 @@ function Matematika({isLoggedIn, user }) {
   
   return (
     <div className="Matematika">
-      <h2 className='title'>Matematika</h2>
+      <h2 className='title'>Tikslieji Mokslai</h2>
       {courses.map(course => {
         return (
           <div key={course.id} className="course-container">

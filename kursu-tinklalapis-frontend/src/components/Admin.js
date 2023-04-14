@@ -204,7 +204,6 @@ const Admin = () => {
       const response = await fetch("/api/registrations");
       const data = await response.json();
       setRegistrations(data);
-      console.log(JSON.stringify(data));
     } catch (error) {
       console.error(error);
     }
@@ -217,9 +216,13 @@ const Admin = () => {
   const handleSaveRegistration = async (registration) => {
     try {
       const modifiedRegistration = {
-        courseId: registration.courseId,
-        userId: registration.userId
-      };
+        course: {
+        id: registration.courseId,
+      },
+      user: {
+        id: registration.userId,
+      }
+    };
       await fetch(`/api/registrations/${registration.id}/update`, {
         method: 'PUT',
         headers: {
@@ -277,7 +280,7 @@ const Admin = () => {
                       }
                     />
                   ) : (
-                    registration.courseId
+                    registration.course.id
                   )}
                 </td>
                 <td>
@@ -290,7 +293,7 @@ const Admin = () => {
                       }
                     />
                   ) : (
-                    registration.userId
+                    registration.user.id
                   )}
                 </td>
                 <td>

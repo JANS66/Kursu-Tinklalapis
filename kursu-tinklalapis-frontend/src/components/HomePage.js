@@ -36,7 +36,7 @@ function Homepage() {
       </div>
       <div class="button-row">
         <button className="math-button" onClick={() => handleButtonClick('matematika')}>
-        Matematika.</button>
+        Tikslieji Mokslai.</button>
         <button className="english-button" onClick={() => handleButtonClick('anglu')}>
         Anglu k.</button>
       </div>

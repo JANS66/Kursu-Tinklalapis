@@ -62,12 +62,18 @@ public class Observer {
 	}
 
 	private void seedCoursesDummyData() {
-		List<Course> courses = List.of(new Course("Matematika", "Algebra", "Pitagoras"),
-				new Course("Anglu k", "Anglu k. pagrindai", "Rovanas Atkinsonas"),
-				new Course("Fizika", "Fizikos desniu mokslas", "Albertas Einsteinas"),
-				new Course("Istorija", "Istorijos mokslas", "Herodotas"),
-				new Course("Lietuviu", "Lietuviu kalbos pagrindai", "Algimantas Cekuolis"),
-				new Course("Geografija", "Geografijos mokslas", "Kristupas Kolumbas"));
+		List<Course> courses = List.of(new Course("Tikslieji mokslai", "Matematika", "Pitagoras"),
+				new Course("Tikslieji mokslai", "Fizika", "Albertas Einsteinas"),
+				new Course("Tikslieji mokslai", "Chemija", "Dimitrijus Mendelejevas"),
+				new Course("Tikslieji mokslai", "Informacines technologijos", "Vaidas Cesonis"),
+				new Course("Socialiniai moskslai", "Ekonomika", "Nerijus Maxiulis"),
+				new Course("Socialiniai moskslai", "Teise", "Vilija Venslovaite"),
+				new Course("Socialiniai moskslai", "Psichologija", "Rasa Barkauskiene"),
+				new Course("Socialiniai moskslai", "Istorija", "Herodotas"),
+				new Course("Humanitariniai mokslai", "Menotyra", "Rovanas Atkinsonas"),
+				new Course("Humanitariniai mokslai", "Filosofija", "Leonidas Donskis"),
+				new Course("Gamtos moskslai", "Geografija", "Kristupas Kolumbas"),
+				new Course("Gamtos moskslai", "Biologija", "Carlzas Darvinas"));
 		courseRep.saveAll(courses);
 	}
 
