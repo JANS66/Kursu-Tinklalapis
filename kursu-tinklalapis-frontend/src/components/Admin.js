@@ -9,6 +9,8 @@ const Admin = () => {
   const [professors, setProfessors] = useState([]);
   const [editableProfessor, setEditableProfessor] = useState(null);
   const [showCreateProfessorForm, setShowCreateProfessorForm] = useState(false);
+  const [registrations, setRegistrations] = useState([]);
+  const [editableRegistration, setEditableRegistration] = useState(null);
 
   const handleGetUsers = async () => {
     try {
@@ -197,12 +199,118 @@ const Admin = () => {
     }
   };
 
+  const handleGetRegistrations = async () => {
+    try {
+      const response = await fetch("/api/registrations");
+      const data = await response.json();
+      setRegistrations(data);
+      console.log(JSON.stringify(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleEditRegistration = (registration) => {
+    setEditableRegistration(registration);
+  };
+
+  const handleSaveRegistration = async (registration) => {
+    try {
+      const modifiedRegistration = {
+        courseId: registration.courseId,
+        userId: registration.userId
+      };
+      await fetch(`/api/registrations/${registration.id}/update`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(modifiedRegistration),
+      });
+      const response = await fetch('/api/registrations');
+      const data = await response.json();
+      setRegistrations(data);
+      setEditableRegistration(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteRegistration = async (registrationId) => {
+    try {
+      await fetch(`/registrations/${registrationId}/delete`, {
+        method: 'DELETE',
+      });
+      setRegistrations(registrations.filter((registration) => registration.id !== registrationId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <h1>Admin Panel</h1>
       <button onClick={handleGetUsers}>Get Students</button>
       <button onClick={handleGetCourses}>Get Courses</button>
       <button onClick={handleGetProfessors}>Get Professors</button>
+      <button onClick={handleGetRegistrations}>Get Registrations</button>
+      {registrations.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Course ID</th>
+              <th>User ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            {registrations.map((registration) => (
+              <tr key={registration.id}>
+                <td>{registration.id}</td>
+                <td>
+                  {editableRegistration?.id === registration.id ? (
+                    <input
+                      type="text"
+                      value={editableRegistration.courseId}
+                      onChange={(e) =>
+                        setEditableRegistration({ ...editableRegistration, courseId: e.target.value })
+                      }
+                    />
+                  ) : (
+                    registration.courseId
+                  )}
+                </td>
+                <td>
+                  {editableRegistration?.id === registration.id ? (
+                    <input
+                      type="text"
+                      value={editableRegistration.userId}
+                      onChange={(e) =>
+                        setEditableRegistration({ ...editableRegistration, userId: e.target.value })
+                      }
+                    />
+                  ) : (
+                    registration.userId
+                  )}
+                </td>
+                <td>
+                  {editableRegistration?.id === registration.id ? (
+                    <>
+                      <button onClick={() => handleSaveRegistration(editableRegistration)}>Save</button>
+                      <button onClick={() => setEditableRegistration(null)}>Cancel</button>
+                    </>
+                  ) : (
+                    <>
+                      <button onClick={() => handleEditRegistration(registration)}>Edit</button>
+                      <button onClick={() => handleDeleteRegistration(registration.id)}>Delete</button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
       {professors.length > 0 && (
         <table>
           <thead>
@@ -260,6 +368,7 @@ const Admin = () => {
           </tbody>
         </table>
       )}
+
       {showCreateProfessorForm && (
         <div>
           <h2>Create a New Professor</h2>
