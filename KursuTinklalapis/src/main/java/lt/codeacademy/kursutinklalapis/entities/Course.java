@@ -28,19 +28,13 @@ public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-//	@Column(name = "subject")
 	private String subject;
-
-//	@Column(name = "description")
 	private String description;
-
-//	@Column(name = "professor_name")
 	private String professorName;
 
-//	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-//	private List<Registration> registrations = new ArrayList<>();
-
+	@OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<Registration> registrations = new ArrayList<>();
+	
 	public Course(String subject, String description, String professorName) {
 		super();
 		this.subject = subject;

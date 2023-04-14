@@ -36,27 +36,15 @@ function Homepage() {
       </div>
       <div class="button-row">
         <button className="math-button" onClick={() => handleButtonClick('matematika')}>
-        Tikslieji Mokslai.</button>
+        Tikslieji Mokslai</button>
         <button className="english-button" onClick={() => handleButtonClick('anglu')}>
-        Anglu k.</button>
+        Socialiniai Mokslai</button>
       </div>
       <div class="button-row">
         <button className="history-button" onClick={() => handleButtonClick('istorija')}>
-        Istorija.</button>
+        Humanitariniai Mokslai</button>
         <button className="biology-button" onClick={() => handleButtonClick('biologija')}>
-        Biologija.</button>
-      </div>
-      <div class="button-row">
-        <button className="chemistry-button" onClick={() => handleButtonClick('chemija')}>
-        Chemija.</button>
-        <button className="physics-button" onClick={() => handleButtonClick('fizika')}>
-        Fizika.</button>
-      </div>
-      <div class="button-row">
-        <button className="art-button" onClick={() => handleButtonClick('menai')}>
-        Menai.</button>
-        <button className="geography-button" onClick={() => handleButtonClick('geografija')}>
-        Geografija.</button>
+        Gamtos Mokslai</button>
       </div>
       <footer className="footer">
         &copy; 2023 

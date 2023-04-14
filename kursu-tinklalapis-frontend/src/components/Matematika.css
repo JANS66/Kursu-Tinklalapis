@@ -1,76 +1,101 @@
 .Matematika {
-display: flex;
-flex-direction: column;
-align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-  
+
 .course-container {
-width: 85.3%;
-margin: 20px 0;
-background-color: #305e82;
-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-margin-bottom: -10px;
+    width: 85.3%;
+    margin: 20px 0;
+    background-color: #305e82;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: -10px;
 }
 
 .course-container:hover {
-background-color: #28597e;
-}
-  
-.course-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 2px;
-cursor: pointer;
-}
-  
-.course-description {
-color: rgb(255, 255, 255);  
-padding: 20px;
-margin-left: 9px;
-font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
-font-size: 24px;
-font-weight: 400;
+    background-color: #28597e;
 }
 
-.title {
-margin-right: 86.6rem;
-color: rgb(255, 255, 255);
-font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
-font-size: 40px;
-font-weight: 700;
-margin-bottom: -4px;
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.course-description {
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    margin-left: 9px;
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.socialiniaiMokslai {
+    margin-right: 80.3rem;
+    color: rgb(255, 255, 255);
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: -4px;
+}
+
+.tiksliejiMokslai {
+    margin-right: 83.1rem;
+    color: rgb(255, 255, 255);
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: -4px;
+}
+
+.gamtosMokslai {
+    margin-right: 82.8rem;
+    color: rgb(255, 255, 255);
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: -4px;
+}
+
+.humanitariniaiMokslai {
+    margin-right: 74.5rem;
+    color: rgb(255, 255, 255);
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: -4px;
 }
 
 .description {
-color: rgb(255, 255, 255);
-font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
-font-size: 24px;
-font-weight: 400;
-margin-left: 27px;
-user-select: none;
+    color: rgb(255, 255, 255);
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-left: 27px;
+    user-select: none;
 }
 
 .icon {
-color: rgb(255, 255, 255);
-font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
-font-size: 24px;
-font-weight: 400;
-margin-right: 25px;
+    color: rgb(255, 255, 255);
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-right: 25px;
 }
 
-/* .buttonsHomepage {
-padding: 7px 20px;
-margin: 10px;
-font-weight: 500;
-background-color: #ffffff;
-font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
-color: #305e82;
-border: none;
-border-radius: 5px;
-font-size: 14px;
-cursor: pointer;
-} */
-
-
-
+.buttonsHomepage {
+    padding: 7px 20px;
+    margin: 10px;
+    margin-left: 90rem;
+    font-weight: 500;
+    background-color: #ffffff;
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    color: #305e82;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}

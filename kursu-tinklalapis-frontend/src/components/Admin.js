@@ -241,7 +241,7 @@ const Admin = () => {
 
   const handleDeleteRegistration = async (registrationId) => {
     try {
-      await fetch(`/registrations/${registrationId}/delete`, {
+      await fetch(`/api/registrations/${registrationId}/delete`, {
         method: 'DELETE',
       });
       setRegistrations(registrations.filter((registration) => registration.id !== registrationId));

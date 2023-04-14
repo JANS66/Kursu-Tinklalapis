@@ -1,8 +1,5 @@
 package lt.codeacademy.kursutinklalapis.entities;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -30,16 +27,11 @@ public class Registration {
 	@ManyToOne
 	@JoinColumn(name = "course_id")
 	@JsonIgnoreProperties("registrations")
-	@Cascade(CascadeType.REMOVE)
 	private Course course;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@JsonIgnoreProperties("registrations")
 	private User user;
-
-	public Registration(Course course) {
-
-	}
 
 }

@@ -49,7 +49,7 @@ function Matematika({isLoggedIn, user }) {
   
   return (
     <div className="Matematika">
-      <h2 className='title'>Tikslieji Mokslai</h2>
+      <h2 className='tiksliejiMokslai'>Tikslieji Mokslai</h2>
       {courses.map(course => {
         return (
           <div key={course.id} className="course-container">
@@ -59,6 +59,7 @@ function Matematika({isLoggedIn, user }) {
             </div>
             {expandedCourseId === course.id && (
               <div className="course-description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></br><br></br>
                 Kurso profesorius - {course.professorName}
                 <div className="button-container">
                   <button className="buttonsHomepage" onClick={() => handleButtonClick(course.id)} disabled={buttonDisabled}>

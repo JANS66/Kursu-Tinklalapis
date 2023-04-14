@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -10,10 +11,6 @@ import Matematika from './components/Matematika';
 import Anglu from './components/Anglu';
 import Istorija from './components/Istorija';
 import Biologija from './components/Biologija';
-import Chemija from './components/Chemija';
-import Fizika from './components/Fizika';
-import Menai from './components/Menai';
-import Geografija from './components/Geografija';
 import Admin from './components/Admin';
 
 function App() {
@@ -22,6 +19,9 @@ function App() {
   );
   const [isLoggedIn, setIsLoggedIn] = useState(
     sessionStorage.getItem('isLoggedIn') === 'true'
+  );
+  const [role, setRole] = useState(
+    localStorage.getItem('role')
   );
 
   function handleLogin(user) {
@@ -35,6 +35,7 @@ function App() {
     console.log('Logging out...');
     setIsLoggedIn(false);
     setLoggedInUser({});
+    localStorage.removeItem('role');
     sessionStorage.removeItem('isLoggedIn');
     sessionStorage.removeItem('loggedInUser');
   }
@@ -53,7 +54,7 @@ function App() {
           )}
           <Route path="/registration" element={<RegistrationForm />} />
           <Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
-          <Route 
+          <Route
             path="/profile"
             element={
               isLoggedIn ? (
@@ -67,11 +68,16 @@ function App() {
           <Route path="/anglu" element={<Anglu isLoggedIn={isLoggedIn} />} />
           <Route path="/istorija" element={<Istorija isLoggedIn={isLoggedIn} />} />
           <Route path="/biologija" element={<Biologija isLoggedIn={isLoggedIn} />} />
-          <Route path="/chemija" element={<Chemija isLoggedIn={isLoggedIn} />} />
-          <Route path="/fizika" element={<Fizika isLoggedIn={isLoggedIn} />} />
-          <Route path="/menai" element={<Menai isLoggedIn={isLoggedIn} />} />
-          <Route path="/geografija" element={<Geografija isLoggedIn={isLoggedIn} />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route
+            path="/admin"
+            element={
+              role === 'ADMIN' ? (
+                <Admin />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
         </Routes>
       </Router>
     </div>
@@ -79,3 +85,10 @@ function App() {
 }
 
 export default App;
+
+
+// {role === 'ADMIN' ? (
+//   <Route path="/admin" element={<Admin />} />
+// ) : (
+//   <Route path="/" element={<HomePage />} />
+// )}
