@@ -6,7 +6,7 @@ import RegistrationForm from './components/RegistrationForm';
 import LoginForm from './components/LoginForm';
 import LoggedInHomePage from './components/LoggedInHomePage.js';
 import ProfilePage from './components/ProfilePage';
-import Matematika from './components/Matematika';
+import TiksliejiMokslai from './components/Matematika';
 import Anglu from './components/Anglu';
 import Istorija from './components/Istorija';
 import Biologija from './components/Biologija';
@@ -63,7 +63,7 @@ function App() {
               )
             }
           />
-          <Route path="/matematika" element={<Matematika isLoggedIn={isLoggedIn} />} />
+          <Route path="/TiksliejiMokslai" element={<TiksliejiMokslai isLoggedIn={isLoggedIn} />} />
           <Route path="/anglu" element={<Anglu isLoggedIn={isLoggedIn} />} />
           <Route path="/istorija" element={<Istorija isLoggedIn={isLoggedIn} />} />
           <Route path="/biologija" element={<Biologija isLoggedIn={isLoggedIn} />} />

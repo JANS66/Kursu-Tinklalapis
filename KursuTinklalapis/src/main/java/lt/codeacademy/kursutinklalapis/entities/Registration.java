@@ -2,6 +2,7 @@ package lt.codeacademy.kursutinklalapis.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,18 +25,17 @@ public class Registration {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne // (fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "course_id")
 	@JsonIgnoreProperties("registrations")
 	private Course course;
-
-	@ManyToOne // (fetch = FetchType.LAZY)
+	
+	@ManyToOne 
 	@JoinColumn(name = "user_id")
 	@JsonIgnoreProperties("registrations")
 	private User user;
 	
-	public Registration(Course course) {
-		
-	}
-
 }
+
+
+

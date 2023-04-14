@@ -41,8 +41,8 @@ function LoggedInHomePage(props) {
         <h2 className='title-3'>Pasiruošę pradėti mokytis? Registruokites.</h2>
       </div>
       <div className="button-row">
-        <button className="math-button" onClick={() => handleButtonClick('matematika')}>
-        Matematika.</button>
+        <button className="math-button" onClick={() => handleButtonClick('TiksliejiMokslai')}>
+        TiksliejiMokslai.</button>
         <button className="english-button" onClick={() => handleButtonClick('anglu')}>
         Anglu k.</button>
       </div>
