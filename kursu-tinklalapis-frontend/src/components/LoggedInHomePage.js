@@ -13,17 +13,17 @@ function Header(props) {
     };
 
     return (
-      <div className="fixed-header">
-        <div className="button-wrapper">
-          <button className="buttonsHomepage" onClick={handleProfileButtonClick}>
-            Profilis
-          </button>
-          <button className="buttonsHomepage" onClick={props.onLogout}>
-            Atsijungti
-          </button>
+      <header>
+        <div className="header-buttons">
+            <button className="button-primary" onClick={handleProfileButtonClick}>
+              Profilis
+            </button>
+            <button className="button-secondary" onClick={handleLogoutClick}>
+              Atsijungti
+            </button>
         </div>
         <img src={logo} className="App-logo" alt="logo" />
-      </div>
+      </header>
     );
   }
 

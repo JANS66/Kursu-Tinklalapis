@@ -11,7 +11,12 @@ function Istorija({isLoggedIn, user }) {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   
   useEffect(() => {
-    fetch('/courses')
+    const token = localStorage.getItem('token');
+    fetch('/courses', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    })
       .then(response => response.json())
       .then(data => setCourses(data.filter(course => course.subject === 'Humanitariniai mokslai')))
       .catch(error => console.error(error));
@@ -62,7 +67,7 @@ function Istorija({isLoggedIn, user }) {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></br><br></br>
                 Kurso profesorius - {course.professorName}
                 <div className="button-container">
-                  <button className="buttonsHomepage" onClick={() => handleButtonClick(course.id)} disabled={buttonDisabled}>
+                  <button className="courseButton" onClick={() => handleButtonClick(course.id)} disabled={buttonDisabled}>
                     {buttonText}
                   </button>
                 </div>

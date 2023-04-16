@@ -67,7 +67,7 @@ public class Observer {
 				new Course("Tikslieji mokslai", "Fizika", "Albertas Einsteinas"),
 				new Course("Tikslieji mokslai", "Chemija", "Dimitrijus Mendelejevas"),
 				new Course("Tikslieji mokslai", "Informacines technologijos", "Vaidas Cesonis"),
-				new Course("Socialiniai mokslai", "Ekonomika", "Nerijus Maxiulis"),
+				new Course("Socialiniai mokslai", "Ekonomika", "Nerijus Maciulis"),
 				new Course("Socialiniai mokslai", "Teise", "Vilija Venslovaite"),
 				new Course("Socialiniai mokslai", "Psichologija", "Rasa Barkauskiene"),
 				new Course("Socialiniai mokslai", "Istorija", "Herodotas"),

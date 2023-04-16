@@ -29,29 +29,30 @@ class SecurityConfiguration {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.headers().frameOptions().disable().and().csrf().disable().authorizeHttpRequests()
-				.requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
-				.requestMatchers(HttpMethod.GET, SecurityConstants.GET_COURSES, SecurityConstants.GET_PROFESSORS)
-				.permitAll().requestMatchers(HttpMethod.GET, SecurityConstants.GET_STUDENTS).permitAll()
-				.requestMatchers(HttpMethod.GET, SecurityConstants.GET_REGISTRATIONS).permitAll()
-				.requestMatchers(HttpMethod.PUT, SecurityConstants.UPDATE_STUDENTS).permitAll()
-				.requestMatchers(HttpMethod.PUT, SecurityConstants.UPDATE_COURSES, SecurityConstants.UPDATE_PROFESSORS)
-				.permitAll().requestMatchers(HttpMethod.PUT, SecurityConstants.UPDATE_REGISTRATIONS).permitAll()
-				.requestMatchers(HttpMethod.POST, SecurityConstants.ADD_COURSES, SecurityConstants.ADD_PROFESSORS,
-						SecurityConstants.ADD_STUDENTS)
-				.permitAll().requestMatchers(HttpMethod.POST, SecurityConstants.ADD_REGISTRATIONS).permitAll()
-				.requestMatchers(HttpMethod.DELETE, SecurityConstants.DELETE_STUDENTS,
-						SecurityConstants.DELETE_PROFESSORS, SecurityConstants.DELETE_COURSES)
-				.permitAll()
-				.requestMatchers(HttpMethod.DELETE, SecurityConstants.DELETE_STUDENTS,
-						SecurityConstants.DELETE_PROFESSORS, SecurityConstants.DELETE_COURSES)
-				.permitAll().requestMatchers(HttpMethod.DELETE, SecurityConstants.DELETE_REGISTRATIONS).permitAll()
-				.anyRequest().authenticated().and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.authenticationProvider(authenticationProvider)
-				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).logout()
-				.logoutUrl("/api/v1/auth/logout").addLogoutHandler(logoutHandler)
-				.logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
+		http
+		.headers().frameOptions().disable()
+		.and()
+		.csrf().disable()
+		.authorizeHttpRequests()
+		.requestMatchers(HttpMethod.POST, SecurityConstants.REGISTER_PATH).permitAll()
+		.requestMatchers(HttpMethod.GET, SecurityConstants.GET_COURSES, SecurityConstants.GET_PROFESSORS).permitAll()
+		.requestMatchers(HttpMethod.GET, SecurityConstants.GET_STUDENTS).hasAnyRole(Role.ADMIN, Role.PROFESSOR, Role.STUDENT)
+		.requestMatchers(HttpMethod.GET, SecurityConstants.GET_REGISTRATIONS).hasAnyRole(Role.ADMIN, Role.PROFESSOR, Role.STUDENT)
+		.requestMatchers(HttpMethod.PUT, SecurityConstants.UPDATE_STUDENTS).hasRole(Role.ADMIN)
+		.requestMatchers(HttpMethod.PUT, SecurityConstants.UPDATE_COURSES, SecurityConstants.UPDATE_PROFESSORS).hasRole(Role.ADMIN)
+		.requestMatchers(HttpMethod.PUT, SecurityConstants.UPDATE_REGISTRATIONS).hasRole(Role.ADMIN)
+		.requestMatchers(HttpMethod.POST, SecurityConstants.ADD_COURSES, SecurityConstants.ADD_PROFESSORS).hasRole(Role.ADMIN)						
+		.requestMatchers(HttpMethod.POST, SecurityConstants.ADD_REGISTRATIONS).hasRole(Role.STUDENT)
+		.requestMatchers(HttpMethod.DELETE, SecurityConstants.DELETE_STUDENTS, SecurityConstants.DELETE_PROFESSORS, SecurityConstants.DELETE_COURSES).hasRole(Role.ADMIN)
+		.requestMatchers(HttpMethod.DELETE, SecurityConstants.DELETE_REGISTRATIONS).hasAnyRole(Role.ADMIN, Role.STUDENT)
+		.anyRequest().authenticated()
+		.and()
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and()
+		.authenticationProvider(authenticationProvider)
+		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).logout()
+		.logoutUrl("/api/v1/auth/logout").addLogoutHandler(logoutHandler)
+		.logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
 
 		return http.build();
 	}

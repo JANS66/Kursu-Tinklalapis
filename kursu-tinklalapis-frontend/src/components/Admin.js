@@ -14,7 +14,12 @@ const Admin = () => {
 
   const handleGetUsers = async () => {
     try {
-      const response = await fetch('/students');
+      const token = localStorage.getItem('token');
+      const response = await fetch('/students', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await response.json();
       setUsers(data);
     } catch (error) {
@@ -23,9 +28,13 @@ const Admin = () => {
   };
 
   const handleDeleteUser = async (userId) => {
+    const token = localStorage.getItem('token');
     try {
       await fetch(`/students/${userId}/delete`, {
-        method: 'DELETE',
+        method: 'DELETE', 
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
       setUsers(users.filter((user) => user.id !== userId));
     } catch (error) {
@@ -38,6 +47,7 @@ const Admin = () => {
   };
 
   const handleSaveUser = async (user) => {
+    const token = localStorage.getItem('token');
     try {
       const modifiedUser = {
         firstname: user.firstname,
@@ -49,10 +59,15 @@ const Admin = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(modifiedUser),
       });
-      const response = await fetch('/students');
+      const response = await fetch('/students', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await response.json();
       setUsers(data);
       setEditableUser(null);
@@ -73,9 +88,13 @@ const Admin = () => {
   };
 
   const handleDeleteCourse = async (courseId) => {
+    const token = localStorage.getItem('token');
     try {
       await fetch(`/courses/${courseId}/delete`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
       });
       setCourses(courses.filter((course) => course.id !== courseId));
     } catch (error) {
@@ -89,6 +108,7 @@ const Admin = () => {
 
   const handleSaveCourse = async (course) => {
     try {
+      const token = localStorage.getItem('token');
       const modifiedCourse = {
         description: course.description,
         professorName: course.professorName,
@@ -98,6 +118,7 @@ const Admin = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(modifiedCourse),
       });
@@ -113,10 +134,12 @@ const Admin = () => {
   const handleCreateCourse = async (event) => {
     event.preventDefault();
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch("/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           subject: event.target.elements.subject.value,
@@ -148,6 +171,7 @@ const Admin = () => {
 
   const handleSaveProfessor = async (professor) => {
     try {
+      const token = localStorage.getItem('token');
       const modifiedProfessor = {
         email: professor.email,
         fullName: professor.fullName
@@ -156,6 +180,7 @@ const Admin = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(modifiedProfessor),
       });
@@ -170,8 +195,13 @@ const Admin = () => {
 
   const handleDeleteProfessor = async (professorId) => {
     try {
+      const token = localStorage.getItem('token');
       await fetch(`/professors/${professorId}/delete`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
       });
       setProfessors(professors.filter((professor) => professor.id !== professorId));
     } catch (error) {
@@ -182,10 +212,12 @@ const Admin = () => {
   const handleCreateProfessor = async (event) => {
     event.preventDefault();
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch("/professors", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           email: event.target.elements.email.value,
@@ -201,7 +233,12 @@ const Admin = () => {
 
   const handleGetRegistrations = async () => {
     try {
-      const response = await fetch("/api/registrations");
+      const token = localStorage.getItem('token');
+      const response = await fetch("/api/registrations", {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await response.json();
       setRegistrations(data);
     } catch (error) {
@@ -215,6 +252,7 @@ const Admin = () => {
 
   const handleSaveRegistration = async (registration) => {
     try {
+      const token = localStorage.getItem('token');
       const modifiedRegistration = {
         course: {
         id: registration.courseId,
@@ -227,10 +265,15 @@ const Admin = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(modifiedRegistration),
       });
-      const response = await fetch('/api/registrations');
+      const response = await fetch('/api/registrations', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await response.json();
       setRegistrations(data);
       setEditableRegistration(null);
@@ -241,8 +284,12 @@ const Admin = () => {
 
   const handleDeleteRegistration = async (registrationId) => {
     try {
+      const token = localStorage.getItem('token');
       await fetch(`/api/registrations/${registrationId}/delete`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
       });
       setRegistrations(registrations.filter((registration) => registration.id !== registrationId));
     } catch (error) {
@@ -319,8 +366,8 @@ const Admin = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Email</th>
               <th>Full Name</th>
+              <th>Email</th>
             </tr>
           </thead>
           <tbody>

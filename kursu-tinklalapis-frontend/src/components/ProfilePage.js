@@ -6,8 +6,13 @@ const ProfilePage = () => {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     axios
-      .get(`/students/${userId}`)
+      .get(`/students/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
       .then((response) => {
         setUser(response.data);
       })
@@ -17,8 +22,13 @@ const ProfilePage = () => {
   }, [userId]);
 
   const handleDelete = (registrationId) => {
+    const token = localStorage.getItem('token');
     axios
-      .delete(`/api/registrations/${registrationId}/delete`)
+      .delete(`/api/registrations/${registrationId}/delete`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
       .then(() => {
         setUser((prevUser) => ({
           ...prevUser,
@@ -38,6 +48,8 @@ const ProfilePage = () => {
 
       {user && (
         <div>
+          <h2>Vardas Pavardė </h2>
+          <h2>{user.firstname} {user.lastname}</h2>
           <h2>{user.email}</h2>
 
           <h3>Registrations:</h3>

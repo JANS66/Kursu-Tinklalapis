@@ -7,12 +7,12 @@ import './Homepage.css';
 function Header() {
   return (
     <header>
-      <div className="button-wrapper">
+      <div className="header-buttons">
         <Link to="/login">
-          <button className="buttonsHomepage">Prisijungti</button>
+          <button className="button-primary">Prisijungti</button>
         </Link>
-        <Link to="/registration">
-          <button className="buttonsHomepage">Registruotis</button>
+        <Link to="/registruotis">
+          <button className="button-secondary">Registruotis</button>
         </Link>
       </div>
       <img src={logo} className="App-logo" alt="logo" />
