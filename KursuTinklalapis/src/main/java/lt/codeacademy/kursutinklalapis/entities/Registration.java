@@ -28,13 +28,10 @@ public class Registration {
 	@JoinColumn(name = "course_id")
 	@JsonIgnoreProperties("registrations")
 	private Course course;
-	
-	@ManyToOne 
+
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@JsonIgnoreProperties("registrations")
 	private User user;
-	
+
 }
-
-
-

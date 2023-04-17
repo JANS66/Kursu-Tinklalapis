@@ -1,47 +1,73 @@
-/* eslint-disable */
-import React from 'react';
-import { Link } from 'react-router-dom'
-import logo from './logo.png'
-import './Homepage.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-function Header(props) {
-    const handleHomeButtonClick = () => {
-        window.location.href = '/';
-    }
+const ProfilePage = () => {
+  const [user, setUser] = useState({});
+  const userId = localStorage.getItem("userId");
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios
+      .get(`/students/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [userId]);
 
-    return (
-        <div className="App-header fixed-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <div className="nav-container">
-                <button className="nav-button" onClick={handleHomeButtonClick}>
-                    Pradzia
-                </button>
-                <button className="nav-button" onClick={props.onLogout}>
-                    Atsijungti
-                </button>
-            </div>
+  const handleDelete = (registrationId) => {
+    const token = localStorage.getItem('token');
+    axios
+      .delete(`/api/registrations/${registrationId}/delete`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(() => {
+        setUser((prevUser) => ({
+          ...prevUser,
+          registrations: prevUser.registrations.filter(
+            (registration) => registration.id !== registrationId
+          ),
+        }));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  return (
+    <div>
+      <h1>Profile Page</h1>
+
+      {user && (
+        <div>
+          <h2>Vardas Pavardė </h2>
+          <h2>{user.firstname} {user.lastname}</h2>
+          <h2>{user.email}</h2>
+
+          <h3>Registrations:</h3>
+          <ul>
+            {user.registrations &&
+              user.registrations.map((registration) => (
+                <li key={registration.id}>
+                  {registration.course.description}
+                  <button onClick={() => handleDelete(registration.id)}>
+                    Delete
+                  </button>
+                </li>
+              ))}
+          </ul>
         </div>
-    );
-}
-
-function ProfilePage(props) {
-    return (
-        <div className="Homepage">
-            <Header onLogout={props.onLogout} />
-            <h2>Profilis</h2>
-            <div className="profile-container">
-                <h3>Vartotojo informacija:</h3>
-                {props.user && (
-                    <>
-                        <p>El. pastas: {props.user.email}</p>
-                        <p>Vardas: {props.user.firstName}</p>
-                        <p>Pavardė: {props.user.lastName}</p>
-                    </>
-                )}
-            </div>
-        </div>
-    );
-}
+      )}
+    </div>
+  );
+};
 
 export default ProfilePage;

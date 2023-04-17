@@ -75,20 +75,20 @@ public class Observer {
 	 * This method is a private Java method that seeds the database with dummy data for the Course entity. It creates a list of Course objects with predefined names, subjects, and professor names, and then saves them to the database using the Course repository's saveAll method. Note that this method assumes the existence of a courseRep object, which is an instance of a Course repository that provides access to the database. The purpose of this method is to populate the database with some initial data, which can be useful for testing and development purposes. 
 	 */
 	private void seedCoursesDummyData() {
-		List<Course> courses = List.of(
-				new Course("Tikslieji mokslai", "Matematika", "Pitagoras"),
+
+		List<Course> courses = List.of(new Course("Tikslieji mokslai", "Matematika", "Pitagoras"),
 				new Course("Tikslieji mokslai", "Fizika", "Albertas Einsteinas"),
 				new Course("Tikslieji mokslai", "Chemija", "Dimitrijus Mendelejevas"),
-				new Course("Tikslieji mokslai", "Informacines technologijos", "Vaidas Cesonis"),				
+				new Course("Tikslieji mokslai", "Informacines technologijos", "Vaidas Cesonis"),
 				new Course("Socialiniai mokslai", "Ekonomika", "Nerijus Maciulis"),
 				new Course("Socialiniai mokslai", "Teise", "Vilija Venslovaite"),
 				new Course("Socialiniai mokslai", "Psichologija", "Rasa Barkauskiene"),
 				new Course("Socialiniai mokslai", "Istorija", "Herodotas"),
 				new Course("Humanitariniai mokslai", "Menotyra", "Rovanas Atkinsonas"),
-				new Course("Humanitariniai mokslai", "Filosofija", "Leonidas Donskis"),							
+				new Course("Humanitariniai mokslai", "Filosofija", "Leonidas Donskis"),
 				new Course("Gamtos mokslai", "Geografija", "Kristupas Kolumbas"),
 				new Course("Gamtos mokslai", "Biologija", "Carlzas Darvinas"));
-
 		courseRep.saveAll(courses);
-	}	
+	}
+
 }

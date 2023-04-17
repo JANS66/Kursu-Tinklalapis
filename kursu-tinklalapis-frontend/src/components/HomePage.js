@@ -7,12 +7,12 @@ import './Homepage.css';
 function Header() {
   return (
     <header>
-      <div className="button-wrapper">
+      <div className="header-buttons">
         <Link to="/login">
-          <button className="buttonsHomepage">Prisijungti</button>
+          <button className="button-primary">Prisijungti</button>
         </Link>
-        <Link to="/registration">
-          <button className="buttonsHomepage">Registruotis</button>
+        <Link to="/registruotis">
+          <button className="button-secondary">Registruotis</button>
         </Link>
       </div>
       <img src={logo} className="App-logo" alt="logo" />
@@ -35,28 +35,16 @@ function Homepage() {
         <h2 className='title-3'>Pasiruošę pradėti mokytis? Registruokites.</h2>
       </div>
       <div class="button-row">
-        <button className="math-button" onClick={() => handleButtonClick('TiksliejiMokslai')}>
-        TiksliejiMokslai.</button>
+        <button className="math-button" onClick={() => handleButtonClick('matematika')}>
+        Tikslieji Mokslai</button>
         <button className="english-button" onClick={() => handleButtonClick('anglu')}>
-        Anglu k.</button>
+        Socialiniai Mokslai</button>
       </div>
       <div class="button-row">
         <button className="history-button" onClick={() => handleButtonClick('istorija')}>
-        Istorija.</button>
+        Humanitariniai Mokslai</button>
         <button className="biology-button" onClick={() => handleButtonClick('biologija')}>
-        Biologija.</button>
-      </div>
-      <div class="button-row">
-        <button className="chemistry-button" onClick={() => handleButtonClick('chemija')}>
-        Chemija.</button>
-        <button className="physics-button" onClick={() => handleButtonClick('fizika')}>
-        Fizika.</button>
-      </div>
-      <div class="button-row">
-        <button className="art-button" onClick={() => handleButtonClick('menai')}>
-        Menai.</button>
-        <button className="geography-button" onClick={() => handleButtonClick('geografija')}>
-        Geografija.</button>
+        Gamtos Mokslai</button>
       </div>
       <footer className="footer">
         &copy; 2023 

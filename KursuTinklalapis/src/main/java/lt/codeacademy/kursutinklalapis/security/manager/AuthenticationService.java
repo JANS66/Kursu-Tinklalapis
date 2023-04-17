@@ -66,14 +66,8 @@ public class AuthenticationService {
 		String refreshToken = jwtService.generateRefreshToken(user);
 		revokeAllUserTokens(user);
 		saveUserToken(user, jwtToken);
-
-		return AuthenticationResponse
-				.builder()
-				.userId(user.getId())
-				.userRole(user.getRole())
-				.accessToken(jwtToken)
-				.refreshToken(refreshToken)
-				.build();
+		return AuthenticationResponse.builder().userId(user.getId()).userRole(user.getRole()).accessToken(jwtToken)
+				.refreshToken(refreshToken).build();
 	}
 
 	/**
@@ -81,12 +75,13 @@ public class AuthenticationService {
 	 */
 	private void saveUserToken(User user, String jwtToken) {
 		Token token = Token.builder()
-	            .user(user)	            
-	            .token(jwtToken)
-	            .tokenType(TokenType.BEARER)
-	            .expired(false)
-	            .revoked(false)
-	            .build();
+				.user(user)
+				.userRole(user.getRole())
+				.token(jwtToken)
+				.tokenType(TokenType.BEARER)
+				.expired(false)
+				.revoked(false)
+				.build();
 		
 		tokenRepository.save(token);
 	}

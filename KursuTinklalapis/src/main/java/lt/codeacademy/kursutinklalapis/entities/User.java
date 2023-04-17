@@ -42,7 +42,6 @@ public class User implements UserDetails {
 	private String role;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonIgnore
 	private List<Registration> registrations = new ArrayList<>();
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)

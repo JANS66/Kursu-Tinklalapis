@@ -133,19 +133,6 @@
   top: 18px;
   right: 66px;
 }
-
-.buttonsHomepage {
-  padding: 7px 20px;
-  margin: 10px;
-  font-weight: 500;
-  background-color: #305e82;
-  font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-}
   
 .registrastionSuccess {
 background-color: #305e82;
@@ -164,11 +151,48 @@ text-decoration: none;
 text-transform: uppercase;
 }
 
+.header-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 1555px;
+  margin-top: -34px;
+}
+
+.button-primary {
+  background-color: #305e82;
+  color: #fff;
+  padding: 10px 20px;
+  font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.button-secondary {
+  background-color: transparent;
+  color: #305e82;
+  font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+  padding: 10px 20px;
+  border: 1px solid #305e82;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.button-secondary:hover {
+  background-color: #305e82;
+  color: #fff;
+}
+
 .App-logo {
-  height: 160px;
+  height: 200px;
   width: auto;
   top: -20px;
-  left: 34px;
+  left: -8px;
   position: absolute;
 }
 

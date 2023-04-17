@@ -9,10 +9,17 @@ const Admin = () => {
   const [professors, setProfessors] = useState([]);
   const [editableProfessor, setEditableProfessor] = useState(null);
   const [showCreateProfessorForm, setShowCreateProfessorForm] = useState(false);
+  const [registrations, setRegistrations] = useState([]);
+  const [editableRegistration, setEditableRegistration] = useState(null);
 
   const handleGetUsers = async () => {
     try {
-      const response = await fetch('/students');
+      const token = localStorage.getItem('token');
+      const response = await fetch('/students', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await response.json();
       setUsers(data);
     } catch (error) {
@@ -21,9 +28,13 @@ const Admin = () => {
   };
 
   const handleDeleteUser = async (userId) => {
+    const token = localStorage.getItem('token');
     try {
       await fetch(`/students/${userId}/delete`, {
-        method: 'DELETE',
+        method: 'DELETE', 
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
       setUsers(users.filter((user) => user.id !== userId));
     } catch (error) {
@@ -36,6 +47,7 @@ const Admin = () => {
   };
 
   const handleSaveUser = async (user) => {
+    const token = localStorage.getItem('token');
     try {
       const modifiedUser = {
         firstname: user.firstname,
@@ -47,10 +59,15 @@ const Admin = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(modifiedUser),
       });
-      const response = await fetch('/students');
+      const response = await fetch('/students', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await response.json();
       setUsers(data);
       setEditableUser(null);
@@ -71,9 +88,13 @@ const Admin = () => {
   };
 
   const handleDeleteCourse = async (courseId) => {
+    const token = localStorage.getItem('token');
     try {
       await fetch(`/courses/${courseId}/delete`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
       });
       setCourses(courses.filter((course) => course.id !== courseId));
     } catch (error) {
@@ -87,6 +108,7 @@ const Admin = () => {
 
   const handleSaveCourse = async (course) => {
     try {
+      const token = localStorage.getItem('token');
       const modifiedCourse = {
         description: course.description,
         professorName: course.professorName,
@@ -96,6 +118,7 @@ const Admin = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(modifiedCourse),
       });
@@ -111,10 +134,12 @@ const Admin = () => {
   const handleCreateCourse = async (event) => {
     event.preventDefault();
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch("/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           subject: event.target.elements.subject.value,
@@ -146,6 +171,7 @@ const Admin = () => {
 
   const handleSaveProfessor = async (professor) => {
     try {
+      const token = localStorage.getItem('token');
       const modifiedProfessor = {
         email: professor.email,
         fullName: professor.fullName
@@ -154,6 +180,7 @@ const Admin = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(modifiedProfessor),
       });
@@ -168,8 +195,13 @@ const Admin = () => {
 
   const handleDeleteProfessor = async (professorId) => {
     try {
+      const token = localStorage.getItem('token');
       await fetch(`/professors/${professorId}/delete`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
       });
       setProfessors(professors.filter((professor) => professor.id !== professorId));
     } catch (error) {
@@ -180,10 +212,12 @@ const Admin = () => {
   const handleCreateProfessor = async (event) => {
     event.preventDefault();
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch("/professors", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           email: event.target.elements.email.value,
@@ -197,19 +231,143 @@ const Admin = () => {
     }
   };
 
+  const handleGetRegistrations = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch("/api/registrations", {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      setRegistrations(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleEditRegistration = (registration) => {
+    setEditableRegistration(registration);
+  };
+
+  const handleSaveRegistration = async (registration) => {
+    try {
+      const token = localStorage.getItem('token');
+      const modifiedRegistration = {
+        course: {
+        id: registration.courseId,
+      },
+      user: {
+        id: registration.userId,
+      }
+    };
+      await fetch(`/api/registrations/${registration.id}/update`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(modifiedRegistration),
+      });
+      const response = await fetch('/api/registrations', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      setRegistrations(data);
+      setEditableRegistration(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteRegistration = async (registrationId) => {
+    try {
+      const token = localStorage.getItem('token');
+      await fetch(`/api/registrations/${registrationId}/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+      });
+      setRegistrations(registrations.filter((registration) => registration.id !== registrationId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <h1>Admin Panel</h1>
       <button onClick={handleGetUsers}>Get Students</button>
       <button onClick={handleGetCourses}>Get Courses</button>
       <button onClick={handleGetProfessors}>Get Professors</button>
+      <button onClick={handleGetRegistrations}>Get Registrations</button>
+      {registrations.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Course ID</th>
+              <th>User ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            {registrations.map((registration) => (
+              <tr key={registration.id}>
+                <td>{registration.id}</td>
+                <td>
+                  {editableRegistration?.id === registration.id ? (
+                    <input
+                      type="text"
+                      value={editableRegistration.courseId}
+                      onChange={(e) =>
+                        setEditableRegistration({ ...editableRegistration, courseId: e.target.value })
+                      }
+                    />
+                  ) : (
+                    registration.course.id
+                  )}
+                </td>
+                <td>
+                  {editableRegistration?.id === registration.id ? (
+                    <input
+                      type="text"
+                      value={editableRegistration.userId}
+                      onChange={(e) =>
+                        setEditableRegistration({ ...editableRegistration, userId: e.target.value })
+                      }
+                    />
+                  ) : (
+                    registration.user.id
+                  )}
+                </td>
+                <td>
+                  {editableRegistration?.id === registration.id ? (
+                    <>
+                      <button onClick={() => handleSaveRegistration(editableRegistration)}>Save</button>
+                      <button onClick={() => setEditableRegistration(null)}>Cancel</button>
+                    </>
+                  ) : (
+                    <>
+                      <button onClick={() => handleEditRegistration(registration)}>Edit</button>
+                      <button onClick={() => handleDeleteRegistration(registration.id)}>Delete</button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
       {professors.length > 0 && (
         <table>
           <thead>
             <tr>
               <th>ID</th>
-              <th>Email</th>
               <th>Full Name</th>
+              <th>Email</th>
             </tr>
           </thead>
           <tbody>
@@ -260,6 +418,7 @@ const Admin = () => {
           </tbody>
         </table>
       )}
+
       {showCreateProfessorForm && (
         <div>
           <h2>Create a New Professor</h2>

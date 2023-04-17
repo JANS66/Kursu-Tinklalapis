@@ -13,17 +13,17 @@ function Header(props) {
     };
 
     return (
-      <div className="fixed-header">
-        <div className="button-wrapper">
-          <button className="buttonsHomepage" onClick={handleProfileButtonClick}>
-            Profilis
-          </button>
-          <button className="buttonsHomepage" onClick={props.onLogout}>
-            Atsijungti
-          </button>
+      <header>
+        <div className="header-buttons">
+            <button className="button-primary" onClick={handleProfileButtonClick}>
+              Profilis
+            </button>
+            <button className="button-secondary" onClick={handleLogoutClick}>
+              Atsijungti
+            </button>
         </div>
         <img src={logo} className="App-logo" alt="logo" />
-      </div>
+      </header>
     );
   }
 
@@ -41,28 +41,16 @@ function LoggedInHomePage(props) {
         <h2 className='title-3'>Pasiruošę pradėti mokytis? Registruokites.</h2>
       </div>
       <div className="button-row">
-        <button className="math-button" onClick={() => handleButtonClick('TiksliejiMokslai')}>
-        TiksliejiMokslai.</button>
+        <button className="math-button" onClick={() => handleButtonClick('matematika')}>
+        Tikslieji Mokslai</button>
         <button className="english-button" onClick={() => handleButtonClick('anglu')}>
-        Anglu k.</button>
+        Socialiniai Mokslai</button>
       </div>
       <div className="button-row">
         <button className="history-button" onClick={() => handleButtonClick('istorija')}>
-        Istorija.</button>
+        Humanitariniai Mokslai</button>
         <button className="biology-button" onClick={() => handleButtonClick('biologija')}>
-        Biologija.</button>
-      </div>
-      <div className="button-row">
-        <button className="chemistry-button" onClick={() => handleButtonClick('chemija')}>
-        Chemija.</button>
-        <button className="physics-button" onClick={() => handleButtonClick('fizika')}>
-        Fizika.</button>
-      </div>
-      <div className="button-row">
-        <button className="art-button" onClick={() => handleButtonClick('menai')}>
-        Menai.</button>
-        <button className="geography-button" onClick={() => handleButtonClick('geografija')}>
-        Geografija.</button>
+        Gamtos Mokslai</button>
       </div>
       <footer className="footer">
         &copy; 2023 

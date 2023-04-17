@@ -26,7 +26,7 @@ function Login(props) {
     if (!password.trim()) {
       setPasswordError('Slaptažodis negali būti tuščias');
       hasError = true;
-    } else if (password.length < 8) {
+    } else if (password.length < 4) {
       setPasswordError('Slaptažodis turi būti bent 8 simbolių ilgio');
       hasError = true;
     } else {
@@ -45,11 +45,9 @@ function Login(props) {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
-          console.log(JSON.stringify(data));
           localStorage.setItem('token', data.access_token);
-          console.log(data.userId);
           localStorage.setItem('userId', data.userId);
+          localStorage.setItem('role', data.userRole);
           props.onLogin({ email });
           navigate('/');
         } else {
