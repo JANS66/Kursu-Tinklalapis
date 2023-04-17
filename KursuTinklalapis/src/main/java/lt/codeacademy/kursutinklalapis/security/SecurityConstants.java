@@ -1,5 +1,8 @@
 package lt.codeacademy.kursutinklalapis.security;
 
+/**
+ *These constants are used to define the security rules and restrictions of the application, such as which end-points are accessible to which roles and which HTTP methods are allowed on each endpoint.
+ */
 public class SecurityConstants {
 	public static final String SECRET_KEY = "bQeThWmZq4t7wzCFJNcRfUjXn2r5u8xADGKaPdSgVkYp3s6v9yBE)";
 	public static final int JWT_EXPIRATION = 7200000;

@@ -17,6 +17,9 @@ import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+/**
+ * The JwtService class is a Spring @Service component responsible for generating and validating JSON Web Tokens (JWTs) using the io.jsonwebtoken library. It has the following public methods: extractUsername(String token): Extracts the subject (username) from the provided JWT token; extractClaim(String token, Function<Claims, T> claimsResolver): Extracts a specific claim from the JWT token using a claimsResolver function; generateToken(UserDetails userDetails): Generates a JWT for the given userDetails, with no extra claims and using the default JWT expiration time defined in the SecurityConstants class; generateToken(Map<String, Object> extraClaims, UserDetails userDetails): Generates a JWT for the given userDetails, with extra claims specified in a Map and using the default JWT expiration time defined in the SecurityConstants class; generateRefreshToken(UserDetails userDetails): Generates a refresh token for the given userDetails, with no extra claims and using the default refresh token expiration time defined in the SecurityConstants class; isTokenValid(String token, UserDetails userDetails): Validates whether the provided JWT token is valid for the given userDetails; getSignInKey(): Returns the signing key used for generating and validating JWTs, which is derived from the SecurityConstants.SECRET_KEY value. The JwtService class also has private methods for extracting specific claims and all claims from a JWT token, checking if a token is expired, and building a JWT token with the specified claims and expiration time.
+ */
 @Service
 public class JwtService {
 

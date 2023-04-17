@@ -14,12 +14,15 @@ public class AuthenticationResponse {
 
 	@JsonProperty("access_token")
 	private String accessToken;
+	
 	@JsonProperty("refresh_token")
 	private String refreshToken;
-
+	
 	private Long userId;
+	private String userRole;
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
+	
 }

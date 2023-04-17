@@ -31,10 +31,8 @@ public class Observer {
 
 	@EventListener
 	public void seed(ContextRefreshedEvent event) {
-		if (userRep.findAll().isEmpty()) {
-			seedUserDummyData();
-			seedDummyData();
-		}
+		if (userRep.findAll().isEmpty()) 
+			seedUserDummyData();		
 		if (professorRep.findAll().isEmpty())
 			seedProfessorDummyData();
 		if (courseRep.findAll().isEmpty())
@@ -42,15 +40,27 @@ public class Observer {
 
 	}
 
-	private void seedUserDummyData() {
-		List<User> students = List.of(new User("Jonas", "Petraitis", "jonas@mail.com", "$2a$10$qA", Role.STUDENT),
-				new User("Petras", "Antanaitis", "petras@mail.com", "$2a$10$qA", Role.STUDENT),
-				new User("Antanas", "Jonaitis", "antanas@mail.com", "$2a$10$qA", Role.STUDENT));
-
-		userRep.saveAll(students);
-
+	/**
+	 * This method seeds the user repository with dummy student data. It creates a list of User objects, with each object representing a student and containing their first name, last name, email address, hashed password, and role (which is set to ADMIN, PROFESSOR or STUDENT). The list of User objects is then saved to the user repository using the saveAll method. This method assumes that the user repository has already been initialized and is available for use.
+	 */	
+	private void seedUserDummyData() { 
+		
+		PasswordEncoder encoder = new BCryptPasswordEncoder(); 
+		
+		List<User> users = List.of( 
+				new User("Adminas", "Adminauskas", "admin@admin.lt", encoder.encode("admin"), Role.ADMIN), 
+				new User("Petronijus", "Petrauskas", "professor@professor.lt", encoder.encode("professor"), Role.PROFESSOR), 
+				new User("Jonas", "Petraitis", "jonas@mail.com", encoder.encode("12345678"), Role.STUDENT),
+				new User("Petras", "Antanaitis", "petras@mail.com", encoder.encode("12345678"), Role.STUDENT),
+				new User("Antanas", "Jonaitis", "antanas@mail.com", encoder.encode("12345678"), Role.STUDENT),
+				new User("Mokytas", "Mokinys", "moksliukas@mail.lt", encoder.encode("12345678"), Role.STUDENT)); 
+		
+		userRep.saveAll(users); 		
 	}
 
+	/**
+	 * This method is a private Java method that seeds the database with dummy data for the Professor entity. It creates a list of Professor objects with predefined names and email addresses, and then saves them to the database using the Professor repository's saveAll method. Note that this method assumes the existence of a professorRep object, which is an instance of a Professor repository that provides access to the database. The purpose of this method is to populate the database with some initial data, which can be useful for testing and development purposes.
+	 */
 	private void seedProfessorDummyData() {
 		List<Professor> professors = List.of(new Professor("Pitagoras", "Pitagoras@mail.com"),
 				new Professor("Rovanas Atkinsonas", "Bynas@mail.com"),
@@ -61,50 +71,24 @@ public class Observer {
 		professorRep.saveAll(professors);
 	}
 
+	/**
+	 * This method is a private Java method that seeds the database with dummy data for the Course entity. It creates a list of Course objects with predefined names, subjects, and professor names, and then saves them to the database using the Course repository's saveAll method. Note that this method assumes the existence of a courseRep object, which is an instance of a Course repository that provides access to the database. The purpose of this method is to populate the database with some initial data, which can be useful for testing and development purposes. 
+	 */
 	private void seedCoursesDummyData() {
 		List<Course> courses = List.of(
 				new Course("Tikslieji mokslai", "Matematika", "Pitagoras"),
 				new Course("Tikslieji mokslai", "Fizika", "Albertas Einsteinas"),
 				new Course("Tikslieji mokslai", "Chemija", "Dimitrijus Mendelejevas"),
 				new Course("Tikslieji mokslai", "Informacines technologijos", "Vaidas Cesonis"),				
-				new Course("Socialiniai moskslai", "Ekonomika", "Nerijus Maxiulis"),
-				new Course("Socialiniai moskslai", "Teise", "Vilija Venslovaite"),
-				new Course("Socialiniai moskslai", "Psichologija", "Rasa Barkauskiene"),
-				new Course("Socialiniai moskslai", "Istorija", "Herodotas"),
+				new Course("Socialiniai mokslai", "Ekonomika", "Nerijus Maciulis"),
+				new Course("Socialiniai mokslai", "Teise", "Vilija Venslovaite"),
+				new Course("Socialiniai mokslai", "Psichologija", "Rasa Barkauskiene"),
+				new Course("Socialiniai mokslai", "Istorija", "Herodotas"),
 				new Course("Humanitariniai mokslai", "Menotyra", "Rovanas Atkinsonas"),
 				new Course("Humanitariniai mokslai", "Filosofija", "Leonidas Donskis"),							
-				new Course("Gamtos moskslai", "Geografija", "Kristupas Kolumbas"),
-				new Course("Gamtos moskslai", "Biologija", "Carlzas Darvinas"));
+				new Course("Gamtos mokslai", "Geografija", "Kristupas Kolumbas"),
+				new Course("Gamtos mokslai", "Biologija", "Carlzas Darvinas"));
 
 		courseRep.saveAll(courses);
-	}
-
-	private void seedDummyData() {
-
-		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		User user = new User();
-		user.setFirstname("Adminas");
-		user.setLastname("Adminauskas");
-		user.setEmail("admin@admin.lt");
-		user.setPassword(encoder.encode("admin"));
-		user.setRole(Role.ADMIN);
-		;
-		userRep.save(user);
-
-		User user2 = new User();
-		user2.setFirstname("Petronijus");
-		user2.setLastname("Petrauskas");
-		user2.setEmail("professor@professor.lt");
-		user2.setPassword(encoder.encode("professor"));
-		user2.setRole(Role.PROFESSOR);
-		userRep.save(user2);
-
-		User user3 = new User();
-		user3.setFirstname("Mokytas");
-		user3.setLastname("Mokinys");
-		user3.setEmail("moksliukas@mail.lt");
-		user3.setPassword(encoder.encode("12345678"));
-		user3.setRole(Role.STUDENT);
-		userRep.save(user3);
-	}
+	}	
 }
