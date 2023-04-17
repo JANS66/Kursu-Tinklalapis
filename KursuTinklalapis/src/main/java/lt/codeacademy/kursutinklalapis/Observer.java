@@ -67,14 +67,14 @@ public class Observer {
 				new Course("Tikslieji mokslai", "Fizika", "Albertas Einsteinas"),
 				new Course("Tikslieji mokslai", "Chemija", "Dimitrijus Mendelejevas"),
 				new Course("Tikslieji mokslai", "Informacines technologijos", "Vaidas Cesonis"),				
-				new Course("Socialiniai mokslai", "Ekonomika", "Nerijus Maciulis"),
-				new Course("Socialiniai mokslai", "Teise", "Vilija Venslovaite"),
-				new Course("Socialiniai mokslai", "Psichologija", "Rasa Barkauskiene"),
-				new Course("Socialiniai mokslai", "Istorija", "Herodotas"),
+				new Course("Socialiniai moskslai", "Ekonomika", "Nerijus Maxiulis"),
+				new Course("Socialiniai moskslai", "Teise", "Vilija Venslovaite"),
+				new Course("Socialiniai moskslai", "Psichologija", "Rasa Barkauskiene"),
+				new Course("Socialiniai moskslai", "Istorija", "Herodotas"),
 				new Course("Humanitariniai mokslai", "Menotyra", "Rovanas Atkinsonas"),
 				new Course("Humanitariniai mokslai", "Filosofija", "Leonidas Donskis"),							
-				new Course("Gamtos mokslai", "Geografija", "Kristupas Kolumbas"),
-				new Course("Gamtos mokslai", "Biologija", "Carlzas Darvinas"));
+				new Course("Gamtos moskslai", "Geografija", "Kristupas Kolumbas"),
+				new Course("Gamtos moskslai", "Biologija", "Carlzas Darvinas"));
 
 		courseRep.saveAll(courses);
 	}

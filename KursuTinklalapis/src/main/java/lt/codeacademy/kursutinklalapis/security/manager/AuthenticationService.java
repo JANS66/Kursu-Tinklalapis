@@ -1,28 +1,31 @@
 package lt.codeacademy.kursutinklalapis.security.manager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import lombok.RequiredArgsConstructor;
-
 import lt.codeacademy.kursutinklalapis.entities.Role;
 import lt.codeacademy.kursutinklalapis.entities.User;
 import lt.codeacademy.kursutinklalapis.repositories.UserRepository;
+import lt.codeacademy.kursutinklalapis.security.exceptions.UserAlreadyExistsException;
 import lt.codeacademy.kursutinklalapis.security.filter.JwtService;
 import lt.codeacademy.kursutinklalapis.security.token.Token;
 import lt.codeacademy.kursutinklalapis.security.token.TokenRepository;
 import lt.codeacademy.kursutinklalapis.security.token.TokenType;
 
+import org.hibernate.validator.internal.util.logging.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -61,24 +64,13 @@ public class AuthenticationService {
 		revokeAllUserTokens(user);
 		saveUserToken(user, jwtToken);
 
-		return AuthenticationResponse
-				.builder()
-				.userId(user.getId())
-				.userRole(user.getRole())
-				.accessToken(jwtToken)
-				.refreshToken(refreshToken)
+		return AuthenticationResponse.builder().userId(user.getId()).accessToken(jwtToken).refreshToken(refreshToken)
 				.build();
 	}
 
 	private void saveUserToken(User user, String jwtToken) {
-		Token token = Token.builder()
-	            .user(user)	            
-	            .token(jwtToken)
-	            .tokenType(TokenType.BEARER)
-	            .expired(false)
-	            .revoked(false)
-	            .build();
-		
+		Token token = Token.builder().user(user).token(jwtToken).tokenType(TokenType.BEARER).expired(false)
+				.revoked(false).build();
 		tokenRepository.save(token);
 	}
 
