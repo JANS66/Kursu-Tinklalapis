@@ -2,16 +2,16 @@
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import HomePage from './components/HomePage';
-import RegistrationForm from './components/RegistrationForm';
-import LoginForm from './components/LoginForm';
-import LoggedInHomePage from './components/LoggedInHomePage.js';
-import ProfilePage from './components/ProfilePage';
-import Matematika from './components/Matematika';
-import Anglu from './components/Anglu';
-import Istorija from './components/Istorija';
-import Biologija from './components/Biologija';
-import Admin from './components/Admin';
+import HomePage from './components/HomePage/HomePage';
+import RegistrationForm from './components/Auth/RegistrationForm';
+import LoginForm from './components/Auth/LoginForm';
+import LoggedInHomePage from './components/HomePage/LoggedInHomePage.js';
+import ProfilePage from './components/ProfilePage/ProfilePage';
+import Matematika from './components/SubjectPages/Matematika';
+import Anglu from './components/SubjectPages/Anglu';
+import Istorija from './components/SubjectPages/Istorija';
+import Biologija from './components/SubjectPages/Biologija';
+import Admin from './components/Admin/Admin';
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(
@@ -87,8 +87,3 @@ function App() {
 export default App;
 
 
-// {role === 'ADMIN' ? (
-//   <Route path="/admin" element={<Admin />} />
-// ) : (
-//   <Route path="/" element={<HomePage />} />
-// )}

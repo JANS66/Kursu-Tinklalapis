@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './RegistrationLoginForm.css';
 import { useNavigate } from 'react-router-dom';
-import logo from './logo.png';
+import logo from '../assets/images/logo.png';
 
 function Login(props) {
   const [email, setEmail] = useState('');

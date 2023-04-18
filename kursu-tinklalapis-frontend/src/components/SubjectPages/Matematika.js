@@ -1,24 +1,19 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import './Matematika.css';
+import { faPlus, faRegistered, faTimes } from '@fortawesome/free-solid-svg-icons';
+import './Subject.css';
 
-function Istorija({isLoggedIn, user }) {
+function Matematika({ isLoggedIn, user }) {
   const [courses, setCourses] = useState([]);
   const [expandedCourseId, setExpandedCourseId] = useState(null);
   const [buttonText, setButtonText] = useState('Dalyvauti');
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  
+
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    fetch('/courses', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-    })
+    fetch('/courses')
       .then(response => response.json())
-      .then(data => setCourses(data.filter(course => course.subject === 'Humanitariniai mokslai')))
+      .then(data => setCourses(data.filter(course => course.subject === 'Tikslieji mokslai')))
       .catch(error => console.error(error));
   }, []);
 
@@ -36,12 +31,13 @@ function Istorija({isLoggedIn, user }) {
       return;
     }
 
-    const userId = parseInt(localStorage.getItem('userId')); 
+    const userId = parseInt(localStorage.getItem('userId'));
 
     const registration = { courseId: parseInt(courseId), userId: userId };
     setButtonDisabled(true);
     const token = localStorage.getItem('token');
     var registrationJson = JSON.stringify(registration);
+
     fetch('/api/registrations', {
       method: 'POST',
       headers: {
@@ -50,11 +46,17 @@ function Istorija({isLoggedIn, user }) {
       },
       body: registrationJson,
     })
+      .then(() => {
+        window.location.href = '/profile';
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
-  
+
   return (
     <div className="Matematika">
-      <h2 className='humanitariniaiMokslai'>Humanitariniai Mokslai</h2>
+      <h2 className='tiksliejiMokslai'>Tikslieji Mokslai</h2>
       {courses.map(course => {
         return (
           <div key={course.id} className="course-container">
@@ -80,4 +82,4 @@ function Istorija({isLoggedIn, user }) {
   );
 }
 
-export default Istorija;
+export default Matematika;

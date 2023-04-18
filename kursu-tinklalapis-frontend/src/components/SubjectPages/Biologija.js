@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import './Matematika.css';
+import './Subject.css';
 
-function Biologija({isLoggedIn, user }) {
+function Biologija({ isLoggedIn, user }) {
   const [courses, setCourses] = useState([]);
   const [expandedCourseId, setExpandedCourseId] = useState(null);
   const [buttonText, setButtonText] = useState('Dalyvauti');
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     fetch('/courses', {
@@ -36,7 +36,7 @@ function Biologija({isLoggedIn, user }) {
       return;
     }
 
-    const userId = parseInt(localStorage.getItem('userId')); 
+    const userId = parseInt(localStorage.getItem('userId'));
 
     const registration = { courseId: parseInt(courseId), userId: userId };
     setButtonDisabled(true);
@@ -50,8 +50,14 @@ function Biologija({isLoggedIn, user }) {
       },
       body: registrationJson,
     })
+      .then(() => {
+        window.location.href = '/profile';
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
-  
+
   return (
     <div className="Matematika">
       <h2 className='gamtosMokslai'>Gamtos Mokslai</h2>

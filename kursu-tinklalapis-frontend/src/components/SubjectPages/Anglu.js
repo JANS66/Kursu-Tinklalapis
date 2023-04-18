@@ -1,19 +1,24 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faRegistered, faTimes } from '@fortawesome/free-solid-svg-icons';
-import './Matematika.css';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import './Subject.css';
 
-function Matematika({isLoggedIn, user }) {
+function Anglu({ isLoggedIn, user }) {
   const [courses, setCourses] = useState([]);
   const [expandedCourseId, setExpandedCourseId] = useState(null);
   const [buttonText, setButtonText] = useState('Dalyvauti');
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  
+
   useEffect(() => {
-    fetch('/courses')
+    const token = localStorage.getItem('token');
+    fetch('/courses', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    })
       .then(response => response.json())
-      .then(data => setCourses(data.filter(course => course.subject === 'Tikslieji mokslai')))
+      .then(data => setCourses(data.filter(course => course.subject === 'Socialiniai mokslai')))
       .catch(error => console.error(error));
   }, []);
 
@@ -31,7 +36,7 @@ function Matematika({isLoggedIn, user }) {
       return;
     }
 
-    const userId = parseInt(localStorage.getItem('userId')); 
+    const userId = parseInt(localStorage.getItem('userId'));
 
     const registration = { courseId: parseInt(courseId), userId: userId };
     setButtonDisabled(true);
@@ -45,11 +50,17 @@ function Matematika({isLoggedIn, user }) {
       },
       body: registrationJson,
     })
+      .then(() => {
+        window.location.href = '/profile';
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
-  
+
   return (
     <div className="Matematika">
-      <h2 className='tiksliejiMokslai'>Tikslieji Mokslai</h2>
+      <h2 className='socialiniaiMokslai'>Socialiniai mokslai</h2>
       {courses.map(course => {
         return (
           <div key={course.id} className="course-container">
@@ -75,4 +86,4 @@ function Matematika({isLoggedIn, user }) {
   );
 }
 
-export default Matematika;
+export default Anglu;

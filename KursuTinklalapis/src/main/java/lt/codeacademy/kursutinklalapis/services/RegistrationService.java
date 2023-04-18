@@ -42,11 +42,13 @@ public class RegistrationService {
 				.orElseThrow(() -> new EntityNotFoundException("Student not found"));
 		Course course = courseRep.findById(requestDto.getCourseId())
 				.orElseThrow(() -> new EntityNotFoundException("Course not found"));
+		if (user.getRegistrations().stream().anyMatch(registration -> registration.getCourse().equals(course))) {
+			throw new IllegalStateException("Student is already enrolled in the course");
+		}
 		Registration registration = new Registration();
 		registration.setUser(user);
 		registration.setCourse(course);
 		user.addRegistration(registration);
-//		course.addRegistration(registration);
 		return regRep.save(registration);
 	}
 
