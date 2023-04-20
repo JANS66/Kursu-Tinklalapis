@@ -12,7 +12,7 @@ It is an online courses website where users can browse and choose from various t
 *  [RUNNING TESTS](#4-running-tests)
 *  [DEVELOPMENT](#5-development)
 *  [CONTRIBUTING](#6-contributing)
-*  [FOLDER STRUCTURE](#7-folderstructure)
+*  [FOLDER STRUCTURE](#7-folder-structure)
 *  [TECHNOLOGIES](#8-technologies)
 *  [LICENSE](#9-license)
 *  [ACKNOWLEDGEMENTS](#10-acknowledgments)
