@@ -31,8 +31,8 @@ public class Observer {
 
 	@EventListener
 	public void seed(ContextRefreshedEvent event) {
-		if (userRep.findAll().isEmpty()) 
-			seedUserDummyData();		
+		if (userRep.findAll().isEmpty())
+			seedUserDummyData();
 		if (professorRep.findAll().isEmpty())
 			seedProfessorDummyData();
 		if (courseRep.findAll().isEmpty())
@@ -41,25 +41,39 @@ public class Observer {
 	}
 
 	/**
-	 * This method seeds the user repository with dummy student data. It creates a list of User objects, with each object representing a student and containing their first name, last name, email address, hashed password, and role (which is set to ADMIN, PROFESSOR or STUDENT). The list of User objects is then saved to the user repository using the saveAll method. This method assumes that the user repository has already been initialized and is available for use.
-	 */	
-	private void seedUserDummyData() { 
-		
-		PasswordEncoder encoder = new BCryptPasswordEncoder(); 
-		
-		List<User> users = List.of( 
-				new User("Adminas", "Adminauskas", "admin@admin.lt", encoder.encode("admin"), Role.ADMIN), 
-				new User("Petronijus", "Petrauskas", "professor@professor.lt", encoder.encode("professor"), Role.PROFESSOR), 
+	 * This method seeds the user repository with dummy student data. It creates a
+	 * list of User objects, with each object representing a student and containing
+	 * their first name, last name, email address, hashed password, and role (which
+	 * is set to ADMIN, PROFESSOR or STUDENT). The list of User objects is then
+	 * saved to the user repository using the saveAll method. This method assumes
+	 * that the user repository has already been initialized and is available for
+	 * use.
+	 */
+	private void seedUserDummyData() {
+
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		List<User> users = List.of(
+				new User("Adminas", "Adminauskas", "admin@admin.lt", encoder.encode("admin"), Role.ADMIN),
+				new User("Petronijus", "Petrauskas", "professor@professor.lt", encoder.encode("professor"),
+						Role.PROFESSOR),
 				new User("Jonas", "Petraitis", "jonas@mail.com", encoder.encode("12345678"), Role.STUDENT),
 				new User("Petras", "Antanaitis", "petras@mail.com", encoder.encode("12345678"), Role.STUDENT),
 				new User("Antanas", "Jonaitis", "antanas@mail.com", encoder.encode("12345678"), Role.STUDENT),
-				new User("Mokytas", "Mokinys", "moksliukas@mail.lt", encoder.encode("12345678"), Role.STUDENT)); 
-		
-		userRep.saveAll(users); 		
+				new User("Mokytas", "Mokinys", "moksliukas@mail.lt", encoder.encode("12345678"), Role.STUDENT));
+
+		userRep.saveAll(users);
 	}
 
 	/**
-	 * This method is a private Java method that seeds the database with dummy data for the Professor entity. It creates a list of Professor objects with predefined names and email addresses, and then saves them to the database using the Professor repository's saveAll method. Note that this method assumes the existence of a professorRep object, which is an instance of a Professor repository that provides access to the database. The purpose of this method is to populate the database with some initial data, which can be useful for testing and development purposes.
+	 * This method is a private Java method that seeds the database with dummy data
+	 * for the Professor entity. It creates a list of Professor objects with
+	 * predefined names and email addresses, and then saves them to the database
+	 * using the Professor repository's saveAll method. Note that this method
+	 * assumes the existence of a professorRep object, which is an instance of a
+	 * Professor repository that provides access to the database. The purpose of
+	 * this method is to populate the database with some initial data, which can be
+	 * useful for testing and development purposes.
 	 */
 	private void seedProfessorDummyData() {
 		List<Professor> professors = List.of(new Professor("Pitagoras", "Pitagoras@mail.com"),
@@ -72,7 +86,14 @@ public class Observer {
 	}
 
 	/**
-	 * This method is a private Java method that seeds the database with dummy data for the Course entity. It creates a list of Course objects with predefined names, subjects, and professor names, and then saves them to the database using the Course repository's saveAll method. Note that this method assumes the existence of a courseRep object, which is an instance of a Course repository that provides access to the database. The purpose of this method is to populate the database with some initial data, which can be useful for testing and development purposes. 
+	 * This method is a private Java method that seeds the database with dummy data
+	 * for the Course entity. It creates a list of Course objects with predefined
+	 * names, subjects, and professor names, and then saves them to the database
+	 * using the Course repository's saveAll method. Note that this method assumes
+	 * the existence of a courseRep object, which is an instance of a Course
+	 * repository that provides access to the database. The purpose of this method
+	 * is to populate the database with some initial data, which can be useful for
+	 * testing and development purposes.
 	 */
 	private void seedCoursesDummyData() {
 

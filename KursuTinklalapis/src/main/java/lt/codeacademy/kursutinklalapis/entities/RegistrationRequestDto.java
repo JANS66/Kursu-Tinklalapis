@@ -19,4 +19,11 @@ public class RegistrationRequestDto {
 	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
 	}
+
+	public RegistrationRequestDto(Long userId, Long courseId) {
+		super();
+		this.userId = userId;
+		this.courseId = courseId;
+	}
+	
 }

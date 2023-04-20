@@ -1,5 +1,6 @@
 package lt.codeacademy.kursutinklalapis.controllers;
 
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping
+	@GetMapping("/allstudents")
 	public List<User> getAllStudents() {
 		return userService.getAllStudents();
 	}
@@ -46,7 +47,7 @@ public class UserController {
 		userService.createStudent(student);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-
+	
 	@PutMapping("/{id}/update")
 	public ResponseEntity updateStudent(@PathVariable Long id, @RequestBody User student) {
 		User currentStudent = userService.updateStudent(id, student);
