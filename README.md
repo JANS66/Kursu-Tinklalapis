@@ -6,7 +6,7 @@ It is an online courses website where users can browse and choose from various t
 
 ## TABLE OF CONTENTS
 
-*  [FEATURES](#FEATURES)
+*  [FEATURES](#1-features)
 *  [PREREQUISITES](#PREREQUISITES)
 *  [USAGE](#USAGE)
 *  [RUNNING TESTS](#RUNNINGTESTS)
