@@ -20,7 +20,7 @@ It is an online courses website where users can browse and choose from various t
 
 ##  1. <a name='FEATURES'></a>FEATURES
 
-Browse and choose from various topics, including exact science, social science, humanitarian science, and nature science. Read summaries about professors and their qualifications. Sign up for courses and access the course material whenever, wherever. Installation
+Browse and choose from various topics, including exact science, social science, humanitarian science, and nature science. Read course summaries, check professors and their qualifications. Sign up for courses and access the course material whenever, wherever. 
 
 ##  2. <a name='PREREQUISITES'></a>PREREQUISITES
 
@@ -56,7 +56,13 @@ ADMIN: Can access the full list of students, professors, courses, and registrati
 
 Registration
 
-Unregistered User: Browse the available courses and read about professors. Sign up for courses to become a student. Student: Log in to access the profile and registration page. Book the courses they are interested in, check their profile and booked registrations, update profile information, and remove registrations. Professor: Log in to access the full list of students and registrations. Admin: Log in to access the full list of students, professors, courses, and registrations. Can add new professors, courses, edit information, remove or edit registrations.
+Unregistered User: Browse the available courses and read about professors. Sign up for courses to become a student. 
+
+Student: Log in to access the profile and registration page. Book the courses they are interested in, check their profile and booked registrations, update profile information, and remove registrations. 
+
+Professor: Log in to access the full list of students and registrations. 
+
+Admin: Log in to access the full list of students, professors, courses, and registrations. Can add new professors, courses, edit information, remove or edit registrations.
 
 ##  4. <a name='RUNNINGTESTS'></a>RUNNING TESTS
 
@@ -80,8 +86,7 @@ Fork the repository. Create a new branch for your feature or bug fix. Write test
 
 Here is the folder structure for the project:
 
-![folder structure](https://user-images.githubusercontent.com/128668782/232985983-4a8fa87d-104c-42bd-a9ed-dc33ffb2291c.png)
-
+![folder structure](https://user-images.githubusercontent.com/128668782/233309012-3bfcb8c0-85fd-4e41-9c03-c660d9fb96d7.png)
 
 ##  8. <a name='TECHNOLOGIES'></a>TECHNOLOGIES
 
