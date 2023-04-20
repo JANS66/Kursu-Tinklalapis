@@ -32,8 +32,6 @@ Maven
 
 React.js
 
-Node.js
-
 MySQL
 
 ### To set up the MySQL database, follow these steps:
