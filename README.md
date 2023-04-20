@@ -7,16 +7,16 @@ It is an online courses website where users can browse and choose from various t
 ## TABLE OF CONTENTS
 
 *  [FEATURES](#1-features)
-*  [PREREQUISITES](#PREREQUISITES)
-*  [USAGE](#USAGE)
-*  [RUNNING TESTS](#RUNNINGTESTS)
-*  [DEVELOPMENT](#DEVELOPMENT)
-*  [CONTRIBUTING](#CONTRIBUTING)
-*  [FOLDER STRUCTURE](#FOLDERSTRUCTURE)
-*  [TECHNOLOGIES](#TECHNOLOGIES)
-*  [LICENSE](#LICENSE)
-*  [ACKNOWLEDGEMENTS](#ACKNOWLEDGEMENTS)
-*  [CONTACT](#CONTACT)
+*  [PREREQUISITES](#2-prerequisites)
+*  [USAGE](#3-usage)
+*  [RUNNING TESTS](#4-runningtests)
+*  [DEVELOPMENT](#5-development)
+*  [CONTRIBUTING](#6-contributing)
+*  [FOLDER STRUCTURE](#7-folderstructure)
+*  [TECHNOLOGIES](#8-technologies)
+*  [LICENSE](#9-license)
+*  [ACKNOWLEDGEMENTS](#10-acknowledgments)
+*  [CONTACT](#11-contact)
 
 ##  1. <a name='FEATURES'></a>FEATURES
 
