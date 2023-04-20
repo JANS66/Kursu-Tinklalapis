@@ -31,14 +31,14 @@ public class Observer {
 
 	@EventListener
 	public void seed(ContextRefreshedEvent event) {
-		if (userRep.findAll().isEmpty()) {
-			seedUserDummyData();
-			seedDummyData();
-		}
-		if (professorRep.findAll().isEmpty())
-			seedProfessorDummyData();
-		if (courseRep.findAll().isEmpty())
-			seedCoursesDummyData();
+//		if (userRep.findAll().isEmpty()) {
+//			seedUserDummyData();
+//			seedDummyData();
+//		}
+//		if (professorRep.findAll().isEmpty())
+//			seedProfessorDummyData();
+//		if (courseRep.findAll().isEmpty())
+//			seedCoursesDummyData();
 
 	}
 
@@ -79,31 +79,12 @@ public class Observer {
 	}
 
 	private void seedDummyData() {
-
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		User user = new User();
-		user.setFirstname("Adminas");
-		user.setLastname("Adminauskas");
-		user.setEmail("admin@admin.lt");
-		user.setPassword(encoder.encode("admin"));
-		user.setRole(Role.ADMIN);
-		;
-		userRep.save(user);
-
-		User user2 = new User();
-		user2.setFirstname("Petronijus");
-		user2.setLastname("Petrauskas");
-		user2.setEmail("professor@professor.lt");
-		user2.setPassword(encoder.encode("professor"));
-		user2.setRole(Role.PROFESSOR);
-		userRep.save(user2);
-
-		User user3 = new User();
-		user3.setFirstname("Mokytas");
-		user3.setLastname("Mokinys");
-		user3.setEmail("moksliukas@mail.lt");
-		user3.setPassword(encoder.encode("12345678"));
-		user3.setRole(Role.STUDENT);
-		userRep.save(user3);
+		List<User> users = List.of(
+				new User("Adminas", "Adminauskas", "admin@admin.lt", encoder.encode("admin"), Role.ADMIN),
+				new User("Petronijus", "Petrauskas", "professor@professor.lt", encoder.encode("professor"),
+						Role.PROFESSOR),
+				new User("Mokytas", "Mokinys", "moksliukas@mail.lt", encoder.encode("12345678"), Role.STUDENT));
+		userRep.saveAll(users);
 	}
 }

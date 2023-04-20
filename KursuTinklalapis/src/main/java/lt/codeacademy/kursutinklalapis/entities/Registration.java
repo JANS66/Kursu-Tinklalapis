@@ -2,6 +2,7 @@ package lt.codeacademy.kursutinklalapis.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,4 +35,9 @@ public class Registration {
 	@JsonIgnoreProperties("registrations")
 	private User user;
 
+	//Added for testing purposes
+	public Registration(RegistrationRequestDto regDto, User user, Course course) {
+	    this.user = user;
+	    this.course = course;
+	}
 }

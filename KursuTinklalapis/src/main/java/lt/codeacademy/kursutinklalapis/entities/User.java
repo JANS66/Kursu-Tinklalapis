@@ -55,7 +55,9 @@ public class User implements UserDetails {
 		this.password = password;
 		this.role = role;
 	}
-
+	
+	
+	
 	public void addRegistration(Registration registration) {
 		registrations.add(registration);
 		registration.setUser(this);
@@ -103,4 +105,26 @@ public class User implements UserDetails {
 		return true;
 	}
 
+
+
+	public User(Long id, String firstname, String lastname, String email, String password, String role) {
+		super();
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
+
+
+
+	public User(Long id, String firstname, String lastname, String email) {
+		super();
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+	}
+	
 }

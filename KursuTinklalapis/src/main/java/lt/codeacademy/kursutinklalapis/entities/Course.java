@@ -42,6 +42,15 @@ public class Course {
 		this.professorName = professorName;
 	}
 
+	public Course(Long id, String subject, String description, String professorName) {
+		super();
+		this.id = id;
+		this.subject = subject;
+		this.description = description;
+		this.professorName = professorName;
+	}
+
+	
 //	public void addRegistration(Registration registration) {
 //		registrations.add(registration);
 //		registration.setCourse(this);
