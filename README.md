@@ -9,7 +9,7 @@ It is an online courses website where users can browse and choose from various t
 *  [FEATURES](#1-features)
 *  [PREREQUISITES](#2-prerequisites)
 *  [USAGE](#3-usage)
-*  [RUNNING TESTS](#4-runningtests)
+*  [RUNNING TESTS](#4-running-tests)
 *  [DEVELOPMENT](#5-development)
 *  [CONTRIBUTING](#6-contributing)
 *  [FOLDER STRUCTURE](#7-folderstructure)
