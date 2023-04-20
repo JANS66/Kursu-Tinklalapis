@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
+import './Admin.css';
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
   const [editableUser, setEditableUser] = useState(null);
   const [courses, setCourses] = useState([]);
   const [editableCourse, setEditableCourse] = useState(null);
-  const [showCreateCourseForm, setShowCreateCourseForm] = useState(false);
   const [professors, setProfessors] = useState([]);
   const [editableProfessor, setEditableProfessor] = useState(null);
-  const [showCreateProfessorForm, setShowCreateProfessorForm] = useState(false);
   const [registrations, setRegistrations] = useState([]);
   const [editableRegistration, setEditableRegistration] = useState(null);
+  const [showUsers, setShowUsers] = useState(false);
+  const [showCourses, setShowCourses] = useState(false);
+  const [showProfessors, setShowProfessors] = useState(false);
+  const [showRegistrations, setShowRegistrations] = useState(false);
 
   const handleGetUsers = async () => {
+    setShowUsers(!showUsers);
     try {
       const token = localStorage.getItem('token');
       const response = await fetch('/students', {
@@ -77,11 +81,11 @@ const Admin = () => {
   };
 
   const handleGetCourses = async () => {
+    setShowCourses(!showCourses);
     try {
       const response = await fetch("/courses");
       const data = await response.json();
       setCourses(data);
-      setShowCreateCourseForm(true);
     } catch (error) {
       console.error(error);
     }
@@ -155,11 +159,11 @@ const Admin = () => {
   };
 
   const handleGetProfessors = async () => {
+    setShowProfessors(!showProfessors);
     try {
       const response = await fetch("/professors");
       const data = await response.json();
       setProfessors(data);
-      setShowCreateProfessorForm(true);
     } catch (error) {
       console.error(error);
     }
@@ -232,6 +236,7 @@ const Admin = () => {
   };
 
   const handleGetRegistrations = async () => {
+    setShowRegistrations(!showRegistrations);
     try {
       const token = localStorage.getItem('token');
       const response = await fetch("/api/registrations", {
@@ -298,13 +303,14 @@ const Admin = () => {
   };
 
   return (
-    <div>
-      <h1>Admin Panel</h1>
-      <button onClick={handleGetUsers}>Get Students</button>
-      <button onClick={handleGetCourses}>Get Courses</button>
-      <button onClick={handleGetProfessors}>Get Professors</button>
-      <button onClick={handleGetRegistrations}>Get Registrations</button>
-      {registrations.length > 0 && (
+    <div className='body'>
+      <h1 className='title'>Admin Panel</h1>
+      <button className="buttonStudents" onClick={handleGetUsers}>Get Students</button>
+      <button className="buttonCourses" onClick={handleGetCourses}>Get Courses</button>
+      <button className="buttonProfessors" onClick={handleGetProfessors}>Get Professors</button>
+      <button className="buttonRegistrations" onClick={handleGetRegistrations}>Get Registrations</button>
+      {showRegistrations && (
+        <div className="show">
         <table>
           <thead>
             <tr>
@@ -346,13 +352,13 @@ const Admin = () => {
                 <td>
                   {editableRegistration?.id === registration.id ? (
                     <>
-                      <button onClick={() => handleSaveRegistration(editableRegistration)}>Save</button>
-                      <button onClick={() => setEditableRegistration(null)}>Cancel</button>
+                      <button className="buttonSave" onClick={() => handleSaveRegistration(editableRegistration)}>Save</button>
+                      <button className="buttonCancel" onClick={() => setEditableRegistration(null)}>Cancel</button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => handleEditRegistration(registration)}>Edit</button>
-                      <button onClick={() => handleDeleteRegistration(registration.id)}>Delete</button>
+                      <button className="buttonEdit" onClick={() => handleEditRegistration(registration)}>Edit</button>
+                      <button className="buttonDelete" onClick={() => handleDeleteRegistration(registration.id)}>Delete</button>
                     </>
                   )}
                 </td>
@@ -360,8 +366,11 @@ const Admin = () => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
-      {professors.length > 0 && (
+      
+      {showProfessors && (
+        <div className="show">
         <table>
           <thead>
             <tr>
@@ -403,13 +412,13 @@ const Admin = () => {
                 <td>
                   {editableProfessor?.id === professor.id ? (
                     <>
-                      <button onClick={() => handleSaveProfessor(editableProfessor)}>Save</button>
-                      <button onClick={() => setEditableProfessor(null)}>Cancel</button>
+                      <button className="buttonSave" onClick={() => handleSaveProfessor(editableProfessor)}>Save</button>
+                      <button className="buttonCancel" onClick={() => setEditableProfessor(null)}>Cancel</button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => handleEditProfessor(professor)}>Edit</button>
-                      <button onClick={() => handleDeleteProfessor(professor.id)}>Delete</button>
+                      <button className="buttonEdit" onClick={() => handleEditProfessor(professor)}>Edit</button>
+                      <button className="buttonDelete" onClick={() => handleDeleteProfessor(professor.id)}>Delete</button>
                     </>
                   )}
                 </td>
@@ -417,22 +426,24 @@ const Admin = () => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
 
-      {showCreateProfessorForm && (
+      {showProfessors && (
         <div>
           <h2>Create a New Professor</h2>
           <form onSubmit={handleCreateProfessor}>
             <label htmlFor="email">Email:</label>
             <input type="text" id="email" name="email" />
-            <label htmlFor="fullName">Professor Name:</label>
+            <label className="professorNameInputTitle" htmlFor="fullName">Professor Name:</label>
             <input type="text" id="fullName" name="fullName" />
-            <button type="submit">Create Professor</button>
+            <button className="buttonCreateProfessor" type="submit">Create Professor</button>
           </form>
         </div>
       )}
 
-      {courses.length > 0 && (
+      {showCourses && (
+        <div className="show">
         <table>
           <thead>
             <tr>
@@ -489,13 +500,13 @@ const Admin = () => {
                 <td>
                   {editableCourse?.id === course.id ? (
                     <>
-                      <button onClick={() => handleSaveCourse(editableCourse)}>Save</button>
-                      <button onClick={() => setEditableCourse(null)}>Cancel</button>
+                      <button className="buttonSave" onClick={() => handleSaveCourse(editableCourse)}>Save</button>
+                      <button className="buttonCancel" onClick={() => setEditableCourse(null)}>Cancel</button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => handleEditCourse(course)}>Edit</button>
-                      <button onClick={() => handleDeleteCourse(course.id)}>Delete</button>
+                      <button className="buttonEdit" onClick={() => handleEditCourse(course)}>Edit</button>
+                      <button className="buttonDelete" onClick={() => handleDeleteCourse(course.id)}>Delete</button>
                     </>
                   )}
                 </td>
@@ -503,23 +514,25 @@ const Admin = () => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
-      {showCreateCourseForm && (
+      {showCourses && (
         <div>
           <h2>Create a New Course</h2>
           <form onSubmit={handleCreateCourse}>
             <label htmlFor="subject">Subject:</label>
             <input type="text" id="subject" name="subject" />
-            <label htmlFor="description">Description:</label>
+            <label className='professorNameInputTitle' htmlFor="description">Description:</label>
             <input type="text" id="description" name="description" />
-            <label htmlFor="professorName">Professor Name:</label>
+            <label className='professorNameInputTitle' htmlFor="professorName">Professor Name:</label>
             <input type="text" id="professorName" name="professorName" />
-            <button type="submit">Create Course</button>
+            <button className="buttonCreateProfessor" type="submit">Create Course</button>
           </form>
         </div>
       )}
 
-      {users.length > 0 && (
+      {showUsers && (
+        <div className="show">
         <table>
           <thead>
             <tr>
@@ -534,7 +547,7 @@ const Admin = () => {
             {users.map((user) => (
               <tr key={user.id}>
                 <td>{user.id}</td>
-                <td>
+                <td className="space">
                   {editableUser?.id === user.id ? (
                     <input
                       type="text"
@@ -576,13 +589,13 @@ const Admin = () => {
                 <td>
                   {editableUser?.id === user.id ? (
                     <>
-                      <button onClick={() => handleSaveUser(editableUser)}>Save</button>
-                      <button onClick={() => setEditableUser(null)}>Cancel</button>
+                      <button className="buttonSave" onClick={() => handleSaveUser(editableUser)}>Save</button>
+                      <button className="buttonCancel" onClick={() => setEditableUser(null)}>Cancel</button>
                     </>
                   ) : (
                     <>
-                      <button onClick={() => handleEditUser(user)}>Edit</button>
-                      <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
+                      <button className="buttonEdit" onClick={() => handleEditUser(user)}>Edit</button>
+                      <button className="buttonDelete" onClick={() => handleDeleteUser(user.id)}>Delete</button>
                     </>
                   )}
                 </td>
@@ -590,6 +603,7 @@ const Admin = () => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );
