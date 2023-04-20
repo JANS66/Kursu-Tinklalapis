@@ -27,6 +27,9 @@ class SecurityConfiguration {
 	private final AuthenticationProvider authenticationProvider;
 	private final LogoutHandler logoutHandler;
 
+	/**
+	 * This method configures the security settings for an HTTP end-point in a Spring Boot application using Spring Security. The method first disables the frame options and CSRF protection. It then specifies which HTTP requests can be accessed by which roles using the requestMatchers() method, and the hasRole() and hasAnyRole() methods. It also sets the session creation policy to STATELESS and adds authentication providers and filters. Finally, it configures the logout URL and handlers and clears the security context after a successful logout. In summary, this method defines the rules for who can access which endpoints and how authentication and authorization are handled for those end-points.
+	*/
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
@@ -56,17 +59,4 @@ class SecurityConfiguration {
 
 		return http.build();
 	}
-
-//	@Bean
-//	public CorsConfigurationSource corsConfigurationSource() {
-//		CorsConfiguration configuration = new CorsConfiguration();
-//		configuration.setAllowedOrigins(Arrays.asList("*"));
-//		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-//		configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-//		configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		source.registerCorsConfiguration("/**", configuration);
-//		return source;
-//	}
-
 }
