@@ -12,6 +12,7 @@ import Anglu from './components/SubjectPages/Anglu';
 import Istorija from './components/SubjectPages/Istorija';
 import Biologija from './components/SubjectPages/Biologija';
 import Admin from './components/Admin/Admin';
+import AdminHomePage from './components/Admin/AdminHomePage.js'
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(
@@ -47,7 +48,13 @@ function App() {
           {isLoggedIn ? (
             <Route
               path="/"
-              element={<LoggedInHomePage onLogout={handleLogout} username={loggedInUser.username} />}
+              element={
+                role === "ADMIN" ? (
+                  <AdminHomePage onLogout={handleLogout} username={loggedInUser.username} />
+                ) : (
+                  <LoggedInHomePage onLogout={handleLogout} username={loggedInUser.username} />
+                )
+              }
             />
           ) : (
             <Route path="/" element={<HomePage onLogin={handleLogin} />} />
