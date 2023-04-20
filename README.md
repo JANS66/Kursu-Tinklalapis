@@ -15,7 +15,7 @@ It is an online courses website where users can browse and choose from various t
 *  [FOLDER STRUCTURE](#7-folder-structure)
 *  [TECHNOLOGIES](#8-technologies)
 *  [LICENSE](#9-license)
-*  [ACKNOWLEDGEMENTS](#10-acknowledgments)
+*  [ACKNOWLEDGEMENTS](#10-acknowledegments)
 *  [CONTACT](#11-contact)
 
 ##  1. <a name='FEATURES'></a>FEATURES
