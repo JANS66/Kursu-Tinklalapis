@@ -15,11 +15,7 @@ public class Professor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-//	@Column(name = "email")
 	private String email;
-
-//	@Column(name = "fullName")
 	private String fullName;
 
 	public Professor(String email, String fullName) {

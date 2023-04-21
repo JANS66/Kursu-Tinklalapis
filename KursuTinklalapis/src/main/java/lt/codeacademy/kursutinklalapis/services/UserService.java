@@ -3,24 +3,20 @@ package lt.codeacademy.kursutinklalapis.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lt.codeacademy.kursutinklalapis.entities.Role;
 import lt.codeacademy.kursutinklalapis.entities.User;
 import lt.codeacademy.kursutinklalapis.repositories.UserRepository;
-import lt.codeacademy.kursutinklalapis.security.token.TokenRepository;
 
 @Service
 public class UserService {
 
 	@Autowired
 	private UserRepository userRep;
-	
-	@Autowired
-	private TokenRepository tokenRep;
 
 	public List<User> getAllStudents() {
 		return userRep.findByRole(Role.STUDENT);

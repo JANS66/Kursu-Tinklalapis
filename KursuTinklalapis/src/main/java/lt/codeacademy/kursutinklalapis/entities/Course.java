@@ -34,7 +34,7 @@ public class Course {
 
 	@OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Registration> registrations = new ArrayList<>();
-	
+
 	public Course(String subject, String description, String professorName) {
 		super();
 		this.subject = subject;
@@ -49,16 +49,4 @@ public class Course {
 		this.description = description;
 		this.professorName = professorName;
 	}
-
-	
-//	public void addRegistration(Registration registration) {
-//		registrations.add(registration);
-//		registration.setCourse(this);
-//	}
-//
-//	public void removeRegistration(Registration registration) {
-//		registrations.remove(registration);
-//		registration.setCourse(null);
-//	}
-
 }
